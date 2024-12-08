@@ -43,7 +43,7 @@ Index: dwl-v0.7/config.def.h
  /* Autostart */
  static const char *const autostart[] = {
 -        "wbg", "/path/to/your/image", NULL,
-+	"/bin/sh", "-c", "slstatus-dwlb-start.sh", NULL,
++	"/bin/sh", "-c", "sleep 0.5; ~/.bin/slstatus-dwlb-start.sh", NULL,
 +	"/bin/sh", "-c", "wbg $HOME/Pictures/Random-images/glt-landscape2.png", NULL,
 +	"/bin/sh", "-c", "wlsunset -S 10:00 -s 19:00 -t 3000 -T 6500", NULL,
 +	"/bin/sh", "-c", "swayidle -w timeout 900", NULL,
