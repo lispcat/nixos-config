@@ -281,9 +281,9 @@ Index: dwl-v0.7/config.def.h
 +
 +	{ MODKEY,                    XKB_KEY_g,          entermode,      {.i = MENU} },
 +
-+	{ MODKEY,                    XKB_KEY_Home,       switchxkbrule,  {0} },
-+	{ MODKEY,                    XKB_KEY_End,        switchxkbrule,  {1} },
-+	{ MODKEY,                    XKB_KEY_Prior,      switchxkbrule,  {2} },
++	{ MODKEY,                    XKB_KEY_Home,       switchxkbrule,  {1} },
++	{ MODKEY,                    XKB_KEY_End,        switchxkbrule,  {2} },
++	{ MODKEY,                    XKB_KEY_Prior,      switchxkbrule,  {0} },
 +	{ MODKEY,                    XKB_KEY_Next,       switchxkbrule,  {-1} },
  
  	/* Ctrl-Alt-Backspace and Ctrl-Alt-Fx used to be handled by X server */
@@ -314,7 +314,7 @@ Index: dwl-v0.7/config.def.h
 +	{ MENU, { 0, XKB_KEY_period,	entermode, {.i = NORMAL} }},
 +	{ MENU,	{ 0, XKB_KEY_s,		spawn,     SHCMD("text-to-speech-clipboard.sh")}},
 +	{ MENU, { 0, XKB_KEY_s,		entermode, {.i = NORMAL} }},
-+	{ MENU, { 0, XKB_KEY_a,		entermode, {.i = PROGRAMS} }},
++	{ MENU, { 0, XKB_KEY_a,      entermode, {.i = PROGRAMS} }},
 +	{ MENU, { 0, XKB_KEY_Escape, entermode, {.i = NORMAL}}},
 +
 +	{ PROGRAMS, { 0, XKB_KEY_f, spawn,     SHCMD("firefox")}},
