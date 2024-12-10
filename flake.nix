@@ -13,6 +13,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # suckless patched repos (as git subtrees)
     dwl-source = {
       url = "path:subtrees/dwl-fork";
       flake = false;
@@ -50,10 +51,10 @@
       };
 
       homeConfigurations.sui = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
         extraSpecialArgs = {
           inherit dwl-source dwlb-source slstatus-source;
         };
-        inherit pkgs;
         
         modules = [
           ./home-manager/home.nix
