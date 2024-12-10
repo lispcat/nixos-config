@@ -1,30 +1,27 @@
 { config, pkgs, dwl-source, ... }:
 
-{
-  # nixpkgs.overlays = [
-  #   (self: super: {
-  #     dwl = super.callPackage ./pkgs/dwl-v07.nix { } .overrideAttrs (oldAttrs: {
-  #       src = inputs.dwl-source;
-  #     });
-  #   })
-  # ];
+# nixpkgs.overlays = [
+#   (self: super: {
+#     dwl = super.callPackage ./pkgs/dwl-v07.nix { } .overrideAttrs (oldAttrs: {
+#       src = inputs.dwl-source;
+#     });
+#   })
+# ];
 
-  let
+let
 
-    dwl-overlay = self: super: {
-      dwl = super.dwl.overrideAttrs (oldAttrs: {
-        src = dwl-source;
-      });
-    };
-
-  in {
-
-    nixpkgs.overlays = [
-      
-      dwl-overlay
-      
-    ];
-    
+  dwl-overlay = self: super: {
+    dwl = super.dwl.overrideAttrs (oldAttrs: rec {
+      src = dwl-source;
+    });
   };
 
+in {
+
+  nixpkgs.overlays = [
+    
+    dwl-overlay
+    
+  ];
+  
 }

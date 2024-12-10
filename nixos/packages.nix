@@ -11,5 +11,8 @@
     git
     emacs
     home-manager
+
+    alacritty
+
   ];
 }
