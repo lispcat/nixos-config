@@ -14,24 +14,24 @@
     };
 
     dwl-source = {
-      url = "path:subtree/dwl-fork";
+      url = "path:subtrees/dwl-fork";
       flake = false;
     };
-    # dwlb-source = {
-    #   url = "path:./external/dwlb-fork";
-    #   flake = false;
-    # };
-    # slstatus-source = {
-    #   url = "path:./external/slstatus-fork";
-    #   flake = false;
-    # };
+    dwlb-source = {
+      url = "path:subtrees/dwlb-fork";
+      flake = false;
+    };
+    slstatus-source = {
+      url = "path:subtrees/slstatus-fork";
+      flake = false;
+    };
 
     # end of inputs
   };
 
   ## Outputs:
 
-  outputs = { self, nixpkgs, nixpkgs-stable, home-manager, dwl-source, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-stable, home-manager, dwl-source, dwlb-source, slstatus-source, ... }@inputs:
 
     let
       system = "x86_64-linux";
@@ -51,7 +51,7 @@
 
       homeConfigurations.sui = home-manager.lib.homeManagerConfiguration {
         extraSpecialArgs = {
-          inherit dwl-source;
+          inherit dwl-source dwlb-source slstatus-source;
         };
         inherit pkgs;
         
