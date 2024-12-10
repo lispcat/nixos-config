@@ -45,6 +45,7 @@
         };
         modules = [
           ./nixos/configuration.nix
+          ./home-manager/modules/dwl.nix
         ];
       };
 
