@@ -1,4 +1,4 @@
-{ config, pkgs, dwl-source, ... }:
+{ config, pkgs, ... }:
 
 {
   imports = [ ./modules ];
