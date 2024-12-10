@@ -14,7 +14,7 @@
     };
 
     dwl-source = {
-      url = "/home/sui/src/dwl-fork";
+      url = "path:external/dwl-fork";
       flake = false;
     };
     # dwlb-source = {
