@@ -2,10 +2,8 @@
 
 {
   environment.systemPackages = with pkgs; [
-    # necessary
-    home-manager
-    
     # basics
+    home-manager
     vim
     neovim
     wget
@@ -14,11 +12,52 @@
     git
     emacs
 
-    # cli tools
-    gnumake
+    # desktop applications
+    keepassxc
+    calibre
+    firefox
+    librewolf
+    ungoogled-chromium
+    kdePackages.kdeconnect-kde
+    krita
+    gimp
+    libreoffice-fresh hunspell hunspellDicts.en-us-large
+    obs-studio
+
+    # desktop programs
+    alacritty
+    mpv
+    feh
+    pavucontrol
 
     # desktop tools
-    alacritty
+    mako
+    wlsunset
+    sway-contrib.grimshot
+    bemenu
+    wbg
+    wl-clipboard-rs
+    wmenu
+
+    # cli applications
+    tmux
+    btop
+    htop
+
+    # cli programs
+    ffmpeg
+    yt-dlp
+
+    # cli tools
+    gnumake
+    trash-cli
+
+    # script tools
+    espeak
+
+    # fun
+    hyfetch
+    uwufetch
 
   ];
 }
