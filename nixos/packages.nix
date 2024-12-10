@@ -13,6 +13,7 @@
     home-manager
 
     alacritty
+    dwl
 
   ];
 }

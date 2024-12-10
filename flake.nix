@@ -31,7 +31,7 @@
 
   ## Outputs:
 
-  outputs = { self, nixpkgs, nixpkgs-stable, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-stable, home-manager, dwl-source, ... }@inputs:
 
     let
       system = "x86_64-linux";
@@ -45,11 +45,13 @@
         };
         modules = [
           ./nixos/configuration.nix
-          ./home-manager/modules/dwl.nix
         ];
       };
 
       homeConfigurations.sui = home-manager.lib.homeManagerConfiguration {
+        specialArgs = {
+          inherit dwl-source;
+        };
         inherit pkgs;
         modules = [
           ./home-manager/home.nix
