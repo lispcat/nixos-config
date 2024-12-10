@@ -13,10 +13,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # dwl-source = {
-    #   url = "path:/home/sui/flake/external/dwl-fork";
-    #   flake = false;
-    # };
+    dwl-source = {
+      url = "path:/home/sui/flake/external/dwl-fork";
+      flake = false;
+    };
     # dwlb-source = {
     #   url = "path:./external/dwlb-fork";
     #   flake = false;
