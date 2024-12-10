@@ -1,0 +1,121 @@
+From 024d66e3c81d5acb35b5be51f4812fe84614530b Mon Sep 17 00:00:00 2001
+From: lispcat <neko39@mailbox.org>
+Date: Mon, 2 Dec 2024 11:07:06 -0500
+Subject: [PATCH] implement xkb-rules-switcher and print keyboard layout to file
+
+---
+ config.def.h | 17 +++++++++++------
+ dwl.c        | 19 ++++++++++++++++++-
+ 2 files changed, 29 insertions(+), 7 deletions(-)
+
+Index: dwl-v0.7/config.def.h
+===================================================================
+--- dwl-v0.7.orig/config.def.h
++++ dwl-v0.7/config.def.h
+@@ -14,6 +14,9 @@ static const float urgentcolor[]
+ /* This conforms to the xdg-protocol. Set the alpha to zero to restore the old behavior */
+ static const float fullscreen_bg[]         = {0.1f, 0.1f, 0.1f, 1.0f}; /* You can also use glsl colors */
+ 
++/* keyboard layout change notification for status bar */
++static const char  xkb_layout_file[] = "/tmp/dwl-keymap";
++
+ /* tagging - TAGCOUNT must be no greater than 31 */
+ #define TAGCOUNT (9)
+ 
+@@ -52,12 +55,16 @@ static const MonitorRule monrules[] = {
+ };
+ 
+ /* keyboard */
+-static const struct xkb_rule_names xkb_rules = {
+-	/* can specify fields: rules, model, layout, variant, options */
+-	/* example:
+-	.options = "ctrl:nocaps",
+-	*/
+-	.options = NULL,
++static const struct xkb_rule_names xkb_rules[] = {
++	{
++		/* can specify fields: rules, model, layout, variant, options */
++		.layout = "us",
++		.options = NULL,
++	},
++	{
++		.layout = "us",
++		.options = "compose:ralt",
++	},
+ };
+ 
+ static const int repeat_rate = 25;
+@@ -148,6 +155,7 @@ static const Key keys[] = {
+ 	{ MODKEY,                    XKB_KEY_period,     focusmon,       {.i = WLR_DIRECTION_RIGHT} },
+ 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_less,       tagmon,         {.i = WLR_DIRECTION_LEFT} },
+ 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_greater,    tagmon,         {.i = WLR_DIRECTION_RIGHT} },
++	{ MODKEY,                    XKB_KEY_w,          switchxkbrule,  {0} },
+ 	TAGKEYS(          XKB_KEY_1, XKB_KEY_exclam,                     0),
+ 	TAGKEYS(          XKB_KEY_2, XKB_KEY_at,                         1),
+ 	TAGKEYS(          XKB_KEY_3, XKB_KEY_numbersign,                 2),
+Index: dwl-v0.7/dwl.c
+===================================================================
+--- dwl-v0.7.orig/dwl.c
++++ dwl-v0.7/dwl.c
+@@ -335,6 +335,7 @@ static void setsel(struct wl_listener *l
+ static void setup(void);
+ static void spawn(const Arg *arg);
+ static void startdrag(struct wl_listener *listener, void *data);
++static void switchxkbrule(const Arg *arg);
+ static void tag(const Arg *arg);
+ static void tagmon(const Arg *arg);
+ static void tile(Monitor *m);
+@@ -405,6 +406,7 @@ static struct wl_listener lock_listener
+ static struct wlr_seat *seat;
+ static KeyboardGroup *kb_group;
+ static unsigned int cursor_mode;
++static unsigned int xkb_rule_index = 0;
+ static Client *grabc;
+ static int grabcx, grabcy; /* client-relative */
+ 
+@@ -893,7 +895,7 @@ createkeyboardgroup(void)
+ 
+ 	/* Prepare an XKB keymap and assign it to the keyboard group. */
+ 	context = xkb_context_new(XKB_CONTEXT_NO_FLAGS);
+-	if (!(keymap = xkb_keymap_new_from_names(context, &xkb_rules,
++	if (!(keymap = xkb_keymap_new_from_names(context, &xkb_rules[xkb_rule_index],
+ 				XKB_KEYMAP_COMPILE_NO_FLAGS)))
+ 		die("failed to compile keymap");
+ 
+@@ -2668,6 +2670,36 @@ startdrag(struct wl_listener *listener,
+ }
+ 
+ void
++switchxkbrule(const Arg *arg)
++{
++	FILE *f; // for saving layout to file later
++	
++	struct xkb_context *context = xkb_context_new(XKB_CONTEXT_NO_FLAGS);
++	struct xkb_keymap *keymap;
++
++	// if arg is -1, switch to next layout. else, switch to layout index
++	if (arg->i == -1)
++		xkb_rule_index = (xkb_rule_index + 1) % LENGTH(xkb_rules);
++	else
++		xkb_rule_index = arg->i % LENGTH(xkb_rules);
++
++	if (!(keymap = xkb_keymap_new_from_names(context, &xkb_rules[xkb_rule_index],
++			XKB_KEYMAP_COMPILE_NO_FLAGS)))
++		die("failed to compile keymap");
++	wlr_keyboard_set_keymap(&kb_group->wlr_group->keyboard, keymap);
++	xkb_keymap_unref(keymap);
++	xkb_context_unref(context);
++
++	// save current layout to xkb_layout_file
++	if (*xkb_layout_file && (f = fopen(xkb_layout_file, "w"))) {
++		fputs(xkb_keymap_layout_get_name(kb_group->wlr_group->keyboard.keymap,
++						 kb_group->wlr_group->keyboard.modifiers.group),
++		      f);
++		fclose(f);
++	}
++}
++
++void
+ tag(const Arg *arg)
+ {
+ 	Client *sel = focustop(selmon);

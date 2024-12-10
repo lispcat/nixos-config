@@ -1,0 +1,79 @@
+From cd67c8386b0188daa15348c1d0d99187a556e461 Mon Sep 17 00:00:00 2001
+From: choc <notchoc@proton.me>
+Date: Mon, 2 Jan 2023 13:00:29 +0800
+Subject: [PATCH] passthrough: allow pausing keybind handling
+
+also allows for bitcarrying-esque control of nested instances
+---
+ config.def.h |  4 ++++
+ dwl.c        | 14 ++++++++++++++
+ 2 files changed, 18 insertions(+)
+
+Index: dwl-v0.7/config.def.h
+===================================================================
+--- dwl-v0.7.orig/config.def.h
++++ dwl-v0.7/config.def.h
+@@ -38,6 +38,9 @@ enum {
+ /* logging */
+ static int log_level = WLR_ERROR;
+ 
++/* passthrough */
++static int passthrough = 0;
++
+ /* Autostart */
+ static const char *const autostart[] = {
+         "wbg", "/path/to/your/image", NULL,
+@@ -197,6 +200,7 @@ static const Key keys[] = {
+ 	TAGKEYS(          XKB_KEY_7, XKB_KEY_ampersand,                  6),
+ 	TAGKEYS(          XKB_KEY_8, XKB_KEY_asterisk,                   7),
+ 	TAGKEYS(          XKB_KEY_9, XKB_KEY_parenleft,                  8),
++	{ WLR_MODIFIER_ALT|WLR_MODIFIER_LOGO|WLR_MODIFIER_CTRL|WLR_MODIFIER_SHIFT, XKB_KEY_Escape, togglepassthrough, {0} },
+ 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Q,          quit,           {0} },
+ 
+ 	{ MODKEY,                    XKB_KEY_b,          entermode,      {.i = BROWSER} },
+Index: dwl-v0.7/dwl.c
+===================================================================
+--- dwl-v0.7.orig/dwl.c
++++ dwl-v0.7/dwl.c
+@@ -363,6 +363,7 @@ static void tablettooltip(struct wl_list
+ static void tile(Monitor *m);
+ static void togglefloating(const Arg *arg);
+ static void togglefullscreen(const Arg *arg);
++static void togglepassthrough(const Arg *arg);
+ static void toggletag(const Arg *arg);
+ static void toggleview(const Arg *arg);
+ static void unlocksession(struct wl_listener *listener, void *data);
+@@ -691,6 +692,11 @@ buttonpress(struct wl_listener *listener
+ 		for (b = buttons; b < END(buttons); b++) {
+ 			if (CLEANMASK(mods) == CLEANMASK(b->mod) &&
+ 					event->button == b->button && b->func) {
++				if (passthrough) {
++					if (b->func != togglepassthrough) continue;
++					b->func(&b->arg);
++					break;
++				}
+ 				b->func(&b->arg);
+ 				return;
+ 			}
+@@ -1724,6 +1730,8 @@ keybinding(uint32_t mods, xkb_keysym_t s
+ 	for (k = keys; k < END(keys); k++) {
+ 		if (CLEANMASK(mods) == CLEANMASK(k->mod)
+ 				&& sym == k->keysym && k->func) {
++			if (passthrough && k->func != togglepassthrough)
++				continue;
+ 			k->func(&k->arg);
+ 			return 1;
+ 		}
+@@ -3143,6 +3151,12 @@ togglefullscreen(const Arg *arg)
+ }
+ 
+ void
++togglepassthrough(const Arg *arg)
++{
++	passthrough = !passthrough;
++}
++
++void
+ toggletag(const Arg *arg)
+ {
+ 	uint32_t newtags;

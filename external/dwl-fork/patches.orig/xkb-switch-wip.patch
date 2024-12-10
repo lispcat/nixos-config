@@ -1,0 +1,106 @@
+From ad18a8b8e9de138c3d89246ac0e25c0467ff5971 Mon Sep 17 00:00:00 2001
+From: Nikita Ivanov <nikita.vyach.ivanov@gmail.com>
+Date: Fri, 11 Oct 2024 10:50:14 +0200
+Subject: [PATCH] Add per client keyboard layout and status bar info
+
+---
+ config.def.h |  3 +++
+ dwl.c        | 70 +++++++++++++++++++++++++++++++++++++++++++++++++++-
+ 2 files changed, 72 insertions(+), 1 deletion(-)
+
+diff --git a/config.def.h b/config.def.h
+index 22d2171..862c104 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -13,6 +13,9 @@ static const float focuscolor[]            = COLOR(0x005577ff);
+ static const float urgentcolor[]           = COLOR(0xff0000ff);
+ /* This conforms to the xdg-protocol. Set the alpha to zero to restore the old behavior */
+ static const float fullscreen_bg[]         = {0.1f, 0.1f, 0.1f, 1.0f}; /* You can also use glsl colors */
++/* keyboard layout change notification for status bar */
++static const char  kblayout_file[] = "/tmp/dwl-keymap";
++static const char *kblayout_cmd[]  = {"pkill", "-RTMIN+3", "someblocks", NULL};
+ 
+ /* tagging - TAGCOUNT must be no greater than 31 */
+ #define TAGCOUNT (9)
+diff --git a/dwl.c b/dwl.c
+index a2711f6..95ca3d3 100644
+--- a/dwl.c
++++ b/dwl.c
+@@ -14,6 +14,7 @@
+ #include <wayland-server-core.h>
+ #include <wlr/backend.h>
+ #include <wlr/backend/libinput.h>
++#include <wlr/interfaces/wlr_keyboard.h>
+ #include <wlr/render/allocator.h>
+ #include <wlr/render/wlr_renderer.h>
+ #include <wlr/types/wlr_alpha_modifier_v1.h>
+@@ -294,6 +296,7 @@ static void gpureset(struct wl_listener *listener, void *data);
+ static void handlesig(int signo);
+ static void incnmaster(const Arg *arg);
+ static void inputdevice(struct wl_listener *listener, void *data);
++static void kblayout(KeyboardGroup *kb);
+ static int keybinding(uint32_t mods, xkb_keysym_t sym);
+ static void keypress(struct wl_listener *listener, void *data);
+ static void keypressmod(struct wl_listener *listener, void *data);
+@@ -413,6 +416,8 @@ static struct wlr_box sgeom;
+ static struct wl_list mons;
+ static Monitor *selmon;
+ 
++static unsigned int kblayout_idx = -1;
++
+ #ifdef XWAYLAND
+ static void activatex11(struct wl_listener *listener, void *data);
+ static void associatex11(struct wl_listener *listener, void *data);
+@@ -879,6 +884,8 @@ createkeyboard(struct wlr_keyboard *keyboard)
+ 
+ 	/* Add the new keyboard to the group */
+ 	wlr_keyboard_group_add_keyboard(kb_group->wlr_group, keyboard);
++
++	kblayout(kb_group);
+ }
+ 
+ KeyboardGroup *
+@@ -1554,6 +1590,31 @@ inputdevice(struct wl_listener *listener, void *data)
+ 	wlr_seat_set_capabilities(seat, caps);
+ }
+ 
++void
++kblayout(KeyboardGroup *kb)
++{
++	FILE *f;
++	unsigned int idx = kb->wlr_group->keyboard.modifiers.group;
++
++	// If layout did not change, do nothing
++	if (kblayout_idx == idx)
++		return;
++	kblayout_idx = idx;
++
++	// Save current layout to kblayout_file
++	if (*kblayout_file && (f = fopen(kblayout_file, "w"))) {
++		fputs(xkb_keymap_layout_get_name(kb->wlr_group->keyboard.keymap,
++				idx), f);
++		fclose(f);
++	}
++
++	// Run kblayout_cmd
++	if (kblayout_cmd[0] && fork() == 0) {
++		execvp(kblayout_cmd[0], (char *const *)kblayout_cmd);
++		die("dwl: execvp %s failed:", kblayout_cmd[0]);
++	}
++}
++
+ int
+ keybinding(uint32_t mods, xkb_keysym_t sym)
+ {
+@@ -1631,6 +1697,8 @@ keypressmod(struct wl_listener *listener, void *data)
+ 	/* Send modifiers to the client. */
+ 	wlr_seat_keyboard_notify_modifiers(seat,
+ 			&group->wlr_group->keyboard.modifiers);
++
++	kblayout(group);
+ }
+ 
+ int
+-- 
+2.46.2
+
