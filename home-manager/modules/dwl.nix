@@ -9,8 +9,8 @@
   #   })
   # ];
   nixpkgs.overlays = [
-    (self: super: {
-      dwl = super.dwl.overrideAttrs (oldAttrs: rec {
+    (final: prev: {
+      dwl = prev.dwl.overrideAttrs (oldAttrs: rec {
         src = dwl-source;
       });
     })
