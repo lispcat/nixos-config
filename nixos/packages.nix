@@ -2,6 +2,9 @@
 
 {
   environment.systemPackages = with pkgs; [
+    # necessary
+    home-manager
+    
     # basics
     vim
     neovim
@@ -10,9 +13,11 @@
     curl
     git
     emacs
-    gnumake
-    home-manager
 
+    # cli tools
+    gnumake
+
+    # desktop tools
     alacritty
 
   ];
