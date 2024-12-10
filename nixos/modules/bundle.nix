@@ -8,5 +8,6 @@
     ./system.nix
     ./audioprod.nix
     ./virtualization.nix
+    ./desktop.nix
   ];
 }
