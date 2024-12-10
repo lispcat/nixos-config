@@ -1,0 +1,82 @@
+Index: dwlb/config.def.h
+===================================================================
+--- dwlb.orig/config.def.h
++++ dwlb/config.def.h
+@@ -20,6 +20,8 @@ static bool status_commands = true;
+ static bool center_title = false;
+ // use title space as status text element
+ static bool custom_title = false;
++// blend title bg with middle_bg
++static bool blend_title_and_middle_bg = false;
+ // scale
+ static uint32_t buffer_scale = 1;
+ // font
+@@ -37,5 +39,7 @@ static pixman_color_t inactive_fg_color
+ static pixman_color_t inactive_bg_color = HEX_COLOR(0x222222ff);
+ static pixman_color_t urgent_fg_color = HEX_COLOR(0x222222ff);
+ static pixman_color_t urgent_bg_color = HEX_COLOR(0xeeeeeeff);
++static pixman_color_t title_fg_color = HEX_COLOR(0xeeeeeeff);
++static pixman_color_t title_bg_color = HEX_COLOR(0x222222ff);
+ static pixman_color_t middle_bg_color = HEX_COLOR(0x222222ff);
+ static pixman_color_t middle_bg_color_selected = HEX_COLOR(0x005577ff);
+Index: dwlb/dwlb.c
+===================================================================
+--- dwlb.orig/dwlb.c
++++ dwlb/dwlb.c
+@@ -82,6 +82,8 @@
+ 	"	-no-status-commands		disable in-line commands in status text\n" \
+ 	"	-center-title			center title text on bar\n" \
+ 	"	-no-center-title		do not center title text on bar\n" \
++	"	-blend-title-and-middle-bg	always blend the title bg with the middle bg\n" \
++	"	-no-blend-title-and-middle-bg	do not blend the title bg with the middle bg\n" \
+ 	"	-custom-title			do not display window title and treat the area as another status text element; see -title command\n" \
+ 	"	-no-custom-title		display current window title as normal\n" \
+ 	"	-font [FONT]			specify a font\n"	\
+@@ -95,6 +97,8 @@
+ 	"	-inactive-bg-color [COLOR]	specify background color of inactive tags or monitors\n" \
+ 	"	-urgent-fg-color [COLOR]	specify text color of urgent tags\n" \
+ 	"	-urgent-bg-color [COLOR]	specify background color of urgent tags\n" \
++	"	-title-fg-color [COLOR]		specify text color of title\n" \
++	"	-title-bg-color [COLOR]		specify background color of title\n" \
+ 	"	-middle-bg-color [COLOR]	specify background color of the color in the middle of the bar\n" \
+ 	"	-middle-bg-color-selected [COLOR]	specify background color of the color in the middle of the bar, when selected\n" \
+ 	"	-scale [BUFFER_SCALE]		specify buffer scale value for integer scaling\n" \
+@@ -454,8 +458,8 @@ draw_frame(Bar *bar)
+ 	
+ 	x = draw_text(custom_title ? bar->title.text : bar->window_title,
+ 		      x, y, foreground, background,
+-		      bar->sel ? &active_fg_color : &inactive_fg_color,
+-		      bar->sel ? &active_bg_color : &inactive_bg_color,
++		      &title_fg_color,
++		      (!blend_title_and_middle_bg) ? &title_bg_color : (bar->sel) ? &middle_bg_color_selected : &middle_bg_color,
+ 		      bar->width - status_width, bar->height, 0,
+ 		      custom_title ? bar->title.colors : NULL,
+ 		      custom_title ? bar->title.colors_l : 0);
+@@ -1767,6 +1771,10 @@ main(int argc, char **argv)
+ 			custom_title = true;
+ 		} else if (!strcmp(argv[i], "-no-custom-title")) {
+ 			custom_title = false;
++		} else if (!strcmp(argv[i], "-blend-title-and-middle-bg")) {
++			blend_title_and_middle_bg = true;
++		} else if (!strcmp(argv[i], "-no-blend-title-and-middle-bg")) {
++			blend_title_and_middle_bg = false;
+ 		} else if (!strcmp(argv[i], "-font")) {
+ 			if (++i >= argc)
+ 				DIE("Option -font requires an argument");
+@@ -1815,6 +1823,16 @@ main(int argc, char **argv)
+ 				DIE("Option -urgent-bg-color requires an argument");
+ 			if (parse_color(argv[i], &urgent_bg_color) == -1)
+ 				DIE("malformed color string");
++		} else if (!strcmp(argv[i], "-title-fg-color")) {
++			if (++i >= argc)
++				DIE("Option -title-fg-color requires an argument");
++			if (parse_color(argv[i], &title_fg_color) == -1)
++				DIE("malformed color string");
++		} else if (!strcmp(argv[i], "-title-bg-color")) {
++			if (++i >= argc)
++				DIE("Option -title-bg-color requires an argument");
++			if (parse_color(argv[i], &title_bg_color) == -1)
++				DIE("malformed color string");
+ 		} else if (!strcmp(argv[i], "-middle-bg-color-selected")) {
+ 			if (++i >= argc)
+ 				DIE("Option -middle-bg-color-selected requires an argument");
