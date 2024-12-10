@@ -14,7 +14,7 @@
     };
 
     dwl-source = {
-      url = "path:external/dwl-fork";
+      url = "path:subtree/dwl-fork";
       flake = false;
     };
     # dwlb-source = {
