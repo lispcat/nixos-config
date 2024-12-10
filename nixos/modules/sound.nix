@@ -19,11 +19,11 @@
   services.mpd = {
     enable = true;
     extraConfig = ''
-audio_output {
-  type "pipewire"
-  name "My PipeWire output"
-}
-'';
+      audio_output {
+        type "pipewire"
+        name "My PipeWire output"
+      }
+    '';
   };
   # mpd pipewire workaround (https://nixos.wiki/wiki/MPD)
   services.mpd.user = "sui";

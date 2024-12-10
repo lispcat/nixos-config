@@ -1,4 +1,4 @@
-{ config, pkgs, dwl-source, ... }:
+{ config, pkgs, dwl-source, dwlb-source, slstatus-source, ... }:
 
 # nixpkgs.overlays = [
 #   (self: super: {
@@ -11,7 +11,8 @@
 let
 
   dwl-overlay = self: super: {
-    dwl = super.dwl.overrideAttrs (oldAttrs: rec {
+    # dwl = super.dwl.overrideAttrs (oldAttrs: rec {
+    dwl = super.callPackage ./dwl/default.nix { } .overrideAttrs (oldAttrs: rec {
       src = dwl-source;
     });
   };

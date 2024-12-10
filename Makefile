@@ -1,8 +1,8 @@
-.PHONY: nixos home default
+.PHONY: default sys home
 
 default: home
 
-nixos:
+sys:
 	sudo nixos-rebuild switch --flake .
 
 home:
