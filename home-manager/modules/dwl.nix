@@ -8,12 +8,23 @@
   #     });
   #   })
   # ];
-  nixpkgs.overlays = [
-    (final: prev: {
-      dwl = prev.dwl.overrideAttrs (oldAttrs: rec {
+
+  let
+
+    dwl-overlay = self: super: {
+      dwl = super.dwl.overrideAttrs (oldAttrs: {
         src = dwl-source;
       });
-    })
-  ];
+    };
+
+  in {
+
+    nixpkgs.overlays = [
+      
+      dwl-overlay
+      
+    ];
+    
+  };
 
 }
