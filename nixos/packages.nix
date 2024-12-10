@@ -10,6 +10,7 @@
     curl
     git
     emacs
+    gnumake
     home-manager
 
     alacritty
