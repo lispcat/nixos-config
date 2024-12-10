@@ -11,7 +11,7 @@
   nixpkgs.overlays = [
     (self: super: {
       dwl = super.dwl.overrideAttrs (oldAttrs: rec {
-        src = inputs.dwl-source;
+        src = dwl-source;
       });
     })
   ];
