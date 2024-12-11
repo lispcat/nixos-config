@@ -1,14 +1,24 @@
 { pkgs, lib, ... }:
 
-{
+let
+  
+  base-emacs = pkgs.emacs29-pgtk;
+  emacs-with-pkgs =
+    (pkgs.emacsPackagesFor base-emacs).emacsWithPackages (epkgs: [
+      epkgs.vterm
+    ]);
+  
+in {
+  
   environment.systemPackages = with pkgs; [
     # basics
     home-manager
     
     vim
     neovim
-    emacs29-pgtk
     
+    emacs-with-pkgs  # defined above
+
     git
     wget
     curl
