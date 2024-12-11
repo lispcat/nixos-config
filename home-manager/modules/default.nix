@@ -1,7 +1,7 @@
 {
   imports = [
     ./packages.nix
-    ./gpg.nix
+    ./gpg
     ./suckless
     ./renoise
   ];
