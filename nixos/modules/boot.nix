@@ -23,10 +23,11 @@
     
   };
 
-  btrfs = {
-    autoScrub.enable = true;
-  };
-  fstrim = {
-    enable = true;
-  };
+  # services.btrfs = {
+  #   autoScrub.enable = true;
+  # };
+  
+  # services.fstrim = {
+  #   enable = true;
+  # };
 }
