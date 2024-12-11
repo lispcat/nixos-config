@@ -4,13 +4,17 @@
   environment.systemPackages = with pkgs; [
     # basics
     home-manager
+    
     vim
     neovim
-    wget
-    htop
-    curl
+    emacs29-pgtk
+    
     git
-    emacs
+    wget
+    curl
+
+    tree
+    strace
 
     # desktop applications
     keepassxc
@@ -69,17 +73,18 @@
     # mono
     fira-code
     hack-font
+    liberation_ttf
     # var
-    liberation
+    
     # bitmap
-    tamzen-font
+    tamzen
     # latex
     libertinus
     # japanese
     ipaexfont
     # symbols
     font-awesome
-    (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
+    nerd-fonts.symbols-only
   ];
 
   # unfree
