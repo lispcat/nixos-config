@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   environment.systemPackages = with pkgs; [
@@ -23,6 +23,7 @@
     gimp
     libreoffice-fresh hunspell hunspellDicts.en-us-large
     obs-studio
+    vesktop
 
     # desktop programs
     alacritty
@@ -59,5 +60,13 @@
     hyfetch
     uwufetch
 
+  ];
+
+  # unfree
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+    "steam"
+    "steam-original"
+    "steam-unwrapped"
+    "steam-run"
   ];
 }

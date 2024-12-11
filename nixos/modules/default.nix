@@ -9,5 +9,6 @@
     ./virtualization.nix
     ./desktop.nix
     ./audioprod # dir
+    ./firejail.nix
   ];
 }
