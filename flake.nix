@@ -45,9 +45,7 @@
           inherit system inputs;
         };
         
-        modules = [
-          ./nixos/configuration.nix
-        ];
+        modules = [ ./nixos/configuration.nix ];
       };
 
       homeConfigurations.sui = home-manager.lib.homeManagerConfiguration {
@@ -56,9 +54,7 @@
           inherit dwl-source dwlb-source slstatus-source;
         };
         
-        modules = [
-          ./home-manager/home.nix
-        ];
+        modules = [ ./home-manager/home.nix ];
       };
 
       # end of in

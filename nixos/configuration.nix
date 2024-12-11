@@ -5,22 +5,26 @@
 {
   imports = [
     ./hardware # dir
-    ./modules  # dir
+    ./modules # dir
     ./packages.nix
   ];
 
-  # keyboard layout
-  services.xserver.xkb = {
+  disabledModules = [
+    
+  ];
+  
+
+  # general
+
+  services.xserver.xkb = { # kblayout
     layout = "us";
     variant = "dvp";
     options = "ctrl:nocaps";
   };
   console.useXkbConfig = true;
 
-  # enable flakes
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [ "nix-command" "flakes" ]; # enable flakes
 
-  # don't touch
-  system.stateVersion = "24.05";
+  system.stateVersion = "24.05"; # don't touch
 
 }
