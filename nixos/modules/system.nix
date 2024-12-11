@@ -22,4 +22,13 @@
       };
     };
   };
+  
+  boot = {
+    
+    kernel.sysctl = { "vm.swappiness" = 1; };
+
+    tmp.cleanOnBoot = true;
+    
+    blacklistedKernelModules = [ "uvcvideo" ]; # disables webcam
+  };
 }

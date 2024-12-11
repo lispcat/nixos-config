@@ -56,10 +56,30 @@
     # script tools
     espeak
 
+    # nixos tools
+    vulnix
+
     # fun
     hyfetch
     uwufetch
 
+  ];
+
+  fonts.packages = with pkgs; [
+    # mono
+    fira-code
+    hack-font
+    # var
+    liberation
+    # bitmap
+    tamzen-font
+    # latex
+    libertinus
+    # japanese
+    ipaexfont
+    # symbols
+    font-awesome
+    (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
   ];
 
   # unfree

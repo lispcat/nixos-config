@@ -1,6 +1,10 @@
 { pkgs, ... }:
 
 {
+  boot.loader.grub = {
+    device = "/dev/nvme0n1";
+  };
+
   # fix AX200 wifi issue
   boot.kernelModules = [ "iwlwifi" ];
   boot.extraModprobeConfig = ''

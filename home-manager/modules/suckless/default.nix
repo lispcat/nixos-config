@@ -13,17 +13,16 @@ let
     slstatus = (prev.callPackage ./slstatus/package.nix { }).overrideAttrs (oldAttrs: {
       src = slstatus-source;
     });
-    
   };
   
 in {
   
   nixpkgs.overlays = [ suckless-overlay ];
 
-  home.packages = [
-    pkgs.dwl
-    pkgs.dwlb
-    pkgs.slstatus
+  home.packages = with pkgs; [
+    dwl
+    dwlb
+    slstatus
   ];
   
 }
