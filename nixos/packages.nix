@@ -53,6 +53,7 @@ in {
     wbg
     wl-clipboard-rs
     wmenu
+    alsa-utils  # provides amixer, aplay
 
     # cli applications
     tmux
