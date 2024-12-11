@@ -12,7 +12,7 @@ with lib;
     users.sui = {
       isNormalUser = true;
       description = "sui";
-      extraGroups = lib.mkBefore [ "networkmanager" "wheel" ];
+      extraGroups = [ "wheel" "networkmanager" ];
       packages = with pkgs; [];
     };
   };

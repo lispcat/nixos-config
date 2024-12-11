@@ -18,6 +18,7 @@
 
   services.mpd = {
     enable = true;
+    user = "sui";
     extraConfig = ''
       audio_output {
         type "pipewire"
@@ -26,7 +27,6 @@
     '';
   };
   # mpd pipewire workaround (https://nixos.wiki/wiki/MPD)
-  services.mpd.user = "sui";
   systemd.services.mpd.environment = {
     XDG_RUNTIME_DIR = "/run/user/${toString config.users.users.sui.uid}";
   };

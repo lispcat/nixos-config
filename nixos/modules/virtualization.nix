@@ -9,6 +9,6 @@
     };
   };
 
-  users.users.sui.extraGroups = lib.mkAfter [ "libvirtd" ];
+  users.users.sui.extraGroups = [ "libvirtd" ];
   
 }

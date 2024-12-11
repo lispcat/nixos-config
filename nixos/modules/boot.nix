@@ -22,4 +22,11 @@
     };
     
   };
+
+  btrfs = {
+    autoScrub.enable = true;
+  };
+  fstrim = {
+    enable = true;
+  };
 }

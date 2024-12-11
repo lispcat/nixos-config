@@ -5,11 +5,11 @@
 {
   ## realtime configuration
 
-  users.users.sui.extraGroups = lib.mkAfter [ "audio" ];
+  users.users.sui.extraGroups = [ "audio" ];
 
   environment.systemPackages =
     let
-      rtcqs = pkgs.callPackage ./pkgs/rtcqs.nix { };
+      rtcqs = pkgs.callPackage ./rtcqs.nix { };
     in
       [ rtcqs ];
 

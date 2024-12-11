@@ -1,33 +1,29 @@
 { config, lib, pkgs, dwl-source, dwlb-source, slstatus-source, ... }:
 
 let
-  suckless-overlay = [
-
-    (final: prev: {
-      dwl = (prev.callPackage ./dwl/package.nix { }).overrideAttrs (oldAttrs: rec {
-        src = dwl-source;
-      });
-    })
+  
+  suckless-overlay = final: prev: {
     
-    (final: prev: {
-      dwlb = (prev.callPackage ./dwlb/package.nix { }).overrideAttrs (oldAttrs: rec {
-        src = dwlb-source;
-      });
-    })
+    dwl = (prev.callPackage ./dwl/package.nix { }).overrideAttrs (oldAttrs: {
+      src = dwl-source;
+    });
+    dwlb = (prev.callPackage ./dwlb/package.nix { }).overrideAttrs (oldAttrs: {
+      src = dwlb-source;
+    });
+    slstatus = (prev.callPackage ./slstatus/package.nix { }).overrideAttrs (oldAttrs: {
+      src = slstatus-source;
+    });
     
-    (final: prev: {
-      slstatus = (prev.callPackage ./slstatus/package.nix { }).overrideAttrs (oldAttrs: rec {
-        src = slstatus-source;
-      });
-    })
-    
-  ];
+  };
+  
 in {
-  nixpkgs.overlays = suckless-overlay ;
+  
+  nixpkgs.overlays = [ suckless-overlay ];
 
   home.packages = [
     pkgs.dwl
     pkgs.dwlb
     pkgs.slstatus
   ];
+  
 }
