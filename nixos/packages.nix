@@ -98,11 +98,5 @@ in {
     nerd-fonts.symbols-only
   ];
 
-  # unfree
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-    "steam"
-    "steam-original"
-    "steam-unwrapped"
-    "steam-run"
-  ];
+
 }

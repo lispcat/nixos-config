@@ -10,5 +10,6 @@
     ./desktop.nix
     ./audioprod # dir
     ./firejail.nix
+    ./games.nix
   ];
 }
