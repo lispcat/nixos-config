@@ -15,10 +15,11 @@
 
     # suckless patched repos (as git subtrees)
     dwl-source = {
+      url = "path:subtrees/dwl-fork";
       # url = "path:${home}/flakes/dwl-fork";
       # url = "path:${builtins.getEnv "MY_FLAKE_PATH"}";
       # url = "/home/sui/flakes/dwl-fork";
-      url = "file+file:///dev/null";
+      # url = "file+file:///dev/null";
       flake = false;
     };
     dwlb-source = {
