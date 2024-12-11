@@ -1,4 +1,4 @@
-{ pkgs, lib, renoise-src, ... }:
+{ pkgs, lib, ... }:
 
 let
   renoise-src = "/home/sui/opt/renoise/rns_343_linux_x86_64.tar.gz";
@@ -6,4 +6,7 @@ let
     if builtins.pathExists renoise-src
     then import ./renoise-full { inherit renoise-src; }
     else {};
-in result
+in {
+  inherit result;
+}
+  

@@ -24,7 +24,6 @@
   };
   
   boot = {
-    
     kernel.sysctl = { "vm.swappiness" = 1; };
 
     tmp.cleanOnBoot = true;

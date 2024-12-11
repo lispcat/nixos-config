@@ -1,7 +1,5 @@
 { pkgs, lib, ... }:
 
-with lib;
-
 {
   programs.zsh.enable = true;
 
