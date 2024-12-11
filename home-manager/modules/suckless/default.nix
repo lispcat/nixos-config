@@ -9,20 +9,23 @@
 # ];
 
 let
-
-  dwl-overlay = self: super: {
-    # dwl = super.dwl.overrideAttrs (oldAttrs: rec {
-    dwl = super.callPackage ./dwl/default.nix { } .overrideAttrs (oldAttrs: rec {
-      src = dwl-source;
+  suckless-overlays = [
+    (final: prev: {
+      dwl = (prev.callPackage ./dwl/package.nix { }).overrideAttrs (oldAttrs: {
+        src = dwl-source;
+      });
     });
-  };
-
-in {
-
-  nixpkgs.overlays = [
-    
-    dwl-overlay
-    
+    (final: prev: {
+      dwlb = (prev.callPackage ./dwlb/package.nix { }).overrideAttrs (oldAttrs: {
+        src = dwlb-source;
+      });
+    });
+    (final: prev: {
+      slstatus = (prev.callPackage ./slstatus/package.nix { }).overrideAttrs (oldAttrs: {
+        src = slstatus-source;
+      });
+    });
   ];
-  
+in {
+  nixpkgs.overlays = suckless-overlays;
 }
