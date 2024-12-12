@@ -5,35 +5,21 @@
 
   inputs = {
     
+    # suckless repos (hardcoded paths)
+    dwl-source.url = "/home/sui/flakes/dwl-fork";
+    dwl-source.flake = false;
+    dwlb-source.url = "/home/sui/flakes/dwlb-fork";
+    dwlb-source.flake = false;
+    slstatus-source.url = "/home/sui/flakes/slstatus-fork";
+    slstatus-source.flake = false;
+
+    # nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
 
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # suckless patched repos (as git subtrees)
-    dwl-source = {
-      # url = "path:subtrees/dwl-fork";
-      # url = "path:${home}/flakes/dwl-fork";
-      # url = "path:${builtins.getEnv "MY_FLAKE_PATH"}";
-      url = "/home/sui/flakes/dwl-fork";
-      # url = "file+file:///dev/null";
-      flake = false;
-    };
-    dwlb-source = {
-      # url = "path:subtrees/dwlb-fork";
-      url = "/home/sui/flakes/dwlb-fork";
-      flake = false;
-    };
-    slstatus-source = {
-      # url = "path:subtrees/slstatus-fork";
-      url = "/home/sui/flakes/slstatus-fork";
-      flake = false;
-    };
-
-    # end of inputs
+    # home-manager
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   ## Outputs:
