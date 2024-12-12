@@ -30,6 +30,9 @@ default: home
 test:
 	@echo $(extra_args)
 
+sys-def:
+	sudo nixos-rebuild switch --flake .
+
 sys:
 	sudo nixos-rebuild switch --flake . $(extra_args)
 
