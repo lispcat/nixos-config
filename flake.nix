@@ -4,22 +4,31 @@
   ## Inputs:
 
   inputs = {
-    
-    # suckless repos (hardcoded paths)
-    dwl-source.url = "/home/sui/flakes/dwl-fork";
-    dwl-source.flake = false;
-    dwlb-source.url = "/home/sui/flakes/dwlb-fork";
-    dwlb-source.flake = false;
-    slstatus-source.url = "/home/sui/flakes/slstatus-fork";
-    slstatus-source.flake = false;
 
     # nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
+    
+    # suckless repos (hardcoded paths)
+    dwl-source = {
+      url = "/home/sui/flakes/dwl-fork";
+      flake = false;
+    };
+    dwlb-source = {
+      url = "/home/sui/flakes/dwlb-fork";
+      flake = false;
+    };
+    slstatus-source = {
+      url = "/home/sui/flakes/slstatus-fork";
+      flake = false;
+    };
 
     # home-manager
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    
   };
 
   ## Outputs:
