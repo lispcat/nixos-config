@@ -1,7 +1,8 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ./modules ];
+  imports = [ ./modules
+              ./dotfiles ];
   
   home = {
     username = "sui";

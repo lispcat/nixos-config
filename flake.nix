@@ -17,15 +17,15 @@
     
     # suckless repos (hardcoded paths)
     dwl-source = {
-      url = "/home/sui/flakes/dwl-fork";
+      url = "/home/sui/Src/dwl-fork";
       flake = false;
     };
     dwlb-source = {
-      url = "/home/sui/flakes/dwlb-fork";
+      url = "/home/sui/Src/dwlb-fork";
       flake = false;
     };
     slstatus-source = {
-      url = "/home/sui/flakes/slstatus-fork";
+      url = "/home/sui/Src/slstatus-fork";
       flake = false;
     };
 
