@@ -6,7 +6,7 @@ let
 
   def-pkgs = {
     home.packages = with pkgs; [
-      rubberband
+      rubberband  # check if the second attr set overwrites rubberband & mpg123
       mpg123
     ];
   };
