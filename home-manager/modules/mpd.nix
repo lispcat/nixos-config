@@ -1,7 +1,7 @@
 { config, user, pkgs, ... }:
 
 {
-  # Note, run 'systemctl --user start mpd.service'
+  # use 'systemctl --user' to interact
   services.mpd = {
     enable = true;
     # considering changing config.xdg.userDirs.music directly? or maybe not?
