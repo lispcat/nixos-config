@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, user, ... }:
 
 {
   # why is it spelled with an s
@@ -9,6 +9,6 @@
     };
   };
 
-  users.users.sui.extraGroups = [ "libvirtd" ];
+  users.users.${user}.extraGroups = [ "libvirtd" ];
   
 }

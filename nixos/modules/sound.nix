@@ -1,8 +1,9 @@
-{ config, ... }:
+{ config, pkgs, user, ... }:
 
 {
+  ## pipewire ##
+
   hardware.pulseaudio.enable = false;
-  # sound.enable = true; # deprecated
 
   security.rtkit.enable = true;
 
@@ -16,25 +17,29 @@
     jack.enable = true;
   };
 
-  services.mpd = {
-    enable = true;
-    user = "sui";
-    extraConfig = ''
-      # music dirs
-      music_directory    "~/Music/library"
+  ## mpd ##
 
-      # prevent mpd from suddenly resuming
-      restore_paused    "yes"
+  # services.mpd = {
+  #   enable = true;
+  #   user = "${user}";
+  #   extraConfig = ''
+  #     # music dir
+  #     music_directory   "~/Music/library"
 
-      # pipewire output
-      audio_output {
-        type "pipewire"
-        name "My PipeWire output"
-      }
-    '';
-  };
-  # mpd pipewire workaround (https://nixos.wiki/wiki/MPD)
-  systemd.services.mpd.environment = {
-    XDG_RUNTIME_DIR = "/run/user/${toString config.users.users.sui.uid}";
-  };
+  #     # prevent mpd from suddenly resuming
+  #     restore_paused    "yes"
+
+  #     # pipewire output
+  #     audio_output {
+  #       type "pipewire"
+  #       name "My PipeWire output"
+  #     }
+  #   '';
+  # };
+  # # mpd pipewire workaround (https://nixos.wiki/wiki/MPD)
+  # systemd.services.mpd.environment = {
+  #   XDG_RUNTIME_DIR = "/run/user/${toString config.users.users.${user}.uid}";
+  # };
+
+  # environment.systemPackages = with pkgs; [ mpc ];
 }

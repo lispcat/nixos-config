@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, user, ... }:
 
 {
   programs.zsh.enable = true;
@@ -7,9 +7,9 @@
   users = {
     defaultUserShell = pkgs.zsh;
 
-    users.sui = {
+    users.${user} = {
       isNormalUser = true;
-      description = "sui";
+      description = "${user}";
       extraGroups = [ "wheel" "networkmanager" ];
       packages = with pkgs; [];
     };

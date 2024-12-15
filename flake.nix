@@ -39,11 +39,12 @@
       system = "x86_64-linux";
       pkgs        = import nixpkgs        { inherit system; };
       pkgs-stable = import nixpkgs-stable { inherit system; };
+      user = "sui";
     in {
 
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         specialArgs = {
-          inherit system inputs;
+          inherit system inputs user;
         };
         
         modules = [ ./nixos/configuration.nix ];
@@ -52,7 +53,7 @@
       homeConfigurations.sui = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         extraSpecialArgs = {
-          inherit dwl-source dwlb-source slstatus-source;
+          inherit dwl-source dwlb-source slstatus-source user;
         };
         
         modules = [ ./home-manager/home.nix ];

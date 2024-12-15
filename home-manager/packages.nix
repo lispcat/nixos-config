@@ -6,7 +6,6 @@
     packages = with pkgs; [
 
       tree
-      mpc
 
     ];
     
