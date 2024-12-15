@@ -1,20 +1,22 @@
 { pkgs, lib, ... }:
 
 let
-  renoise-src = "/home/sui/opt/renoise/rns_343_linux_x86_64.tar.gz";
-  renoise-nix = ./renoise-v344.nix;
-  
-  result = 
+  renoise-src = "/home/sui/opt/renoise/rns_344_linux_x86_64.tar.gz";
+  renoise-nix = ./renoise-344.nix;
+
+  def-pkgs = {
+    home.packages = with pkgs; [
+      rubberband
+      mpg123
+    ];
+  };
+
+  renoise-pkg =
     if builtins.pathExists renoise-src
     then {
       home.packages = with pkgs; [
-        
-        # renoise-full
         ((pkgs.callPackage renoise-nix {})
           .override( { releasePath = renoise-src; } ))
-        
-        rubberband
-        mpg123
       ];
       
       nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
@@ -22,6 +24,8 @@ let
       ];
     }
     else {};
+  
+  result = def-pkgs // renoise-pkg;
   
 in result
   
