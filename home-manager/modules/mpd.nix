@@ -4,10 +4,8 @@
   services = {
     mpd = {
       enable = true;
+      musicDirectory = "~/Music/library";
       extraConfig = ''
-        # music dir
-        music_directory   "~/Music/library"
-
         # prevent mpd from suddenly resuming
         restore_paused    "yes"
 
