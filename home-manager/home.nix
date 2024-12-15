@@ -2,7 +2,7 @@
 
 {
   imports = [ ./modules
-              ./dotfiles ];
+            ];
   
   home = {
     username = "sui";
