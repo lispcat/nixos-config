@@ -21,7 +21,10 @@
     variant = "dvp";
     options = "ctrl:nocaps";
   };
-  console.useXkbConfig = true;
+  console = {
+    useXkbConfig = true;
+    earlySetup = true;  # for grub?
+  };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ]; # enable flakes
 
