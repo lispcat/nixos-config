@@ -46,13 +46,13 @@
   # mount everything with proper options
   mount -o compress=zstd,noatime,subvol=@root /dev/mapper/crypted /mnt
 
-  mkdir -p /mnt/{home,nix,.swapvol,boot}
+  mkdir -p /mnt/{home,nix,.swapvol,boot} # no need for boot on BIOS
   mount -o compress=zstd,noatime,subvol=@home /dev/mapper/crypted /mnt/home
   mount -o compress=zstd,noatime,subvol=@nix  /dev/mapper/crypted /mnt/nix
   mount -o                       subvol=@swap /dev/mapper/crypted /mnt/.swapvol
 
-  # mount boot partition
-  mount /dev/sda1 /mnt/boot
+  # mount boot partition (no need on BIOS boot)
+  # mount /dev/sda1 /mnt/boot 
 
   # create swapfile
   btrfs filesystem mkswapfile --size 4G /mnt/.swapvol/swapfile
@@ -69,6 +69,7 @@
 
 - keyboard layout
 - subvolume mount options
+- swap devices
 
 #+begin_src nix
 
