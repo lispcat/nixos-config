@@ -21,7 +21,7 @@
   # (BIOS) create and format boot partition
   parted /dev/sda -- mklabel msdos
   parted /dev/sda -- mkpart primary 1MiB 2MiB
-  parted /dev/sda -- set 1 bios_grub on
+  parted /dev/sda -- set 1 boot on
   parted /dev/sda -- mkpart primary 2MiB 100%
 
   # create and open luks partition
@@ -52,7 +52,7 @@
   mount /dev/sda1 /mnt/boot
 
   # create swapfile
-  btrfs filesystem mkswapfile --size 16G /mnt/.swapvol/swapfile
+  btrfs filesystem mkswapfile --size 4G /mnt/.swapvol/swapfile
 
   # generate config
   nixos-generate-config --root /mnt
@@ -68,6 +68,17 @@
   { config, lib, pkgs, ... }:
 
   {
+    services.xserver.xkb = { # kblayout
+      layout = "us";
+      variant = "dvp";
+      options = "ctrl:nocaps";
+    };
+    console = {
+      useXkbConfig = true;
+      earlySetup = true;  # for grub?
+    };
+    
+
     boot.initrd.luks.devices = {
       "crypted" = {
         device = "/dev/disk/by-uuid/UUID-OF-LUKS-PARTITION";  # Replace with your UUID
