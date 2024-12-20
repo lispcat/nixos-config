@@ -2,7 +2,7 @@
 
 -- Initial --
 
-#+begin_src sh :tangle ./installer.txt
+#+begin_src sh :tangle
 
   sudo -s
   
@@ -10,11 +10,11 @@
 
 -- Networking --
 
--- Partitioning (gpt, luks) --
+#+begin_src sh :tangle
 
-#+begin_src sh :tangle ./installer.txt
+  # Partitioning:
 
-  # (EFI) create and format boot partition
+  ## (EFI) create and format boot partition
   parted /dev/sda -- mklabel gpt
 
   parted /dev/sda -- mkpart ESP fat32 1MiB 512MiB
@@ -23,7 +23,7 @@
 
   mkfs.fat -F 32 -n boot /dev/sda1
 
-  # (BIOS) create and format boot partition
+  ## (BIOS) create and format boot partition
   parted /dev/sda -- mklabel msdos
 
   parted /dev/sda -- mkpart primary 1MiB 512MiB
@@ -36,7 +36,7 @@
   cryptsetup luksFormat /dev/sda2
   cryptsetup luksOpen /dev/sda2 crypted
 
-  # create btrfs and subvolumes
+  # format btrfs and subvolumes
   mkfs.btrfs -L root /dev/mapper/crypted
   mount -t btrfs /dev/mapper/crypted /mnt
 
@@ -45,21 +45,35 @@
   btrfs subvolume create /mnt/@nix
   btrfs subvolume create /mnt/@swap
 
+  # if doing tmpfs:
+  # btrfs subvolume create /mnt/@persist
+  # btrfs subvolume create /mnt/@log
+
+  # take an empty *readonly* snapshot of the root subvolume, which can be rollback to on every boot. (should be able to be deleted in the future if i do)
+  btrfs subvolume snapshot -r /mnt/root /mnt/root-blank
+
+  # unmount to mount subvolumes
   umount /mnt
 
   # mount everything with proper options
   mount -o compress=zstd,noatime,subvol=@root /dev/mapper/crypted /mnt
 
-  mkdir -p /mnt/{home,nix,.swapvol,boot} # no need for boot on BIOS
-  mount -o compress=zstd,noatime,subvol=@home /dev/mapper/crypted /mnt/home
-  mount -o compress=zstd,noatime,subvol=@nix  /dev/mapper/crypted /mnt/nix
-  mount -o                       subvol=@swap /dev/mapper/crypted /mnt/.swapvol
+  mkdir -p /mnt/{home,nix,.swapvol}
+  mount -o compress=zstd,noatime,subvol=@home    /dev/mapper/crypted /mnt/home
+  mount -o compress=zstd,noatime,subvol=@nix     /dev/mapper/crypted /mnt/nix
+  mount -o                       subvol=@swap    /dev/mapper/crypted /mnt/.swapvol
+
+  # if doing tmpfs
+  # mkdir -p /mnt{persist,var/log}
+  # mount -o compress=zstd,noatime,subvol=@persist /dev/mapper/crypted /mnt/persist
+  # mount -o compress=zstd,noatime,subvol=@log     /dev/mapper/crypted /mnt/var/log
 
   # mount boot partition (only do if using standalone boot part)
+  mkdir -p /mnt/boot
   mount /dev/sda1 /mnt/boot 
 
   # create swapfile
-  btrfs filesystem mkswapfile --size 4G /mnt/.swapvol/swapfile
+  btrfs filesystem mkswapfile --size 4G /mnt/.swapvol/swapfile  # adjust size appropriately
 
   # generate config
   nixos-generate-config --root /mnt
@@ -92,15 +106,25 @@
       useXkbConfig = true;
       earlySetup = true;  # for grub
     };
-    fileSystems."/".options     = [ "subvol=@root" "compress=zstd" "noatime" ];
-    fileSystems."/home".options = [ "subvol=@home" "compress=zstd" "noatime" ];
-    fileSystems."/nix".options  = [ "subvol=@nix"  "compress=zstd" "noatime" ];
+    fileSystems."/".options         = [ "subvol=@root"    "compress=zstd" "noatime" ];
+    fileSystems."/home".options     = [ "subvol=@home"    "compress=zstd" "noatime" ];
+    fileSystems."/nix".options      = [ "subvol=@nix"     "compress=zstd" "noatime" ];
+    # fileSystems."/persist".options  = [ "subvol=@persist" "compress=zstd" "noatime" ];
+    # fileSystems."/var/log".options  = [ "subvol=@log"     "compress=zstd" "noatime" ];
+    # fileSystems."/var/log".neededForBoot = true;  # for correct log order
     swapDevices = [{
       device = "/.swapvol/swapfile";
       size = 4096;  # Size in MiB (4G = 4096MiB), matching your disko config
     }];
 
-    # idk:
+    # if doing tmpfs
+    # fileSystems."/" = {
+    #   device = "none";
+    #   fsType = "tmpfs";
+    #   options = [ "defaults" "size=2G" "mode=755" ];
+    # };
+
+    ### idk:
 
     boot.initrd.luks.devices = {
       "crypted" = {
