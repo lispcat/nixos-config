@@ -26,7 +26,7 @@
                 #passwordFile = "/tmp/secret.key"; # Interactive
                 settings = {
                   allowDiscards = true;
-                  keyFile = "/tmp/secret.key";
+                  # keyFile = "/tmp/secret.key";
                 };
                 # additionalKeyFiles = [ "/tmp/additionalSecret.key" ];
                 content = {
@@ -47,7 +47,7 @@
                     };
                     "/swap" = {
                       mountpoint = "/.swapvol";
-                      swap.swapfile.size = "20M";
+                      swap.swapfile.size = "4096M";
                     };
                   };
                 };

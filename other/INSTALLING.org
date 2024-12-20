@@ -28,9 +28,11 @@
   parted /dev/sda -- mkpart primary 512MiB 100%
 
   # create and open luks partition
-  echo "pass" > /tmp/secret.key
-  cryptsetup luksFormat /dev/sda2 --key-file /tmp/secret.key
-  cryptsetup luksOpen --key-file /tmp/secret.key /dev/sda2 crypted
+  # echo "pass" > /tmp/secret.key
+  # cryptsetup luksFormat /dev/sda2 --key-file /tmp/secret.key
+  # cryptsetup luksOpen --key-file /tmp/secret.key /dev/sda2 crypted
+  cryptsetup luksFormat /dev/sda2
+  cryptsetup luksOpen /dev/sda2 crypted
 
   # create btrfs and subvolumes
   mkfs.btrfs -L root /dev/mapper/crypted
