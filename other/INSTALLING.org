@@ -16,16 +16,23 @@
 
   # (EFI) create and format boot partition
   parted /dev/sda -- mklabel gpt
+
   parted /dev/sda -- mkpart ESP fat32 1MiB 512MiB
   parted /dev/sda -- set 1 boot on
+
   parted /dev/sda -- mkpart primary 512MiB 100%
+
   mkfs.fat -F 32 -n boot /dev/sda1
 
   # (BIOS) create and format boot partition
   parted /dev/sda -- mklabel msdos
+
   parted /dev/sda -- mkpart primary 1MiB 512MiB
   parted /dev/sda -- set 1 boot on
+
   parted /dev/sda -- mkpart primary 512MiB 100%
+
+  mkfs.ext4 -L boot /dev/sda1
 
   # create and open luks partition
   # echo "pass" > /tmp/secret.key
@@ -53,8 +60,8 @@
   mount -o compress=zstd,noatime,subvol=@nix  /dev/mapper/crypted /mnt/nix
   mount -o                       subvol=@swap /dev/mapper/crypted /mnt/.swapvol
 
-  # mount boot partition (no need on BIOS boot)
-  # mount /dev/sda1 /mnt/boot 
+  # mount boot partition (only do if using standalone boot part)
+  mount /dev/sda1 /mnt/boot 
 
   # create swapfile
   btrfs filesystem mkswapfile --size 4G /mnt/.swapvol/swapfile
@@ -157,3 +164,11 @@
   }
 
 #+end_src
+
+* To troubleshoot:
+- cryptsetup luksOpen /dev/sda2 crypted
+- mount everything
+
+* I figured it out:
+
+- sda1 needs to be a standalone fs format. so use ext4 for boot partition. reinstall!
