@@ -19,7 +19,6 @@
 
   parted /dev/sda -- mkpart ESP fat32 1MiB 512MiB
   parted /dev/sda -- set 1 boot on
-
   parted /dev/sda -- mkpart primary 512MiB 100%
 
   mkfs.fat -F 32 -n boot /dev/sda1
@@ -29,15 +28,11 @@
 
   parted /dev/sda -- mkpart primary 1MiB 512MiB
   parted /dev/sda -- set 1 boot on
-
   parted /dev/sda -- mkpart primary 512MiB 100%
 
   mkfs.ext4 -L boot /dev/sda1
 
   # create and open luks partition
-  # echo "pass" > /tmp/secret.key
-  # cryptsetup luksFormat /dev/sda2 --key-file /tmp/secret.key
-  # cryptsetup luksOpen --key-file /tmp/secret.key /dev/sda2 crypted
   cryptsetup luksFormat /dev/sda2
   cryptsetup luksOpen /dev/sda2 crypted
 
@@ -86,16 +81,16 @@
 
   {
 
-    boot.loader.grub.enableCryptodisk = true;
+    # boot.loader.grub.enableCryptodisk = true;  # not needed?
 
-    services.xserver.xkb = { # kblayout
+    services.xserver.xkb = {
       layout = "us";
       variant = "dvp";
       options = "ctrl:nocaps";
     };
     console = {
       useXkbConfig = true;
-      earlySetup = true;  # for grub?
+      earlySetup = true;  # for grub
     };
     fileSystems."/".options     = [ "subvol=@root" "compress=zstd" "noatime" ];
     fileSystems."/home".options = [ "subvol=@home" "compress=zstd" "noatime" ];
