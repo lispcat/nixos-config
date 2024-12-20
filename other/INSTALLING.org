@@ -9,7 +9,7 @@
 
 -- Partitioning (gpt, luks) --
 
-#+begin_src sh
+#+begin_src sh :tangle ./installer.txt
 
   # create and format first partition
   parted /dev/sda -- mklabel gpt
