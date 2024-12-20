@@ -11,12 +11,18 @@
 
 #+begin_src sh :tangle ./installer.txt
 
-  # create and format first partition
+  # (EFI) create and format boot partition
   parted /dev/sda -- mklabel gpt
   parted /dev/sda -- mkpart ESP fat32 1MiB 512MiB
   parted /dev/sda -- set 1 boot on
   parted /dev/sda -- mkpart primary 512MiB 100%
   mkfs.fat -F 32 -n boot /dev/sda1
+
+  # (BIOS) create and format boot partition
+  parted /dev/sda -- mklabel msdos
+  parted /dev/sda -- mkpart primary 1MiB 2MiB
+  parted /dev/sda -- set 1 bios_grub on
+  parted /dev/sda -- mkpart primary 2MiB 100%
 
   # create and open luks partition
   echo "your-password-here" > /tmp/secret.key
