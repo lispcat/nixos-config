@@ -2,8 +2,11 @@
 
 -- Initial --
 
-: sudo -i
-: loadkeys programmer-dvorak
+#+begin_src sh :tangle ./installer.txt
+
+  sudo -s
+  
+#+end_src
 
 -- Networking --
 
@@ -58,10 +61,14 @@
   nixos-generate-config --root /mnt
 
   # tweak /mnt/etc/nixos/* as needed
+  nix-shell -p neovim
 
 #+end_src
 
 * add to config
+
+- keyboard layout
+- subvolume mount options
 
 #+begin_src nix
 

@@ -1,3 +1,5 @@
+sudo -s
+
 # (EFI) create and format boot partition
 parted /dev/sda -- mklabel gpt
 parted /dev/sda -- mkpart ESP fat32 1MiB 512MiB
@@ -7,12 +9,12 @@ mkfs.fat -F 32 -n boot /dev/sda1
 
 # (BIOS) create and format boot partition
 parted /dev/sda -- mklabel msdos
-parted /dev/sda -- mkpart primary 1MiB 2MiB
+parted /dev/sda -- mkpart primary 1MiB 512MiB
 parted /dev/sda -- set 1 boot on
-parted /dev/sda -- mkpart primary 2MiB 100%
+parted /dev/sda -- mkpart primary 512MiB 100%
 
 # create and open luks partition
-echo "your-password-here" > /tmp/secret.key
+echo "pass" > /tmp/secret.key
 cryptsetup luksFormat /dev/sda2 --key-file /tmp/secret.key
 cryptsetup luksOpen --key-file /tmp/secret.key /dev/sda2 crypted
 
@@ -45,3 +47,4 @@ btrfs filesystem mkswapfile --size 4G /mnt/.swapvol/swapfile
 nixos-generate-config --root /mnt
 
 # tweak /mnt/etc/nixos/* as needed
+nix-shell -p neovim
