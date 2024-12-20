@@ -76,6 +76,9 @@
   { config, lib, pkgs, ... }:
 
   {
+
+    boot.loader.grub.enableCryptodisk = true;
+
     services.xserver.xkb = { # kblayout
       layout = "us";
       variant = "dvp";
@@ -85,7 +88,15 @@
       useXkbConfig = true;
       earlySetup = true;  # for grub?
     };
-    
+    fileSystems."/".options     = [ "subvol=@root" "compress=zstd" "noatime" ];
+    fileSystems."/home".options = [ "subvol=@home" "compress=zstd" "noatime" ];
+    fileSystems."/nix".options  = [ "subvol=@nix"  "compress=zstd" "noatime" ];
+    swapDevices = [{
+      device = "/.swapvol/swapfile";
+      size = 4096;  # Size in MiB (4G = 4096MiB), matching your disko config
+    }];
+
+    # idk:
 
     boot.initrd.luks.devices = {
       "crypted" = {
