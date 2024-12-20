@@ -1,0 +1,121 @@
+#+title: NixOS Installation Notes
+
+-- Initial --
+
+: sudo -i
+: loadkeys programmer-dvorak
+
+-- Networking --
+
+-- Partitioning (gpt, luks) --
+
+#+begin_src sh
+
+  # create and format first partition
+  parted /dev/sda -- mklabel gpt
+  parted /dev/sda -- mkpart ESP fat32 1MiB 512MiB
+  parted /dev/sda -- set 1 boot on
+  parted /dev/sda -- mkpart primary 512MiB 100%
+  mkfs.fat -F 32 -n boot /dev/sda1
+
+  # create and open luks partition
+  echo "your-password-here" > /tmp/secret.key
+  cryptsetup luksFormat /dev/sda2 --key-file /tmp/secret.key
+  cryptsetup luksOpen --key-file /tmp/secret.key /dev/sda2 crypted
+
+  # create btrfs and subvolumes
+  mkfs.btrfs -L root /dev/mapper/crypted
+  mount -t btrfs /dev/mapper/crypted /mnt
+
+  btrfs subvolume create /mnt/@root
+  btrfs subvolume create /mnt/@home
+  btrfs subvolume create /mnt/@nix
+  btrfs subvolume create /mnt/@swap
+
+  umount /mnt
+
+  # mount everything with proper options
+  mount -o compress=zstd,noatime,subvol=@root /dev/mapper/crypted /mnt
+
+  mkdir -p /mnt/{home,nix,.swapvol,boot}
+  mount -o compress=zstd,noatime,subvol=@home /dev/mapper/crypted /mnt/home
+  mount -o compress=zstd,noatime,subvol=@nix  /dev/mapper/crypted /mnt/nix
+  mount -o                       subvol=@swap /dev/mapper/crypted /mnt/.swapvol
+
+  # mount boot partition
+  mount /dev/sda1 /mnt/boot
+
+  # create swapfile
+  btrfs filesystem mkswapfile --size 16G /mnt/.swapvol/swapfile
+
+  # generate config
+  nixos-generate-config --root /mnt
+
+  # tweak /mnt/etc/nixos/* as needed
+
+#+end_src
+
+* add to config
+
+#+begin_src nix
+
+  { config, lib, pkgs, ... }:
+
+  {
+    boot.initrd.luks.devices = {
+      "crypted" = {
+        device = "/dev/disk/by-uuid/UUID-OF-LUKS-PARTITION";  # Replace with your UUID
+        keyFile = "/crypto_keyfile.bin";  # We'll create this in the initrd
+        allowDiscards = true;
+      };
+    };
+
+    fileSystems = {
+      "/" = {
+        device = "/dev/mapper/crypted";
+        fsType = "btrfs";
+        options = [ "subvol=root" "compress=zstd" "noatime" ];
+      };
+
+      "/home" = {
+        device = "/dev/mapper/crypted";
+        fsType = "btrfs";
+        options = [ "subvol=home" "compress=zstd" "noatime" ];
+      };
+
+      "/nix" = {
+        device = "/dev/mapper/crypted";
+        fsType = "btrfs";
+        options = [ "subvol=nix" "compress=zstd" "noatime" ];
+      };
+
+      "/.swapvol" = {
+        device = "/dev/mapper/crypted";
+        fsType = "btrfs";
+        options = [ "subvol=swap" ];
+      };
+
+      "/boot" = {
+        device = "/dev/disk/by-uuid/UUID-OF-BOOT-PARTITION";  # Replace with your UUID
+        fsType = "vfat";
+        options = [ "umask=0077" ];
+      };
+    };
+
+    # Configure swap with the same size as in your disko config
+    swapDevices = [{
+      device = "/.swapvol/swapfile";
+      size = 20;  # Size in MiB, matching your disko config
+    }];
+
+    # Copy the key file into the initrd
+    boot.initrd.secrets = {
+      "/crypto_keyfile.bin" = "/tmp/secret.key";
+    };
+
+    # Make sure these are enabled
+    boot.loader.systemd-boot.enable = true;
+    boot.loader.efi.canTouchEfiVariables = true;
+  }
+
+#+end_src
