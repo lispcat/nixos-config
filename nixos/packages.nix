@@ -2,11 +2,11 @@
 
 let
   
-  base-emacs = pkgs.emacs29-pgtk;
-  emacs-with-pkgs =
-    (pkgs.emacsPackagesFor base-emacs).emacsWithPackages (epkgs: [
-      epkgs.vterm
-    ]);
+  # base-emacs = pkgs.emacs29-pgtk;
+  # emacs-with-pkgs =
+  #   (pkgs.emacsPackagesFor base-emacs).emacsWithPackages (epkgs: [
+  #     epkgs.vterm
+  #   ]);
   
 in {
   
@@ -17,7 +17,8 @@ in {
     vim
     neovim
     
-    emacs-with-pkgs  # defined above
+    # emacs-with-pkgs  # defined above
+    emacs29-pgtk
 
     git
     wget
