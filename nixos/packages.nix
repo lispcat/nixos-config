@@ -54,6 +54,7 @@ in {
     wl-clipboard-rs
     wmenu
     alsa-utils  # provides amixer, aplay
+    brightnessctl
 
     # cli applications
     tmux

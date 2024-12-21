@@ -31,7 +31,7 @@ default: home
 # 	@echo $(extra_args)
 
 sys:
-	sudo nixos-rebuild switch --flake .
+	sudo nixos-rebuild switch --flake .#NixOwOs
 
 home:
 	home-manager switch --flake .

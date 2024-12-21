@@ -1,8 +1,9 @@
 {
   # Network
   networking = {
-    hostName = "nixos"; # Define your hostname.
-
+    # Set hostname
+    hostName = "NixOwOs";  # Define your hostname.
+    
     # Enable networking
     networkmanager.enable = true;
     

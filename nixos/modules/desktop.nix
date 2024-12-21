@@ -10,6 +10,8 @@
         };
       };
     };
+    # mounting disks
+    udisks2.enable = true;
   };
 
   # TODO: is this good?
@@ -24,5 +26,4 @@
       };
     };
   };
-  
 }

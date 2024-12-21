@@ -42,7 +42,7 @@
       user = "sui";
     in {
 
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.NixOwOs = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit system inputs user;
         };
