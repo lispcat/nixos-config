@@ -24,6 +24,7 @@ in {
     curl
 
     tree
+    fzf
     strace
 
     # desktop applications
@@ -38,6 +39,7 @@ in {
     libreoffice-fresh hunspell hunspellDicts.en-us-large
     obs-studio
     vesktop
+    mtpaint # also look into other minimal paint apps
 
     # desktop programs
     alacritty
@@ -55,7 +57,8 @@ in {
     wmenu
     alsa-utils  # provides amixer, aplay
     brightnessctl
-
+    playerctl
+    
     # cli applications
     tmux
     btop

@@ -36,7 +36,7 @@ sys:
 home:
 	home-manager switch --flake .#sui
 
-update-all:
+update:
 	nix flake update
 
 suckless:

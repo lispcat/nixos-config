@@ -3,8 +3,8 @@
     "dwl-source": {
       "flake": false,
       "locked": {
-        "lastModified": 1734761576,
-        "narHash": "sha256-jTw0eVX+IXyohAQ7/Hbsed9E4k/lAWmlrJ5Tilk5wNA=",
+        "lastModified": 1734805619,
+        "narHash": "sha256-WrMHzgK4ZXI4J8sZxMnZDciw7I9rp+KKU0i9AKPhv88=",
         "path": "/home/sui/Src/dwl-fork",
         "type": "path"
       },
@@ -16,8 +16,8 @@
     "dwlb-source": {
       "flake": false,
       "locked": {
-        "lastModified": 1734751267,
-        "narHash": "sha256-pSpv1DlLCon/i9KVHS8VyNPf6MYn3y1YVNtMiS/+ELU=",
+        "lastModified": 1734766076,
+        "narHash": "sha256-xZzZtvtHI0OuarmWNlrhXnWyOdnf09UxNmY9gZnGUDc=",
         "path": "/home/sui/Src/dwlb-fork",
         "type": "path"
       },
@@ -91,8 +91,8 @@
     "slstatus-source": {
       "flake": false,
       "locked": {
-        "lastModified": 1734751274,
-        "narHash": "sha256-uKFSbD+LzgbZX7oao8cGW3/+OViN3/HEYESvqfr7zEY=",
+        "lastModified": 1734805869,
+        "narHash": "sha256-7TVTu6cwiuxYWw+tOa54k3oXbv48d/ebHMdlv6uBliw=",
         "path": "/home/sui/Src/slstatus-fork",
         "type": "path"
       },
