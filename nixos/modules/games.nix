@@ -10,6 +10,14 @@
     localNetworkGameTransfers.openFirewall = false;
   };
 
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+    "steam"
+    "steam"
+    "steam-original"
+    "steam-unwrapped"
+    "steam-run"
+  ];
+  
   programs.firejail.wrappedBinaries = {
     steam = {
       executable = "${pkgs.steam}/bin/steam";
@@ -25,11 +33,18 @@
     };
   };
 
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-    "steam"
-    "steam"
-    "steam-original"
-    "steam-unwrapped"
-    "steam-run"
-  ];
+  # steam firejail
+  environment.etc = {
+    "firejail/steam.local".text = ''
+# Allow VR and camera-based motion tracking
+ignore novideo
+# seccomp sometimes causes issues...
+ignore seccomp
+# private-etc breaks a small handful of games...
+ignore private-etc
+
+# whitelist dirs
+whitelist ''${HOME}/Games/
+'';
+  };
 }

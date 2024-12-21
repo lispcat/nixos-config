@@ -3,8 +3,8 @@
     "dwl-source": {
       "flake": false,
       "locked": {
-        "lastModified": 1734747697,
-        "narHash": "sha256-DL/CvBSVv/7oyVautnbqnQaj7rcBoGC1lyByKEG1EZY=",
+        "lastModified": 1734761576,
+        "narHash": "sha256-jTw0eVX+IXyohAQ7/Hbsed9E4k/lAWmlrJ5Tilk5wNA=",
         "path": "/home/sui/Src/dwl-fork",
         "type": "path"
       },
@@ -16,7 +16,7 @@
     "dwlb-source": {
       "flake": false,
       "locked": {
-        "lastModified": 1734747711,
+        "lastModified": 1734751267,
         "narHash": "sha256-pSpv1DlLCon/i9KVHS8VyNPf6MYn3y1YVNtMiS/+ELU=",
         "path": "/home/sui/Src/dwlb-fork",
         "type": "path"
@@ -91,7 +91,7 @@
     "slstatus-source": {
       "flake": false,
       "locked": {
-        "lastModified": 1734747724,
+        "lastModified": 1734751274,
         "narHash": "sha256-uKFSbD+LzgbZX7oao8cGW3/+OViN3/HEYESvqfr7zEY=",
         "path": "/home/sui/Src/slstatus-fork",
         "type": "path"

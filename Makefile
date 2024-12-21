@@ -34,7 +34,13 @@ sys:
 	sudo nixos-rebuild switch --flake .#NixOwOs
 
 home:
-	home-manager switch --flake .
+	home-manager switch --flake .#sui
+
+update-all:
+	nix flake update
+
+suckless:
+	nix flake update dwl-source dwlb-source slstatus-source
 
 
 .PHONY: default sys home
