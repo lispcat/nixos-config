@@ -4,14 +4,13 @@
 
 {
   imports = [
-    ./hardware  # dir
-    ./modules  # dir
+    ./hardware/system76
+    ./modules
+    
     ./packages.nix
   ];
 
-  # general
-
-  nix.settings.experimental-features = [ "nix-command" "flakes" ]; # enable flakes
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];  # enable flakes
 
   system.stateVersion = "24.05"; # don't touch
 

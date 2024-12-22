@@ -1,7 +1,7 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, user, ... }:
 
 let
-  renoise-src = "/home/sui/opt/renoise/rns_344_linux_x86_64.tar.gz";
+  renoise-src = "/home/${user}/opt/rns/rns_344_linux_x86_64.tar.gz";
   renoise-nix = ./renoise-344.nix;
 
   def-pkgs = {
@@ -19,7 +19,7 @@ let
           .override( { releasePath = renoise-src; } ))
       ];
       
-      nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+      nixpkgs.allowUnfreePackage = [
         "renoise"
       ];
     }

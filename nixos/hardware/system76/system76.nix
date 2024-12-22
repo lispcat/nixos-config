@@ -1,5 +1,3 @@
-{ pkgs, ... }:
-
 {
   # fix AX200 wifi issue
   boot.kernelModules = [ "iwlwifi" ];
