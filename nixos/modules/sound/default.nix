@@ -6,4 +6,5 @@
     
     ./pipewire.nix
   ];
+  disabledModules = [ ];
 }
