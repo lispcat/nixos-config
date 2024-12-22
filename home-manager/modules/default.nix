@@ -1,6 +1,6 @@
 {
   imports = [
-    ./mpd.nix
+    ./mpd
     ./gpg
     ./suckless
     ./renoise

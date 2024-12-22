@@ -3,8 +3,8 @@
     "dwl-source": {
       "flake": false,
       "locked": {
-        "lastModified": 1734816599,
-        "narHash": "sha256-Y/4k2tpw5Mafzdn0dzPWz7vFlZwMb6S9jxvxqOKT6kk=",
+        "lastModified": 1734831640,
+        "narHash": "sha256-j5sKYt9qrAvLdw7xk1keLmkEssz4+HFaKBxtirlOXHk=",
         "path": "/home/sui/Src/dwl-fork",
         "type": "path"
       },

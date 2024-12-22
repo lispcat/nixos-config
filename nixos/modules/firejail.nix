@@ -2,26 +2,31 @@
 
 {
 
-  nixpkgs.allowUnfreePredicate = pkg:
-    builtins.elem (lib.getName pkg) [
-      "spotify"
-    ];
   
   programs.firejail.enable = true;
-  programs.firejail.wrappedBinaries = {
-    mpv = {
-      executable = "${pkgs.mpv}/bin/mpv";
-      profile = "${pkgs.firejail}/etc/firejail/mpv.profile";
-    };
-    # spotify = {
-    #   executable = "${pkgs.spotify}/bin/spotify";
-    #   profile = "${pkgs.firejail}/etc/firejail/spotify.profile";
-    # };
-    # keepassxc = {
-    #   executable = "${pkgs.keepassxc}/bin/keepassxc";
-    #   profile = "${pkgs.firejail}/etc/firejail/keepassxc.profile";
-    # };
+  
+  programs.firejail.wrappedBinaries.mpv = {
+    executable = "${pkgs.mpv}/bin/mpv";
+    profile = "${pkgs.firejail}/etc/firejail/mpv.profile";
   };
+  
+  programs.firejail.wrappedBinaries.spotify = {
+    executable = "${pkgs.spotify}/bin/spotify";
+    profile = "${pkgs.firejail}/etc/firejail/spotify.profile";
+  };
+  nixpkgs.allowUnfreePackages = [ "spotify" ];
+  environment.etc = {
+    "firejail/spotify.local".text = ''
+      # allow links that open in browser to access librewolf profiles
+      noblacklist ''${HOME}/.librewolf
+      whitelist ''${HOME}/.librewolf/profiles.ini
+    '';
+  };
+  
+  # programs.firejail.wrappedBinaries.keepassxc = {
+  #   executable = "${pkgs.keepassxc}/bin/keepassxc";
+  #   profile = "${pkgs.firejail}/etc/firejail/keepassxc.profile";
+  # };
 
 #   # keepassxc local
 #   environment.etc = {

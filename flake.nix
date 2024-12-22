@@ -35,8 +35,7 @@
 
   outputs =
     { self, nixpkgs, nixpkgs-stable, home-manager,
-      dwl-source, dwlb-source, slstatus-source,
-      unfree-merger, ... }@inputs:
+      dwl-source, dwlb-source, slstatus-source, ... }@inputs:
     
     let
       system = "x86_64-linux";
