@@ -12,3 +12,4 @@
   users.users.${user}.extraGroups = [ "libvirtd" ];
   
 }
+  

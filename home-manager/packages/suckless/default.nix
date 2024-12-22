@@ -1,9 +1,7 @@
 { config, lib, pkgs, dwl-source, dwlb-source, slstatus-source, ... }:
 
 let
-  
   suckless-overlay = final: prev: {
-    
     dwl = (prev.callPackage ./dwl/package.nix { }).overrideAttrs (oldAttrs: {
       src = dwl-source;
     });
@@ -14,15 +12,13 @@ let
       src = slstatus-source;
     });
   };
-  
-in {
-  
+in
+{
   nixpkgs.overlays = [ suckless-overlay ];
-
+  
   home.packages = with pkgs; [
     dwl
     dwlb
     slstatus
   ];
-  
 }

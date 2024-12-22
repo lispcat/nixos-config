@@ -4,8 +4,8 @@
 
 {
   imports = [
-    ./hardware # dir
-    ./modules # dir
+    ./hardware  # dir
+    ./modules  # dir
     ./packages.nix
   ];
 

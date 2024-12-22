@@ -1,6 +1,8 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, ... }:
 
 {
+  ## Steam
+
   programs.steam = {
     enable = true;
     gamescopeSession.enable = true;
@@ -9,7 +11,7 @@
     extest.enable = true;
     localNetworkGameTransfers.openFirewall = false;
   };
-
+  
   nixpkgs.allowUnfreePackages = [
     "steam"
     "steam"
@@ -18,22 +20,15 @@
     "steam-run"
   ];
   
-  programs.firejail.wrappedBinaries = {
-    steam = {
-      executable = "${pkgs.steam}/bin/steam";
-      profile = "${pkgs.firejail}/etc/firejail/steam.profile";
-    };
-    steam-run = {
-      executable = "${pkgs.steam}/bin/steam-run";
-      profile = "${pkgs.firejail}/etc/firejail/steam.profile";
-    };
-    prismlauncher = {
-      executable = "${pkgs.prismlauncher}/bin/prismlauncher";
-      profile = "${pkgs.firejail}/etc/firejail/prismlauncher.profile";
-    };
+  programs.firejail.wrappedBinaries.steam = {
+    executable = "${pkgs.steam}/bin/steam";
+    profile = "${pkgs.firejail}/etc/firejail/steam.profile";
   };
-
-  # steam firejail
+  programs.firejail.wrappedBinaries.steam-run = {
+    executable = "${pkgs.steam}/bin/steam-run";
+    profile = "${pkgs.firejail}/etc/firejail/steam.profile";
+  };
+  
   environment.etc = {
     "firejail/steam.local".text = ''
       # Allow VR and camera-based motion tracking
@@ -47,4 +42,12 @@
       whitelist ''${HOME}/Games/
     '';
   };
+
+  ## Prismlauncher
+
+  programs.firejail.wrappedBinaries.prismlauncher = {
+    executable = "${pkgs.prismlauncher}/bin/prismlauncher";
+    profile = "${pkgs.firejail}/etc/firejail/prismlauncher.profile";
+  };
+
 }

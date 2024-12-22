@@ -3,7 +3,6 @@
   security.polkit.enable = true;
 
   services = {
-    
     # thermald (prevent overheating)
     thermald.enable = true;
 
@@ -17,17 +16,18 @@
         CPU_ENERGY_PERF_POLICY_ON_BAT = "powersave"  ;
 
         # save long term battery health
-        START_CHARGE_THRESH_BAT0 = 80; # start charging at 40 and below
+        START_CHARGE_THRESH_BAT0 = 70; # start charging at 40 and below
         STOP_CHARGE_THRESH_BAT0  = 90; # stop charging at 95 and above
       };
     };
+    
+    # mounting disks
+    udisks2.enable = true;
   };
   
   boot = {
-    kernel.sysctl = { "vm.swappiness" = 1; };
-
     tmp.cleanOnBoot = true;
-    
+    kernel.sysctl = { "vm.swappiness" = 1; };
     blacklistedKernelModules = [ "uvcvideo" ]; # disables webcam
   };
 }
