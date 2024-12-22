@@ -78,19 +78,6 @@
         "type": "github"
       }
     },
-    "renoise-tarball": {
-      "flake": false,
-      "locked": {
-        "lastModified": 0,
-        "narHash": "sha256-dL7PCnB0ZWeb/4whe2fVkpl27clBD41FSM6vDNpINfo=",
-        "path": "/home/sui/opt/rns/rns_344_linux_x86_64.tar.gz",
-        "type": "path"
-      },
-      "original": {
-        "path": "/home/sui/opt/rns/rns_344_linux_x86_64.tar.gz",
-        "type": "path"
-      }
-    },
     "root": {
       "inputs": {
         "dwl-source": "dwl-source",
@@ -98,7 +85,6 @@
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "nixpkgs-stable": "nixpkgs-stable",
-        "renoise-tarball": "renoise-tarball",
         "slstatus-source": "slstatus-source"
       }
     },

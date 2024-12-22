@@ -2,8 +2,8 @@
 
 {
   imports = [
-    ./suckless
-    ./renoise
+    # ./suckless
+    # ./renoise
   ];
 
   # regular packages
