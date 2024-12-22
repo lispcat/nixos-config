@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, config, ... }:
 
 {
   programs.steam = {
@@ -10,13 +10,14 @@
     localNetworkGameTransfers.openFirewall = false;
   };
 
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-    "steam"
-    "steam"
-    "steam-original"
-    "steam-unwrapped"
-    "steam-run"
-  ];
+  nixpkgs.allowUnfreePredicate = pkg:
+    builtins.elem (lib.getName pkg) [
+      "steam"
+      "steam"
+      "steam-original"
+      "steam-unwrapped"
+      "steam-run"
+    ];
   
   programs.firejail.wrappedBinaries = {
     steam = {

@@ -1,13 +1,22 @@
-{ pkgs, ... }:
+{ pkgs, lib, config, ... }:
 
 {
 
+  nixpkgs.allowUnfreePredicate = pkg:
+    builtins.elem (lib.getName pkg) [
+      "spotify"
+    ];
+  
   programs.firejail.enable = true;
   programs.firejail.wrappedBinaries = {
     mpv = {
       executable = "${pkgs.mpv}/bin/mpv";
       profile = "${pkgs.firejail}/etc/firejail/mpv.profile";
     };
+    # spotify = {
+    #   executable = "${pkgs.spotify}/bin/spotify";
+    #   profile = "${pkgs.firejail}/etc/firejail/spotify.profile";
+    # };
     # keepassxc = {
     #   executable = "${pkgs.keepassxc}/bin/keepassxc";
     #   profile = "${pkgs.firejail}/etc/firejail/keepassxc.profile";
@@ -47,7 +56,4 @@
 # '';
 #   };
 
-  # nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-    
-  # ];
 }

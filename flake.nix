@@ -33,8 +33,11 @@
 
   ## Outputs:
 
-  outputs = { self, nixpkgs, nixpkgs-stable, home-manager, dwl-source, dwlb-source, slstatus-source, ... }@inputs:
-
+  outputs =
+    { self, nixpkgs, nixpkgs-stable, home-manager,
+      dwl-source, dwlb-source, slstatus-source,
+      unfree-merger, ... }@inputs:
+    
     let
       system = "x86_64-linux";
       pkgs        = import nixpkgs        { inherit system; };
@@ -47,7 +50,10 @@
           inherit system inputs user;
         };
         
-        modules = [ ./nixos/configuration.nix ];
+        modules = [
+          ./unfree-merger.nix
+          ./nixos/configuration.nix
+        ];
       };
 
       homeConfigurations.sui = home-manager.lib.homeManagerConfiguration {
@@ -56,7 +62,10 @@
           inherit dwl-source dwlb-source slstatus-source user;
         };
         
-        modules = [ ./home-manager/home.nix ];
+        modules = [
+          ./unfree-merger.nix
+          ./home-manager/home.nix
+        ];
       };
 
       # end of in
