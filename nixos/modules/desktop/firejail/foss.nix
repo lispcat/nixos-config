@@ -1,10 +1,10 @@
 { pkgs, ... }:
 
 {
-  programs.firejail.wrappedBinaries.mpv = {
-    executable = "${pkgs.mpv}/bin/mpv";
-    profile = "${pkgs.firejail}/etc/firejail/mpv.profile";
-  };
+  # programs.firejail.wrappedBinaries.mpv = {
+  #   executable = "${pkgs.mpv}/bin/mpv";
+  #   profile = "${pkgs.firejail}/etc/firejail/mpv.profile";
+  # };
 
   # programs.firejail.wrappedBinaries.keepassxc = {
   #   executable = "${pkgs.keepassxc}/bin/keepassxc";
