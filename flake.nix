@@ -15,23 +15,23 @@
     };
     
     # suckless repos (hardcoded paths)
-    dwl-source = {
-      url = "/home/sui/Src/dwl-fork";
-      flake = false;
-    };
-    dwlb-source = {
-      url = "/home/sui/Src/dwlb-fork";
-      flake = false;
-    };
-    slstatus-source = {
-      url = "/home/sui/Src/slstatus-fork";
-      flake = false;
-    };
+    # dwl-source = {
+    #   url = "/home/sui/Src/dwl-fork";
+    #   flake = false;
+    # };
+    # dwlb-source = {
+    #   url = "/home/sui/Src/dwlb-fork";
+    #   flake = false;
+    # };
+    # slstatus-source = {
+    #   url = "/home/sui/Src/slstatus-fork";
+    #   flake = false;
+    # };
   };
 
   ## Outputs:
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-stable, home-manager, dwl-source, dwlb-source, slstatus-source, ... }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-stable, home-manager, ... }:
     let
       system      = "x86_64-linux";
       user        = "sui";
@@ -49,7 +49,7 @@
       homeConfigurations.sui = home-manager.lib.homeManagerConfiguration
         {
           inherit pkgs;
-          extraSpecialArgs = { inherit dwl-source dwlb-source slstatus-source user; };
+          extraSpecialArgs = { inherit user; };
           modules = [
             ./unfree-merger.nix
             ./home-manager/home.nix

@@ -2,18 +2,14 @@
 
 {
 
-  # home.packages = with pkgs; [
-  #   catppuccin-gtk
-  #   gtk-engine-murrine
-  #   gtk_engines
-  #   gsettings-desktop-schemas
-  #   glib # gsettings
-  # ];
+  home.packages = with pkgs; [
+    glib # gsettings
+  ];
 
   home.sessionVariables = {
-    GTK_THEME = "Adwaita-dark";
+    # GTK_THEME = "Adwaita-dark";
     # GTK_THEME = "Catppuccin-Macchiato-Mauve";
-    NIXOS_OZONE_WL = "1";
+    NIXOS_OZONE_WL = "1";  # enable native wayland on chromium/electron
 
     GDK_BACKEND = "wayland";
     ANKI_WAYLAND = "1";
@@ -31,25 +27,11 @@
     CLUTTER_BACKEND = "wayland";
   };
 
-  # dconf = {
-  #   settings = {
-  #     "org/gnome/desktop/interface" = {
-	#       gtk-theme = "Adwaita-dark";
-	#       color-scheme = "prefer-dark";
-  #     };
-  #   };
-  # };
+  ## qt
 
-  gtk = {
-    enable = true;
-    theme = {
-      name = "Adwaita-dark";
-      package = pkgs.gnome-themes-extra;
-    };
-  };
-
+  qt.enable = true;
+  
   qt = {
-    enable = true;
     platformTheme.name = "Adwaita-dark";
     style = {
       name = "Adwaita-dark";
@@ -57,91 +39,99 @@
     };
   };
 
-  # xdg.portal = {
-  #   enable = true;
-  #   wlr.enable = true;
-  #   extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
-  #   configPackages = with pkgs; [ xdg-desktop-portal-gtk ];
-  # };
+  ## gtk
 
-  # dconf.settings = {
-  #   "org/gnome/desktop/interface" = {
-	#     gtk-theme = "adw-gtk3-dark";
-	#     color-scheme = "prefer-dark";
-  #   };
-  # };
+  gtk.enable = true;
 
-  # home.file.".gtkrc-2.0".text = ''
-  #   gtk-theme-name = "Adwaita-dark"
-  #   gtk-key-theme-name = "Emacs"
-  # '';
-
-  # gtk = {
-  #   enable = true;
-  #   theme = {
-  #     name = "Gruvbox-Green-Dark";
-  #     package = pkgs.gruvbox-gtk-theme.override {
-  #       colorVariants = [ "dark" ];
-  #       themeVariants = [ "green" ];
-  #     };
-  #   };
-  # };
-
-  # gtk = {
-  #   enable = true;
-  #   theme = {
-  #     name = "Catppuccin-Mocha-Mauve-Standard";
-  #     package = pkgs.catppuccin-gtk.override {
-  #       accents = [ "mauve" ];
-  #       size = "standard";
-  #       variant = "mocha";
-  #     };
-  #   };
-  # };
+  gtk.iconTheme = {
+    name = "Kanagawa";
+    package = pkgs.kanagawa-icon-theme;
+  };
   
-  # iconTheme = {
-  #   name = "Kanagawa";
-  #   package = pkgs.kanagawa-icon-theme;
-  # };
-  # };
 
-  # home.packages = with pkgs; [
-  #   catppuccin-gtk
-  # ];
-  
-  # gtk = {
-  #   enable = true;
-  #   theme.package = pkgs.gnome-themes-extra;
-  #   theme.name = "Adwaita-dark";
-  # };
-  
-  # theme.name = "orchis-dark-compact";
-  # theme.package = pkgs.orchis-theme;
-  
-  # gtk = {
-  #   enable = true;
-  #   theme.name = "Catppuccin-Macchiato-Mauve";
-  #   theme.package = pkgs.catppuccin-gtk.override {
-  #     variant = "macchiato";
+  # comfy but hard to read
+  # gtk.theme = {
+  #   name = "catppuccin-mocha-mauve-compact";
+  #   package = pkgs.catppuccin-gtk.override {
+  #     variant = "mocha";
   #     accents = [ "mauve" ];
-  #     # size = "compact";
+  #     size = "compact";
   #   };
-  #   # iconTheme = {
-  #   #   name = "Kanagawa";
-  #   #   package = pkgs.kanagawa-icon-theme;
-  #   # };
-  # };
-
-  # iconTheme.name = "Papirus-Dark";
-  # iconTheme.package = pkgs.papirus-icon-theme;
-
-  # cursorTheme.name = "default";
   # };
   
-  # qt = {
-  #   enable = true;
-  #   platformTheme.name = "gtk";
-  #   style.name = "adwaita-dark";
+  # comfy, somewhat good to read
+  gtk.theme = {
+    name = "Matcha-dark-pueril";
+    package = pkgs.matcha-gtk-theme;
+  };
+  
+  # simple grey, easy to read
+  # gtk.theme = {
+  #   name = "vimix-dark-compact-beryl";
+  #   package = pkgs.vimix-gtk-themes.override {
+  #     themeVariants = [ "beryl" ];
+  #     colorVariants = [ "dark" ];
+  #     sizeVariants = [ "compact" ];
+  #     tweaks = [ "flat" ];
+  #   };
   # };
 
+  # kinda nice
+  # gtk.theme = {
+  #   name = "Materia-dark-compact";
+  #   package = pkgs.materia-theme;
+  # };
+
+  # mid
+  # gtk.theme = {
+  #   name = "Flat-Remix-GTK-Teal-Dark";
+  #   package = pkgs.flat-remix-gtk;
+  # };
+
+  # gtk.theme = {
+  #   name = "Adwaita-dark";
+  #   package = pkgs.gnome-themes-extra;
+  # };
+
+  # gtk.theme = {
+  #   name = "Nordic";
+  #   package = pkgs.nordic-theme;
+  # };
+  
+  # gtk.theme = {
+  #   name = "Dracula";
+  #   package = pkgs.dracula-theme;
+  # };
+
+  # unmaintained and blue but very very easy to read
+  # gtk.theme = {
+  #   name = "Vertex-Dark";
+  #   package = pkgs.theme-vertex;
+  # };
+
+  # gtk.theme = {
+  #   name = "Tokyonight-Dark-Storm";
+  #   package = pkgs.tokyonight-gtk-theme.override {
+  #     tweakVariants = [ "storm" ];
+  #   };
+  # };
+
+  # gtk.theme = {
+  #   name = "Gruvbox-Purple-Dark";
+  #   package = pkgs.gruvbox-gtk-theme.override {
+  #     themeVariants = [ "purple" ];
+  #     colorVariants = [ "dark" ];
+  #   };
+  # };
+
+  # gtk.theme = {
+  #   name = "Nightfox-Dark";
+  #   package = pkgs.nightfox-gtk-theme;
+  # };
+
+  # gtk.theme = {
+  #   name = "Arc-dark";
+  #   package = pkgs.arc-theme;
+  # };
+  
 }

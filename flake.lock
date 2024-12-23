@@ -1,31 +1,5 @@
 {
   "nodes": {
-    "dwl-source": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1734831640,
-        "narHash": "sha256-j5sKYt9qrAvLdw7xk1keLmkEssz4+HFaKBxtirlOXHk=",
-        "path": "/home/sui/Src/dwl-fork",
-        "type": "path"
-      },
-      "original": {
-        "path": "/home/sui/Src/dwl-fork",
-        "type": "path"
-      }
-    },
-    "dwlb-source": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1734816603,
-        "narHash": "sha256-iVxzmHGCUxzvfVJoNNevLI/vkCHF900nCCr+RaEnSko=",
-        "path": "/home/sui/Src/dwlb-fork",
-        "type": "path"
-      },
-      "original": {
-        "path": "/home/sui/Src/dwlb-fork",
-        "type": "path"
-      }
-    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -80,25 +54,9 @@
     },
     "root": {
       "inputs": {
-        "dwl-source": "dwl-source",
-        "dwlb-source": "dwlb-source",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-stable": "nixpkgs-stable",
-        "slstatus-source": "slstatus-source"
-      }
-    },
-    "slstatus-source": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1734816611,
-        "narHash": "sha256-FG3odiq8k30cbubEiLvZbe+EO26iZ3p7c5P9Sn087JE=",
-        "path": "/home/sui/Src/slstatus-fork",
-        "type": "path"
-      },
-      "original": {
-        "path": "/home/sui/Src/slstatus-fork",
-        "type": "path"
+        "nixpkgs-stable": "nixpkgs-stable"
       }
     }
   },
