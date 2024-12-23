@@ -21,10 +21,22 @@
   ## Btrfs
 
   services.btrfs.autoScrub.enable = true;
+  
+  ### note: run `chattr +C` on (empty dir):
+  #  /.swapvol
+  #  ~/Games
+  #  ~/vm
 
   # SSD
   
   services.fstrim.enable = true;
+
+  # Hibernation
+
+  # set UUID of btrfs partition
+  boot.resumeDevice = "/dev/disk/by-uuid/d1e0b46b-68b9-4a9d-956c-2ae73b0450f8";
+  # sudo btrfs inspect-internal map-swapfile /.swapvol/swapfile
+  boot.kernelParams = [ "resume_offset=533760" ];
 
   ## Filesystems:
   
@@ -51,7 +63,7 @@
   fileSystems."/.swapvol" =
     { device = "/dev/disk/by-uuid/d1e0b46b-68b9-4a9d-956c-2ae73b0450f8";
       fsType = "btrfs";
-      options = [ "subvol=@swap" ];
+      options = [ "subvol=@swap" "noatime" "nodatacow" ];
     };
 
   fileSystems."/boot" =
@@ -62,7 +74,7 @@
 
   swapDevices = [{
     device = "/.swapvol/swapfile";
-    size = 16384;  # Size in MiB (16G = 16384MiB)
+    size = 16 * 1024;
   }];
   
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
@@ -74,5 +86,6 @@
   # networking.interfaces.wlp0s20f3.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.intel.updateMicrocode =
+    lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

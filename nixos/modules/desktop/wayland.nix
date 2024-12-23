@@ -12,4 +12,7 @@
       };
     };
   };
+
+  # enable configuring gtk themes in home-manager
+  programs.dconf.enable = true;
 }
