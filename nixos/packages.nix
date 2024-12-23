@@ -41,6 +41,7 @@ in {
     obs-studio
     vesktop
     mtpaint # also look into other minimal paint apps
+    anki
 
     # desktop programs
     alacritty
@@ -75,6 +76,9 @@ in {
 
     # script tools
     espeak
+
+    # dev
+    quilt
 
     # nixos tools
     vulnix
