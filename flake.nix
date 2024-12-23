@@ -55,5 +55,15 @@
             ./home-manager/home.nix
           ];
         };
+      devShells.${system}.rust =
+        pkgs.mkShell {
+          nativeBuildInputs = with pkgs; [
+            rustc
+            cargo
+            rustfmt
+            clippy
+            rust-analyzer
+          ];
+        };
     };
 }
