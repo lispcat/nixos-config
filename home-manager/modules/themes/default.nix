@@ -2,16 +2,17 @@
 
 {
 
-  home.packages = with pkgs; [
-    catppuccin-gtk
-    gtk-engine-murrine
-    gtk_engines
-    gsettings-desktop-schemas
-    glib # gsettings
-  ];
+  # home.packages = with pkgs; [
+  #   catppuccin-gtk
+  #   gtk-engine-murrine
+  #   gtk_engines
+  #   gsettings-desktop-schemas
+  #   glib # gsettings
+  # ];
 
   home.sessionVariables = {
     GTK_THEME = "Adwaita-dark";
+    # GTK_THEME = "Catppuccin-Macchiato-Mauve";
     NIXOS_OZONE_WL = "1";
 
     GDK_BACKEND = "wayland";
@@ -30,14 +31,14 @@
     CLUTTER_BACKEND = "wayland";
   };
 
-  dconf = {
-    settings = {
-      "org/gnome/desktop/interface" = {
-	      gtk-theme = "Adwaita-dark";
-	      color-scheme = "prefer-dark";
-      };
-    };
-  };
+  # dconf = {
+  #   settings = {
+  #     "org/gnome/desktop/interface" = {
+	#       gtk-theme = "Adwaita-dark";
+	#       color-scheme = "prefer-dark";
+  #     };
+  #   };
+  # };
 
   gtk = {
     enable = true;
@@ -56,11 +57,12 @@
     };
   };
 
-  xdg.portal = {
-      enable = true;
-      extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
-      configPackages = with pkgs; [ xdg-desktop-portal-gtk ];
-  };
+  # xdg.portal = {
+  #   enable = true;
+  #   wlr.enable = true;
+  #   extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
+  #   configPackages = with pkgs; [ xdg-desktop-portal-gtk ];
+  # };
 
   # dconf.settings = {
   #   "org/gnome/desktop/interface" = {
@@ -76,7 +78,6 @@
 
   # gtk = {
   #   enable = true;
-
   #   theme = {
   #     name = "Gruvbox-Green-Dark";
   #     package = pkgs.gruvbox-gtk-theme.override {
@@ -86,19 +87,22 @@
   #   };
   # };
 
-    # theme = {
-    #   name = "Catppuccin-Mocha-Mauve-Standard";
-    #   package = pkgs.catppuccin-gtk.override {
-    #     accents = [ "mauve" ];
-    #     size = "standard";
-    #     variant = "mocha";
-    #   };
-    # };
-    
-    # iconTheme = {
-    #   name = "Kanagawa";
-    #   package = pkgs.kanagawa-icon-theme;
-    # };
+  # gtk = {
+  #   enable = true;
+  #   theme = {
+  #     name = "Catppuccin-Mocha-Mauve-Standard";
+  #     package = pkgs.catppuccin-gtk.override {
+  #       accents = [ "mauve" ];
+  #       size = "standard";
+  #       variant = "mocha";
+  #     };
+  #   };
+  # };
+  
+  # iconTheme = {
+  #   name = "Kanagawa";
+  #   package = pkgs.kanagawa-icon-theme;
+  # };
   # };
 
   # home.packages = with pkgs; [
@@ -114,11 +118,18 @@
   # theme.name = "orchis-dark-compact";
   # theme.package = pkgs.orchis-theme;
   
-  # theme.name = "Catppuccin-Macchiato-Mauve-Compact";
-  # theme.package = pkgs.catppuccin-gtk.override {
-  #   variant = "macchiato";
-  #   accents = [ "mauve" ];
-  #   # size = "compact";
+  # gtk = {
+  #   enable = true;
+  #   theme.name = "Catppuccin-Macchiato-Mauve";
+  #   theme.package = pkgs.catppuccin-gtk.override {
+  #     variant = "macchiato";
+  #     accents = [ "mauve" ];
+  #     # size = "compact";
+  #   };
+  #   # iconTheme = {
+  #   #   name = "Kanagawa";
+  #   #   package = pkgs.kanagawa-icon-theme;
+  #   # };
   # };
 
   # iconTheme.name = "Papirus-Dark";
