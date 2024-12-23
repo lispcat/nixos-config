@@ -9,16 +9,23 @@
 
   gtk = {
     enable = true;
+
+    # theme.name = "orchis-dark-compact";
+    # theme.package = pkgs.orchis-theme;
+
+    theme.name = "Adwaita-dark";
+    theme.package = pkgs.gnome-themes-extra;
     
-    theme.name = "catppuccin-macchiato-mauve-standard";
-    theme.package = pkgs.catppuccin-gtk.override {
-      variant = "macchiato";
-      accents = [ "mauve" ];
-    };
+    # theme.name = "Catppuccin-Macchiato-Mauve-Compact";
+    # theme.package = pkgs.catppuccin-gtk.override {
+    #   variant = "macchiato";
+    #   accents = [ "mauve" ];
+    #   # size = "compact";
+    # };
 
-    iconTheme.name = "Papirus-Dark";
-    iconTheme.package = pkgs.papirus-icon-theme;
+    # iconTheme.name = "Papirus-Dark";
+    # iconTheme.package = pkgs.papirus-icon-theme;
 
-    cursorTheme.name = "default";
+    # cursorTheme.name = "default";
   };
 }

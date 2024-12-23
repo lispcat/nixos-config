@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, user, ... }:
 
 {
   services = {
@@ -7,7 +7,7 @@
       enable = true;
       settings = {
         default_session = {
-          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd 'dwl -s dwlb &> /tmp/dwl.log'";
+          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd '/home/${user}/Scripts/dwl-run.sh'";
         };
       };
     };

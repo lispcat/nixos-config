@@ -1,6 +1,6 @@
 {
   imports = [
-    ./mpd
+    # ./mpd
     ./gpg
     ./themes
   ];
