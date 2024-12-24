@@ -78,7 +78,13 @@ in {
     espeak
 
     # dev
-    quilt
+    gcc  # $CC ?
+    
+    cargo  # for rustic commands
+    rustc
+    rustfmt
+    rustPackages.clippy
+    rust-analyzer  # breaks lsp-mode?
 
     # nixos tools
     vulnix
