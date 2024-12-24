@@ -3,5 +3,6 @@
     ./gpg
     ./themes
     ./dev
+    ./zsh
   ];
 }

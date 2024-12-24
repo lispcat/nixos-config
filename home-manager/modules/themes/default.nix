@@ -2,30 +2,32 @@
 
 {
 
-  home.packages = with pkgs; [
-    glib # gsettings
-  ];
+  # home.packages = with pkgs; [
+  #   glib # gsettings
+  # ];
 
-  home.sessionVariables = {
-    # GTK_THEME = "Adwaita-dark";
-    # GTK_THEME = "Catppuccin-Macchiato-Mauve";
-    NIXOS_OZONE_WL = "1";  # enable native wayland on chromium/electron
+  # home.sessionVariables = {
+  #   # GTK_THEME = "Adwaita-dark";
+  #   # GTK_THEME = "Catppuccin-Macchiato-Mauve";
+  #   NIXOS_OZONE_WL = "1";  # enable native wayland on chromium/electron
 
-    GDK_BACKEND = "wayland";
-    ANKI_WAYLAND = "1";
-    # WLR_DRM_NO_ATOMIC = "1";
-    # QT_AUTO_SCREEN_SCALE_FACTOR = "1";
-    QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
-    QT_QPA_PLATFORM = "xcb";
-    # QT_STYLE_OVERRIDE = "kvantum";
-    MOZ_ENABLE_WAYLAND = "1";
-    WLR_BACKEND = "vulkan";
-    WLR_RENDERER = "vulkan";
-    # WLR_NO_HARDWARE_CURSORS = "1";
-    XDG_SESSION_TYPE = "wayland";
-    SDL_VIDEODRIVER = "wayland";
-    CLUTTER_BACKEND = "wayland";
-  };
+  #   DEVFLAKE="$HOME/Src/nixos-config";
+
+  #   GDK_BACKEND = "wayland";
+  #   ANKI_WAYLAND = "1";
+  #   # WLR_DRM_NO_ATOMIC = "1";
+  #   # QT_AUTO_SCREEN_SCALE_FACTOR = "1";
+  #   QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+  #   QT_QPA_PLATFORM = "xcb";
+  #   # QT_STYLE_OVERRIDE = "kvantum";
+  #   MOZ_ENABLE_WAYLAND = "1";
+  #   WLR_BACKEND = "vulkan";
+  #   WLR_RENDERER = "vulkan";
+  #   # WLR_NO_HARDWARE_CURSORS = "1";
+  #   XDG_SESSION_TYPE = "wayland";
+  #   SDL_VIDEODRIVER = "wayland";
+  #   CLUTTER_BACKEND = "wayland";
+  # };
 
   ## qt
 
@@ -48,34 +50,33 @@
     package = pkgs.kanagawa-icon-theme;
   };
   
+  # simple, easy to read, niiice separation of categories
+  gtk.theme = {
+    name = "vimix-dark-compact-amethyst";
+    package = pkgs.vimix-gtk-themes.override {
+      colorVariants = [ "dark" ];
+      sizeVariants =  [ "compact" ];
+      themeVariants = [ "amethyst" ];
+      # tweaks = [ "flat" ];
+    };
+  };
 
   # comfy but hard to read
   # gtk.theme = {
-  #   name = "catppuccin-mocha-mauve-compact";
+  #   name = "catppuccin-macchiato-mauve-compact";
   #   package = pkgs.catppuccin-gtk.override {
-  #     variant = "mocha";
+  #     variant = "macchiato";
   #     accents = [ "mauve" ];
   #     size = "compact";
   #   };
   # };
   
-  # comfy, somewhat good to read
-  gtk.theme = {
-    name = "Matcha-dark-pueril";
-    package = pkgs.matcha-gtk-theme;
-  };
-  
-  # simple grey, easy to read
+  # comfy, somewhat good to read, but firefox highlight is weird
   # gtk.theme = {
-  #   name = "vimix-dark-compact-beryl";
-  #   package = pkgs.vimix-gtk-themes.override {
-  #     themeVariants = [ "beryl" ];
-  #     colorVariants = [ "dark" ];
-  #     sizeVariants = [ "compact" ];
-  #     tweaks = [ "flat" ];
-  #   };
+  #   name = "Matcha-dark-azul";
+  #   package = pkgs.matcha-gtk-theme;
   # };
-
+  
   # kinda nice
   # gtk.theme = {
   #   name = "Materia-dark-compact";
