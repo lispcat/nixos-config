@@ -76,6 +76,7 @@ in {
 
     # script tools
     espeak
+    acpi
 
     # dev
     gcc  # $CC ?
@@ -85,7 +86,7 @@ in {
     rustc
     rustfmt
     rustPackages.clippy
-    rust-analyzer  # breaks lsp-mode?
+    rust-analyzer  # breaks lsp-mode if in devshell?
 
     # nixos tools
     vulnix

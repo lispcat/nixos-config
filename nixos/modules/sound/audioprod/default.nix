@@ -1,11 +1,11 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, user, ... }:
 
 # with lib;
 
 {
   ## realtime configuration
 
-  users.users.sui.extraGroups = [ "audio" ];
+  users.users.${user}.extraGroups = [ "audio" ];
 
   environment.systemPackages =
     let

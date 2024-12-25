@@ -9,7 +9,7 @@
     users.${user} = {
       isNormalUser = true;
       description = "${user}";
-      extraGroups = [ "wheel" "networkmanager" ];
+      extraGroups = [ "wheel" ];
       packages = with pkgs; [];
     };
   };
