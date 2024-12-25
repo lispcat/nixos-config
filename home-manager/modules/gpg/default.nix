@@ -27,11 +27,4 @@
   programs.gpg = {
     enable = true;
   };
-
-  # programs.zsh.initExtra = ''
-  #   GPG_TTY="$(tty)"
-  #   export GPG_TTY
-  #   # export GPG_TTY=$(tty)
-  #   # gpg-connect-agent updatestartuptty /bye > /dev/null
-  # '';
 }
