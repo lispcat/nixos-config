@@ -1,10 +1,8 @@
-{ ... }:
-
 {
   imports = [
     ./audioprod
-    
-    ./pipewire.nix
+    # ./mpd
+    ./pipewire
   ];
   disabledModules = [ ];
 }

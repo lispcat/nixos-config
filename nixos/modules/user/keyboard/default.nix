@@ -1,5 +1,3 @@
-{ ... }:
-
 {
   services.xserver.xkb = { # kblayout
     layout = "us";

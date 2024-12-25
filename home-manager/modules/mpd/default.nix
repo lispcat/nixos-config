@@ -17,5 +17,5 @@
   #     }
   #   '';
   # };
-  # home.packages = with pkgs; [ mpc ];
+  home.packages = with pkgs; [ mpc ];
 }

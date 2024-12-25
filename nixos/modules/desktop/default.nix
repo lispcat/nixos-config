@@ -2,11 +2,10 @@
 
 {
   imports = [
+    ./dev
     ./firejail
-
-    ./dev.nix
-    ./portals.nix
-    ./virtualization.nix
-    ./wayland.nix
+    ./portals
+    ./virtualization
+    ./wayland
   ];
 }

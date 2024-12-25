@@ -2,9 +2,10 @@
   imports = [
     ./dev
     ./gpg
-    # ./mpd
+    ./mpd
     ./themes
     ./tmux
     ./zsh
   ];
+  disabledModules = [ "mpd" ];
 }

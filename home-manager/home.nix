@@ -4,7 +4,6 @@
   imports =
     [
       ./modules
-      ./packages
     ];
   
   home =
