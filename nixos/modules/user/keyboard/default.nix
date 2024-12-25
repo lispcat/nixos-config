@@ -2,7 +2,7 @@
   services.xserver.xkb = { # kblayout
     layout = "us";
     variant = "dvp";
-    options = "ctrl:swapcaps";
+    options = "caps:ctrl_modifier,shift:both_capslock_cancel";
   };
   console = {
     useXkbConfig = true;

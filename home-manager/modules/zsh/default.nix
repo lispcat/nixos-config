@@ -1,7 +1,6 @@
-{ ... }:
+{ config, ... }:
 
 {
-  # later make a shells dir and in default.nix, place user.${user}.defaultShell in there.
   programs.zsh = {
     enable = true;
 
@@ -12,6 +11,10 @@
       save = 10000;
       size = 10000;
     };
+    loginExtra = ''
+      export GPG_TTY=$TTY
+      ${config.programs.gpg.package}/bin/gpg-connect-agent updatestartuptty /bye > /dev/null
+    '';
 
     sessionVariables = {
       PATH = "$PATH:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/Scripts";

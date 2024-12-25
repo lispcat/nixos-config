@@ -19,7 +19,6 @@
     let
       user   = "sui";
       system = "x86_64-linux";
-      
       pkgs        = import nixpkgs        { inherit system; };
       pkgs-stable = import nixpkgs-stable { inherit system; };
     in {
