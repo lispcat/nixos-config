@@ -79,6 +79,7 @@ in {
 
     # dev
     gcc  # $CC ?
+    quilt
     
     cargo  # for rustic commands
     rustc

@@ -14,41 +14,44 @@
     };
 
     sessionVariables = {
-
-      NIXOS_OZONE_WL = "1";  # enable native wayland on chromium/electron
-
-      LC_COLLATE = "C";
-      # CC = "gcc";
-      VISUAL = "emacsclient";
-      EDITOR = "emacsclient";
       PATH = "$PATH:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/Scripts";
+      
+      # CC = "gcc";
+      LC_COLLATE = "C";
+      EDITOR = "emacsclient";
+      VISUAL = "emacsclient";
+      
       XDG_CURRENT_DESKTOP = "dwl";
       XDG_SESSION_TYPE = "wayland";
-      RTC_USE_PIPEWIRE = "true";
-      SDL_VIDEODRIVER = "wayland";
-      MOZ_ENABLE_WAYLAND = "1";
-      CLUTTER_BACKEND = "wayland";
-      ELM_ENGINE = "wayland";
-      ECORE_EVAS_ENGINE = "wayland";
-      QT_QPA_PLATFORM = "wayland";
-      GDK_BACKEND = "wayland";
+      
       ANKI_WAYLAND = "1";
-      QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+      CLUTTER_BACKEND = "wayland";
+      ECORE_EVAS_ENGINE = "wayland";
+      ELM_ENGINE = "wayland";
+      GDK_BACKEND = "wayland";
+      MOZ_ENABLE_WAYLAND = "1";
+      NIXOS_OZONE_WL = "1";  # enable native wayland on chromium/electron
+      QT_QPA_PLATFORM = "wayland";
+      SDL_VIDEODRIVER = "wayland";
+      
       WLR_BACKEND = "vulkan";
       WLR_RENDERER = "vulkan";
+      
+      QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+      
+      RTC_USE_PIPEWIRE = "true";
       # WLR_NO_HARDWARE_CURSORS = "1";
       # WLR_DRM_NO_ATOMIC = "1";
       # QT_STYLE_OVERRIDE = "kvantum";
     };
 
     shellAliases = {
-
       em = "emacsclient -c -a ''";
-      l = "ls -p --color = auto";
-      ls = "ls -p --color = auto";
-      la = "ls -a --color = auto";
-      ll = "ls -lh --color = auto";
-      lla = "ls -lha --color = auto";
+      l = "ls -p --color=auto";
+      ls = "ls -p --color=auto";
+      la = "ls -a --color=auto";
+      ll = "ls -lh --color=auto";
+      lla = "ls -lha --color=auto";
       rm = "rm -i";
       ts = "trash";
       b = "cd ..";
@@ -56,14 +59,6 @@
       
       iping = "ping gnu.org";
       recursive-find = "grep -rnw . -e";
-    
     };
-
-    initExtra = ''
-      export GPG_TTY=$(tty)
-      gpg-connect-agent updatestartuptty /bye >/dev/null
-
-      [[ $- == *i* ]] && [ -z "$TMUX" ] && tmux new-session -A -s default
-    '';
   };
 }
