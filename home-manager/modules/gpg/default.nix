@@ -14,6 +14,9 @@
     defaultCacheTtlSsh = 28800;
     maxCacheTtl = 28800;
     maxCacheTtlSsh = 28800;
+    extraConfig = ''
+      allow-emacs-pinentry
+    '';
     sshKeys = [
       # Provide the keygrip
       "E853C145BE1BA0A27CD219E4AF2DB12D14AA6968"
