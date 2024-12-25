@@ -11,16 +11,11 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    renoise-source = {
-      path = "/home/sui/opt/rns/rns_344_linux_x86_64.tar.gz";
-      flake = false;
-    }
   };
 
   ## Outputs:
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-stable, home-manager, renoise-source, ... }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-stable, home-manager, ... }:
     let
       user   = "sui";
       system = "x86_64-linux";
@@ -31,7 +26,7 @@
       nixosConfigurations.NixOwOs = nixpkgs.lib.nixosSystem
         {
           specialArgs = {
-            inherit system inputs user renoise-source;
+            inherit system inputs user;
           };
           modules = [
             ./unfree-merger.nix
