@@ -1,8 +1,10 @@
 {
   imports = [
-    ./gpg
-    ./themes
     ./dev
+    ./gpg
+    # ./mpd
+    ./themes
+    ./tmux
     ./zsh
   ];
 }

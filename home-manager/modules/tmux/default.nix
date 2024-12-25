@@ -2,7 +2,10 @@
   programs.tmux = {
     enable = true;
 
-    newSession = true;  # not needed?
     prefix = "M-m";
+    historyLimit = 10000;
+    newSession = true;  # not needed?
+    mouse = true;
+    clock24 = true;
   };
 }
