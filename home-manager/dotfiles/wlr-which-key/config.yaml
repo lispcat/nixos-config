@@ -1,0 +1,55 @@
+# Theming
+font: Hack 12
+background: "#282828d0"
+color: "#fbf1c7"
+border: "#8ec07c"
+separator: " ➜ "
+border_width: 2
+corner_r: 10
+padding: 15 # Defaults to corner_r
+
+# Anchor and margin
+anchor: center # One of center, left, right, top, bottom, bottom-left, top-left, etc.
+# Only relevant when anchor is not center
+margin_right: 0
+margin_bottom: 0
+margin_left: 0
+margin_top: 0
+
+menu:
+  "c":
+    desc: Control
+    submenu:
+      "p": { desc: playerctl-prev, cmd: playerctl previous }
+      "n": { desc: playerctl-next, cmd: playerctl next }
+  "t":
+    desc: text-to-speech
+    submenu:
+      "t": { desc: start, cmd: text-to-speech-clipboard.sh }
+      "s": { desc: stop,  cmd: pkill -f espeak-ng }
+  "a":
+    desc: Programs
+    submenu:
+      "l": { desc: librewolf, cmd: librewolf }
+      "c": { desc: chromium,  cmd: chromium }
+      "p": { desc: keepassxc, cmd: keepassxc }
+      "d": { desc: vesktop,   cmd: vesktop }
+      "s": { desc: spotify,   cmd: spotify }
+      "v": { desc: steam,     cmd: steam }
+      "r": { desc: renoise,   cmd: renoise --scripting-dev }
+      "a": { desc: anki,      cmd: anki }
+  "n":
+    desc: Network
+    submenu:
+      "s": { desc: rescan, cmd: nmcli device wifi rescan }
+  "m":
+    desc: Mullvad
+    submenu:
+      "d": { desc: disconnect, cmd: mullvad disconnect; mullvad auto-connect set off }
+      "c": { desc: connect,    cmd: mullvad connect; mullvad auto-connect set on }
+  "!":
+    desc: Power
+    submenu:
+      "h": { desc: Hibernate, cmd: systemctl hibernate }
+      "R": { desc: Reboot,    cmd: reboot }
+      "S": { desc: Shutdown,  cmd: shutdown }

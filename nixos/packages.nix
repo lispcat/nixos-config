@@ -60,6 +60,7 @@ in {
     alsa-utils  # provides amixer, aplay
     brightnessctl
     playerctl
+    wlr-which-key
     
     # cli applications
     tmux
