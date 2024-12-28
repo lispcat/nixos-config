@@ -17,36 +17,40 @@ margin_left: 0
 margin_top: 0
 
 menu:
-  "c":
-    desc: Control
-    submenu:
-      "p": { desc: playerctl-prev, cmd: playerctl previous }
-      "n": { desc: playerctl-next, cmd: playerctl next }
-  "t":
-    desc: text-to-speech
-    submenu:
-      "t": { desc: start, cmd: text-to-speech-clipboard.sh }
-      "s": { desc: stop,  cmd: pkill -f espeak-ng }
   "a":
+    desc: Applications
+    submenu:
+      "a": { desc: anki,      cmd: anki }
+      "c": { desc: chromium,  cmd: chromium }
+      "d": { desc: vesktop,   cmd: vesktop }
+      "i": { desc: spotify,   cmd: spotify }
+      "l": { desc: librewolf, cmd: librewolf }
+      "p": { desc: keepassxc, cmd: keepassxc }
+      "r": { desc: renoise,   cmd: renoise --scripting-dev }
+      "s": { desc: steam,     cmd: steam }
+  "p":
     desc: Programs
     submenu:
-      "l": { desc: librewolf, cmd: librewolf }
-      "c": { desc: chromium,  cmd: chromium }
-      "p": { desc: keepassxc, cmd: keepassxc }
-      "d": { desc: vesktop,   cmd: vesktop }
-      "s": { desc: spotify,   cmd: spotify }
-      "v": { desc: steam,     cmd: steam }
-      "r": { desc: renoise,   cmd: renoise --scripting-dev }
-      "a": { desc: anki,      cmd: anki }
-  "n":
-    desc: Network
-    submenu:
-      "s": { desc: rescan, cmd: nmcli device wifi rescan }
+      "b": { desc: btop, cmd: alacritty -e btop }
   "m":
     desc: Mullvad
     submenu:
       "d": { desc: disconnect, cmd: mullvad disconnect; mullvad auto-connect set off }
       "c": { desc: connect,    cmd: mullvad connect; mullvad auto-connect set on }
+  "c":
+    desc: Controls
+    submenu:
+      "n": { desc: playerctl-next, cmd: playerctl next }
+      "p": { desc: playerctl-prev, cmd: playerctl previous }
+  "n":
+    desc: Network
+    submenu:
+      "s": { desc: rescan, cmd: nmcli device wifi rescan }
+  "t":
+    desc: TTS
+    submenu:
+      "t": { desc: start, cmd: text-to-speech-clipboard.sh }
+      "s": { desc: stop,  cmd: pkill -f espeak-ng }
   "!":
     desc: Power
     submenu:

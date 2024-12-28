@@ -1,5 +1,5 @@
 {
-  import = [
+  imports = [
     ./wlr-which-key
   ];
 }

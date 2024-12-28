@@ -4,6 +4,9 @@
   imports =
     [
       ./modules
+      ./dotfiles
+
+      ./packages.nix
     ];
   
   home =

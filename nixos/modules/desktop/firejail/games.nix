@@ -40,6 +40,7 @@
       
       # whitelist dirs
       whitelist ''${HOME}/Games/
+      whitelist ''${HOME}/Desktop/
     '';
   };
 

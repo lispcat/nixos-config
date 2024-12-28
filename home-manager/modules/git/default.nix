@@ -1,8 +1,9 @@
 { pkgs, ... }:
 
-programs.git = {
-  enable = true;
-  # aliases = {
-    
-  # };
+{
+  programs.git = {
+    enable = true;
+    # aliases = 
+  };
+
 }
