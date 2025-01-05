@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, pkgs-stable, lib, ... }:
 
 let
   
@@ -40,7 +40,7 @@ in {
     libreoffice-fresh hunspell hunspellDicts.en-us-large
     obs-studio
     vesktop
-    mtpaint # also look into other minimal paint apps
+    pkgs-stable.mtpaint # also look into other minimal paint apps
     anki
 
     # desktop programs
@@ -54,13 +54,17 @@ in {
     wlsunset
     sway-contrib.grimshot
     bemenu
-    wbg
+    pkgs-stable.wbg
     wl-clipboard-rs
     wmenu
     alsa-utils  # provides amixer, aplay
     brightnessctl
     playerctl
     wlr-which-key
+    swaylock
+    swayidle
+    lswt
+    xwayland
     
     # cli applications
     tmux
@@ -88,6 +92,8 @@ in {
     rustfmt
     rustPackages.clippy
     rust-analyzer  # breaks lsp-mode if in devshell?
+
+    zig
 
     # nixos tools
     vulnix

@@ -1,5 +1,6 @@
+{ lib, config, ... }:
 
 {
   home.file.".config/wlr-which-key/config.yaml".source =
-    ./config.yaml;
+    config.lib.file.mkOutOfStoreSymlink ./config.yaml;
 }

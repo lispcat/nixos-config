@@ -1,6 +1,12 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
-{
+
+let
+  gpgPkg = config.programs.gpg.package;
+in {
+  programs.gpg = {
+    enable = true;
+  };
   home.packages = with pkgs; [
     pinentry
   ];
@@ -9,7 +15,6 @@
     pinentryPackage = pkgs.pinentry-qt;
     enableSshSupport = true;
     enableExtraSocket = true;
-    enableZshIntegration = true;
     defaultCacheTtl = 28800;
     defaultCacheTtlSsh = 28800;
     maxCacheTtl = 28800;
@@ -24,7 +29,10 @@
     ];
   };
 
-  programs.gpg = {
-    enable = true;
-  };
+  # proper zsh integration
+  programs.zsh.envExtra = ''
+    GPG_TTY="$(tty)"
+    export GPG_TTY
+    ${gpgPkg}/bin/gpg-connect-agent updatestartuptty /bye > /dev/null
+  '';
 }

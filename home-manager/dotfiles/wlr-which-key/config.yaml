@@ -51,6 +51,10 @@ menu:
     submenu:
       "t": { desc: start, cmd: text-to-speech-clipboard.sh }
       "s": { desc: stop,  cmd: pkill -f espeak-ng }
+  "w":
+    desc: Wayland
+    submenu:
+      "l": { desc: lswt, cmd: alacritty -e $SHELL -c 'lswt | less' }
   "!":
     desc: Power
     submenu:

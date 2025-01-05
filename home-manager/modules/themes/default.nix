@@ -61,6 +61,45 @@
     };
   };
 
+
+  # river gtk bar fix
+
+  gtk.gtk3.extraCss = ''
+    /* No (default) title bar on wayland */
+    headerbar.default-decoration {
+      /* You may need to tweak these values depending on your GTK theme */
+      margin-bottom: 50px;
+      margin-top: -100px;
+    }
+    
+    /* rm -rf window shadows */
+    window.csd,             /* gtk4? */
+    window.csd decoration { /* gtk3 */
+      box-shadow: none;
+    }
+  '';
+  gtk.gtk4.extraCss = ''
+    /* No (default) title bar on wayland */
+    headerbar.default-decoration {
+      /* You may need to tweak these values depending on your GTK theme */
+      margin-bottom: 50px;
+      margin-top: -100px;
+    }
+    
+    /* rm -rf window shadows */
+    window.csd,             /* gtk4? */
+    window.csd decoration { /* gtk3 */
+      box-shadow: none;
+    }
+  '';
+  
+  gtk.gtk3.extraConfig = {
+    gtk-dialogs-use-header = false;
+  };
+  gtk.gtk4.extraConfig = {
+    gtk-dialogs-use-header = false;
+  };
+
   # comfy but hard to read
   # gtk.theme = {
   #   name = "catppuccin-macchiato-mauve-compact";

@@ -25,7 +25,7 @@
       nixosConfigurations.NixOwOs = nixpkgs.lib.nixosSystem
         {
           specialArgs = {
-            inherit system inputs user;
+            inherit system inputs user pkgs-stable;
           };
           modules = [
             ./unfree-merger.nix
