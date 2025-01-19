@@ -48,6 +48,7 @@ in {
     mpv
     feh
     pavucontrol
+    networkmanagerapplet
 
     # desktop tools
     mako
@@ -65,6 +66,8 @@ in {
     swayidle
     lswt
     xwayland
+    waylock
+    fuzzel
     
     # cli applications
     tmux
@@ -86,6 +89,8 @@ in {
     # dev
     gcc  # $CC ?
     quilt
+    pkg-config
+    libxkbcommon
     
     cargo  # for rustic commands
     rustc

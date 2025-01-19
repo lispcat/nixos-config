@@ -1,8 +1,12 @@
 { pkgs, config, ... }:
 
-
 let
   gpgPkg = config.programs.gpg.package;
+  setupScript = ''
+    GPG_TTY="$(tty)"
+    export GPG_TTY
+    ${gpgPkg}/bin/gpg-connect-agent updatestartuptty /bye > /dev/null
+  '';
 in {
   programs.gpg = {
     enable = true;
@@ -14,6 +18,8 @@ in {
     enable = true;
     pinentryPackage = pkgs.pinentry-qt;
     enableSshSupport = true;
+    # dont forget to run WM with zsh -l -c 's%'
+    enableZshIntegration = true;
     enableExtraSocket = true;
     defaultCacheTtl = 28800;
     defaultCacheTtlSsh = 28800;
@@ -28,11 +34,4 @@ in {
       "5D3BF86600C933F67035FF3CE16C170065584BE8"
     ];
   };
-
-  # proper zsh integration
-  programs.zsh.envExtra = ''
-    GPG_TTY="$(tty)"
-    export GPG_TTY
-    ${gpgPkg}/bin/gpg-connect-agent updatestartuptty /bye > /dev/null
-  '';
 }

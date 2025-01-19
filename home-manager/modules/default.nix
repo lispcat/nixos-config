@@ -3,6 +3,7 @@
     ./dev
     ./git
     ./gpg
+    ./input
     ./mpd
     ./themes
     ./tmux

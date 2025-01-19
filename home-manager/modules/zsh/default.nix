@@ -46,6 +46,8 @@
       # WLR_NO_HARDWARE_CURSORS = "1";
       # WLR_DRM_NO_ATOMIC = "1";
       # QT_STYLE_OVERRIDE = "kvantum";
+
+      # WAYLAND_DEBUG = "1";
     };
 
     shellAliases = {
@@ -63,5 +65,14 @@
       iping = "ping gnu.org";
       recursive-find = "grep -rnw . -e";
     };
+
+    initExtraBeforeCompInit = ''
+      # autosuggestion text color
+      ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#757575'
+
+      # completion
+      autoload -U compinit; compinit
+      zstyle ':completion:*' menu select
+    '';
   };
 }
