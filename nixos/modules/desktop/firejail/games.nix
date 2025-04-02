@@ -1,6 +1,16 @@
 { pkgs, lib, ... }:
 
 {
+  ### general ###
+  nixpkgs.allowUnfreePackages = [
+    "steam"
+    "steam"
+    "steam-original"
+    "steam-unwrapped"
+    "steam-run"
+    "osu-lazer-bin"
+  ];
+  
   ## Steam
 
   programs.steam = {
@@ -11,14 +21,6 @@
     extest.enable = true;
     localNetworkGameTransfers.openFirewall = false;
   };
-  
-  nixpkgs.allowUnfreePackages = [
-    "steam"
-    "steam"
-    "steam-original"
-    "steam-unwrapped"
-    "steam-run"
-  ];
   
   programs.firejail.wrappedBinaries.steam = {
     executable = "${pkgs.steam}/bin/steam";
@@ -43,6 +45,8 @@
       whitelist ''${HOME}/Desktop/
     '';
   };
+
+  ## Prismlauncher
 
   environment.etc = {
     "firejail/prismlauncher.profile".text = ''
@@ -93,11 +97,42 @@
     '';
   };
 
-  ## Prismlauncher
-
   programs.firejail.wrappedBinaries.prismlauncher = {
     executable = "${pkgs.prismlauncher}/bin/prismlauncher";
     profile = "/etc/firejail/prismlauncher.profile";
   };
+
+  ## Osu-Lazer
+  
+  environment.systemPackages = with pkgs; [
+    osu-lazer-bin
+  ];
+
+  environment.etc = {
+    "firejail/osu-lazer.profile".text = ''
+      # whitelist ~/./firejail/osulazer
+      
+      mkdir ~/.local/share/osu
+      whitelist ~/.local/share/osu
+
+      whitelist ~/.config
+      
+      ignore net none
+      ignore no3d
+      ignore nosound
+      # TODO: What syscalls?
+      ignore seccomp
+      protocol unix,inet,inet6,netlink
+      # include ~/.config/firejail/inc/firefox-escape.inc
+      # include ~/.config/firejail/inc/discord-ipc.inc
+      # include ~/.config/firejail/inc/default.inc
+    '';
+  };
+
+  programs.firejail.wrappedBinaries."osu!" = {
+    executable = "${pkgs.osu-lazer-bin}/bin/osu!";
+    profile = "/etc/firejail/osu-lazer.profile";
+  };
+
 
 }

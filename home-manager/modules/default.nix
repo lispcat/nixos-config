@@ -9,5 +9,7 @@
     ./tmux
     ./zsh
   ];
-  disabledModules = [ "mpd" ];
+  disabledModules = [
+    "librewolf"
+  ];
 }

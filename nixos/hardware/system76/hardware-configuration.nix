@@ -14,12 +14,12 @@
   boot.extraModulePackages = [ ];
 
   ## Systemd-boot EFI boot loader:
-  
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   ## SSD
-  
+
   services.fstrim.enable = true;
 
   ## Btrfs
@@ -41,7 +41,7 @@
   #  ~/vm
 
   ## Filesystems:
-  
+
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/d1e0b46b-68b9-4a9d-956c-2ae73b0450f8";
       fsType = "btrfs";
@@ -85,9 +85,9 @@
   # kernelParams: $ sudo btrfs inspect-internal map-swapfile /.swapvol/swapfile
   boot.resumeDevice = "/dev/disk/by-uuid/d1e0b46b-68b9-4a9d-956c-2ae73b0450f8";
   boot.kernelParams = [ "resume_offset=533760" ];
-  
+
   ## The rest:
-  
+
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction

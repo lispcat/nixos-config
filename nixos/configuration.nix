@@ -6,7 +6,7 @@
   imports = [
     ./hardware/system76
     ./modules
-    
+
     ./packages.nix
   ];
 

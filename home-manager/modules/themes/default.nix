@@ -2,33 +2,6 @@
 
 {
 
-  # home.packages = with pkgs; [
-  #   glib # gsettings
-  # ];
-
-  # home.sessionVariables = {
-  #   # GTK_THEME = "Adwaita-dark";
-  #   # GTK_THEME = "Catppuccin-Macchiato-Mauve";
-  #   NIXOS_OZONE_WL = "1";  # enable native wayland on chromium/electron
-
-  #   DEVFLAKE="$HOME/Src/nixos-config";
-
-  #   GDK_BACKEND = "wayland";
-  #   ANKI_WAYLAND = "1";
-  #   # WLR_DRM_NO_ATOMIC = "1";
-  #   # QT_AUTO_SCREEN_SCALE_FACTOR = "1";
-  #   QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
-  #   QT_QPA_PLATFORM = "xcb";
-  #   # QT_STYLE_OVERRIDE = "kvantum";
-  #   MOZ_ENABLE_WAYLAND = "1";
-  #   WLR_BACKEND = "vulkan";
-  #   WLR_RENDERER = "vulkan";
-  #   # WLR_NO_HARDWARE_CURSORS = "1";
-  #   XDG_SESSION_TYPE = "wayland";
-  #   SDL_VIDEODRIVER = "wayland";
-  #   CLUTTER_BACKEND = "wayland";
-  # };
-
   ## qt
 
   qt.enable = true;
@@ -93,12 +66,19 @@
     }
   '';
   
+  # gtk.gtk2.extraConfig = ''
+  #   gtk-im-module="fcitx"
+  # '';
   gtk.gtk3.extraConfig = {
     gtk-dialogs-use-header = false;
+    gtk-im-module = "fcitx";    # fcitx
   };
   gtk.gtk4.extraConfig = {
     gtk-dialogs-use-header = false;
+    # gtk-im-module = "fcitx";    # fcitx
   };
+
+  ### Other themes
 
   # comfy but hard to read
   # gtk.theme = {

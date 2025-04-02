@@ -1,25 +1,37 @@
 { pkgs, pkgs-stable, lib, ... }:
 
 let
-  
-  # base-emacs = pkgs.emacs29-pgtk;
-  # emacs-with-pkgs =
-  #   (pkgs.emacsPackagesFor base-emacs).emacsWithPackages (epkgs: [
-  #     epkgs.vterm
-  #   ]);
-  
+
+  base-emacs = pkgs.emacs30-pgtk;
+  emacs-with-pkgs =
+    (pkgs.emacsPackagesFor base-emacs).emacsWithPackages (epkgs: [
+      epkgs.vterm
+      epkgs.jinx
+    ]);
+
+  tex = (pkgs.texlive.combine {
+    inherit (pkgs.texlive) scheme-basic
+      dvisvgm dvipng # for preview and export as html
+      wrapfig amsmath ulem hyperref capt-of;
+  });
+
 in {
-  
+
   environment.systemPackages = with pkgs; [
-    # basics
+
+    # pivotal
     home-manager
-    
+
+    # emacs
+    emacs-with-pkgs  # defined above
+    # emacs29-pgtk
+
+    # tex
+    tex  # defined above
+
+    # basics
     vim
     neovim
-    
-    # emacs-with-pkgs  # defined above
-    emacs29-pgtk
-
     git
     wget
     curl
@@ -42,6 +54,8 @@ in {
     vesktop
     pkgs-stable.mtpaint # also look into other minimal paint apps
     anki
+    signal-desktop
+    wireshark
 
     # desktop programs
     alacritty
@@ -68,19 +82,29 @@ in {
     xwayland
     waylock
     fuzzel
-    
+
     # cli applications
     tmux
     btop
     htop
+    glances
+    nethogs
+    mdbook
 
     # cli programs
     ffmpeg
     yt-dlp
+    croc
 
     # cli tools
     gnumake
     trash-cli
+    unzip
+    exiftool
+    ripgrep
+    vorbis-tools  # for vorbiscomment
+    ghostscript  # for emacs docx conv
+    poppler_utils  # for pdftotext
 
     # script tools
     espeak
@@ -88,10 +112,12 @@ in {
 
     # dev
     gcc  # $CC ?
+    valgrind
     quilt
     pkg-config
     libxkbcommon
-    
+    clang-tools
+
     cargo  # for rustic commands
     rustc
     rustfmt
@@ -114,8 +140,9 @@ in {
     fira-code
     hack-font
     liberation_ttf
+    uw-ttyp0
     # var
-    
+
     # bitmap
     tamzen
     # latex
