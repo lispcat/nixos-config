@@ -16,8 +16,7 @@
   ## Outputs:
 
   outputs = inputs@{
-    self, nixpkgs, nixpkgs-stable, nixpkgs-gs-patch,
-      home-manager, ...
+    self, nixpkgs, nixpkgs-stable, home-manager, ...
   }:
     let
       user   = "sui";

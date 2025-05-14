@@ -23,7 +23,8 @@ in {
       ghostscript = prev.ghostscript.overrideAttrs (oldAttrs: {
         version = "10.05.1";
         src = final.fetchurl {
-          sha256 = "sha256-ACTUAL_HASH_HERE";
+          url = "https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs10051/ghostscript-10.05.1.tar.xz";
+          sha256 = "sha256-IvK9yhXCiDDJcVzdxcKW6maJi/2rC2BKTgvP6wOvbK0=";
         };
       });
     })
@@ -59,7 +60,7 @@ in {
     firefox
     librewolf
     ungoogled-chromium
-    kdePackages.kdeconnect-kde
+    # kdePackages.kdeconnect-kde
     krita
     gimp
     libreoffice-fresh hunspell hunspellDicts.en-us-large
@@ -67,7 +68,7 @@ in {
     vesktop
     # mtpaint # also look into other minimal paint apps
     anki
-    signal-desktop
+    # signal-desktop
     wireshark
     milkytracker
     furnace
@@ -78,7 +79,7 @@ in {
     mpv
     feh
     pavucontrol
-    networkmanagerapplet
+    # networkmanagerapplet
 
     # desktop tools
     mako
@@ -87,7 +88,7 @@ in {
     bemenu
     wbg
     wl-clipboard-rs
-    wmenu
+    # wmenu
     alsa-utils  # provides amixer, aplay
     brightnessctl
     playerctl
@@ -105,7 +106,7 @@ in {
     htop
     glances
     nethogs
-    mdbook
+    # mdbook
 
     # cli programs
     ffmpeg
@@ -129,7 +130,7 @@ in {
     # dev
     gcc  # $CC ?
     valgrind
-    quilt
+    # quilt
     pkg-config
     libxkbcommon
     clang-tools
@@ -141,10 +142,10 @@ in {
     rustPackages.clippy
     rust-analyzer  # breaks lsp-mode if in devshell?
 
-    zig
+    # zig
 
     # nixos tools
-    vulnix
+    # vulnix
 
     # fun
     hyfetch

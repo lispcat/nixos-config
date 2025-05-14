@@ -36,22 +36,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-gs-patch": {
-      "locked": {
-        "lastModified": 1746599271,
-        "narHash": "sha256-90wrAaXpfwAuEi0YJZY7piLsdXvMXAnRVhxvfKynQ0w=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "a7bece561f69d6ff5c2753038e15c957440b16d0",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "backport-403001-to-staging-24.11",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1746957726,
@@ -72,7 +56,6 @@
       "inputs": {
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-gs-patch": "nixpkgs-gs-patch",
         "nixpkgs-stable": "nixpkgs-stable"
       }
     }
