@@ -6,5 +6,7 @@
     acpi
     emacs-lsp-booster
 
+    # temp
+
   ];
 }

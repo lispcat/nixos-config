@@ -16,7 +16,7 @@
   ## Systemd-boot EFI boot loader:
 
   boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.efi.canTouchEfiVariables = true; # TODO: experiment with setting to false, can revert back!
 
   ## SSD
 

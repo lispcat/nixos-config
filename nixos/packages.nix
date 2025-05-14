@@ -1,4 +1,4 @@
-{ pkgs, pkgs-stable, lib, ... }:
+{ pkgs, pkgs-stable, pkgs-gs-patch, lib, ... }:
 
 let
 
@@ -12,10 +12,17 @@ let
   tex = (pkgs.texlive.combine {
     inherit (pkgs.texlive) scheme-basic
       dvisvgm dvipng # for preview and export as html
-      wrapfig amsmath ulem hyperref capt-of;
+      wrapfig amsmath ulem hyperref capt-of
+      preview;
   });
 
 in {
+
+  nixpkgs.overlays = [
+    (final: prev: {
+      ghostscript = pkgs-gs-patch.ghostscript;
+    })
+  ];
 
   environment.systemPackages = with pkgs; [
 
@@ -28,6 +35,7 @@ in {
 
     # tex
     tex  # defined above
+    ghostscript  # defined above
 
     # basics
     vim
@@ -56,6 +64,9 @@ in {
     anki
     signal-desktop
     wireshark
+    milkytracker
+    furnace
+    openmsx
 
     # desktop programs
     alacritty
@@ -103,8 +114,8 @@ in {
     exiftool
     ripgrep
     vorbis-tools  # for vorbiscomment
-    ghostscript  # for emacs docx conv
     poppler_utils  # for pdftotext
+    colordiff
 
     # script tools
     espeak
@@ -119,6 +130,7 @@ in {
     clang-tools
 
     cargo  # for rustic commands
+    cargo-modules
     rustc
     rustfmt
     rustPackages.clippy
