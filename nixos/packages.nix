@@ -82,7 +82,7 @@ in {
     # networkmanagerapplet
 
     # desktop tools
-    mako
+    # mako
     wlsunset
     sway-contrib.grimshot
     bemenu
