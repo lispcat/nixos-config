@@ -52,7 +52,7 @@ in {
 
     tree
     fzf
-    strace
+    # strace
 
     # desktop applications
     keepassxc
@@ -69,7 +69,7 @@ in {
     # mtpaint # also look into other minimal paint apps
     anki
     # signal-desktop
-    wireshark
+    # wireshark
     milkytracker
     furnace
     openmsx
@@ -124,7 +124,7 @@ in {
     colordiff
 
     # script tools
-    espeak
+    # espeak
     acpi
 
     # dev
