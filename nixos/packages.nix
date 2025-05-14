@@ -1,4 +1,4 @@
-{ pkgs, pkgs-gs-patch, lib, ... }:
+{ pkgs, lib, ... }:
 
 let
 
@@ -20,7 +20,12 @@ in {
 
   nixpkgs.overlays = [
     (final: prev: {
-      ghostscript = pkgs-gs-patch.ghostscript;
+      ghostscript = prev.ghostscript.overrideAttrs (oldAttrs: {
+        version = "10.05.1";
+        src = final.fetchurl {
+          sha256 = "sha256-ACTUAL_HASH_HERE";
+        };
+      });
     })
   ];
 
@@ -60,7 +65,7 @@ in {
     libreoffice-fresh hunspell hunspellDicts.en-us-large
     obs-studio
     vesktop
-    mtpaint # also look into other minimal paint apps
+    # mtpaint # also look into other minimal paint apps
     anki
     signal-desktop
     wireshark
@@ -163,7 +168,7 @@ in {
     ipaexfont
     # symbols
     font-awesome
-    nerdfonts
+    nerd-fonts._0xproto
   ];
 
 
