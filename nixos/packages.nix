@@ -1,4 +1,4 @@
-{ pkgs, pkgs-stable, pkgs-gs-patch, lib, ... }:
+{ pkgs, pkgs-gs-patch, lib, ... }:
 
 let
 
@@ -60,7 +60,7 @@ in {
     libreoffice-fresh hunspell hunspellDicts.en-us-large
     obs-studio
     vesktop
-    pkgs-stable.mtpaint # also look into other minimal paint apps
+    mtpaint # also look into other minimal paint apps
     anki
     signal-desktop
     wireshark
@@ -80,7 +80,7 @@ in {
     wlsunset
     sway-contrib.grimshot
     bemenu
-    pkgs-stable.wbg
+    wbg
     wl-clipboard-rs
     wmenu
     alsa-utils  # provides amixer, aplay
@@ -163,7 +163,7 @@ in {
     ipaexfont
     # symbols
     font-awesome
-    nerd-fonts.symbols-only
+    nerdfonts
   ];
 
 
