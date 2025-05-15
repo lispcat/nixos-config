@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, ... }:
 
 {
   programs.zsh = {
@@ -74,7 +74,7 @@
       recursive-find = "grep -rnw . -e";
     };
 
-    initExtraBeforeCompInit = ''
+    initContent = lib.mkOrder 550 ''
       # autosuggestion text color
       ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#757575'
 

@@ -18,32 +18,27 @@ let
 
 in {
 
-  nixpkgs.overlays = [
-    (final: prev: {
-      ghostscript = prev.ghostscript.overrideAttrs (oldAttrs: {
-        version = "10.05.1";
-        src = final.fetchurl {
-          url = "https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs10051/ghostscript-10.05.1.tar.xz";
-          sha256 = "sha256-IvK9yhXCiDDJcVzdxcKW6maJi/2rC2BKTgvP6wOvbK0=";
-        };
-      });
-    })
-  ];
-
   environment.systemPackages = with pkgs; [
 
-    # pivotal
+    ## pivotal
     home-manager
 
-    # emacs
+    ## emacs
     emacs-with-pkgs  # defined above
     # emacs29-pgtk
 
-    # tex
-    tex  # defined above
-    ghostscript  # defined above
+    ## tex
+    tex
 
-    # basics
+    (ghostscript.overrideAttrs (oldAttrs: {
+      version = "10.05.1";
+      src = fetchurl {
+        url = "https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs10051/ghostscript-10.05.1.tar.xz";
+        sha256 = "sha256-IvK9yhXCiDDJcVzdxcKW6maJi/2rC2BKTgvP6wOvbK0=";
+      };
+    }))
+
+    ## basics
     vim
     neovim
     git
@@ -54,7 +49,7 @@ in {
     fzf
     # strace
 
-    # desktop applications
+    ## desktop applications
     keepassxc
     calibre
     firefox
@@ -74,15 +69,15 @@ in {
     furnace
     openmsx
 
-    # desktop programs
+    ## desktop programs
     alacritty
     mpv
     feh
     pavucontrol
     # networkmanagerapplet
 
-    # desktop tools
-    # mako
+    ## desktop tools
+    mako
     wlsunset
     sway-contrib.grimshot
     bemenu
@@ -100,7 +95,7 @@ in {
     waylock
     fuzzel
 
-    # cli applications
+    ## cli applications
     tmux
     btop
     htop
@@ -108,12 +103,12 @@ in {
     nethogs
     # mdbook
 
-    # cli programs
+    ## cli programs
     ffmpeg
     yt-dlp
     croc
 
-    # cli tools
+    ## cli tools
     gnumake
     trash-cli
     unzip
@@ -127,7 +122,7 @@ in {
     # espeak
     acpi
 
-    # dev
+    ## dev
     gcc  # $CC ?
     valgrind
     # quilt
@@ -144,10 +139,10 @@ in {
 
     # zig
 
-    # nixos tools
+    ## nixos tools
     # vulnix
 
-    # fun
+    ## fun
     hyfetch
     uwufetch
 
@@ -169,7 +164,10 @@ in {
     ipaexfont
     # symbols
     font-awesome
-    nerd-fonts._0xproto
+    nerd-fonts.symbols-only
+    # nerdfonts
+    # (pkgs.nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
+
   ];
 
 
