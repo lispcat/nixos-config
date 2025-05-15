@@ -1,12 +1,11 @@
 {
   imports = [
-    ./dev
-    ./git
-    ./gpg
-    ./input
-    ./mpd
-    ./themes
-    ./tmux
-    ./zsh
+    ./git.nix
+    ./gpg.nix
+    ./input.nix
+    ./mpd.nix
+    ./themes.nix
+    ./tmux.nix
+    ./zsh.nix
   ];
 }
