@@ -8,5 +8,7 @@
 
     # temp
 
+    fortune
+
   ];
 }

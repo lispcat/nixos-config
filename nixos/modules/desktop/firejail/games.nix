@@ -10,7 +10,7 @@
     "steam-run"
     "osu-lazer-bin"
   ];
-  
+
   ## Steam
 
   programs.steam = {
@@ -21,7 +21,7 @@
     extest.enable = true;
     localNetworkGameTransfers.openFirewall = false;
   };
-  
+
   programs.firejail.wrappedBinaries.steam = {
     executable = "${pkgs.steam}/bin/steam";
     profile = "${pkgs.firejail}/etc/firejail/steam.profile";
@@ -30,20 +30,25 @@
     executable = "${pkgs.steam}/bin/steam-run";
     profile = "${pkgs.firejail}/etc/firejail/steam.profile";
   };
-  
+
+  # environment.etc = {
+  #   "firejail/steam.local".text = ''
+  #     # Allow VR and camera-based motion tracking
+  #     ignore novideo
+
+  #     # seccomp sometimes causes issues...
+  #     ignore seccomp
+
+  #     # private-etc breaks a small handful of games...
+  #     ignore private-etc
+
+  #     # whitelist dirs
+  #     whitelist ''${HOME}/Games/
+  #     whitelist ''${HOME}/Desktop/
+  #   '';
+  # };
   environment.etc = {
-    "firejail/steam.local".text = ''
-      # Allow VR and camera-based motion tracking
-      ignore novideo
-      # seccomp sometimes causes issues...
-      ignore seccomp
-      # private-etc breaks a small handful of games...
-      ignore private-etc
-      
-      # whitelist dirs
-      whitelist ''${HOME}/Games/
-      whitelist ''${HOME}/Desktop/
-    '';
+    "firejail/steam.profile".source = ./files/steam.profile;
   };
 
   ## Prismlauncher
@@ -103,7 +108,7 @@
   };
 
   ## Osu-Lazer
-  
+
   environment.systemPackages = with pkgs; [
     osu-lazer-bin
   ];
@@ -111,12 +116,12 @@
   environment.etc = {
     "firejail/osu-lazer.profile".text = ''
       # whitelist ~/./firejail/osulazer
-      
+
       mkdir ~/.local/share/osu
       whitelist ~/.local/share/osu
 
       whitelist ~/.config
-      
+
       ignore net none
       ignore no3d
       ignore nosound

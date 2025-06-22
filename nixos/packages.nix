@@ -13,7 +13,8 @@ let
     inherit (pkgs.texlive) scheme-basic
       dvisvgm dvipng # for preview and export as html
       wrapfig amsmath ulem hyperref capt-of
-      preview;
+      preview newunicodechar cm-super fontspec
+      unicode-math lualatex-math xits mathtools enumitem;
   });
 
 in {
