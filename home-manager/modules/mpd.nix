@@ -3,7 +3,7 @@
 {
   # use 'systemctl --user' to interact
   services.mpd = {
-    enable = true;
+    enable = false;
     # considering changing config.xdg.userDirs.music directly? or maybe not?
     musicDirectory = "${config.home.homeDirectory}/Music/library";
     extraConfig = ''

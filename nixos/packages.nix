@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, pkgs-stable, lib, ... }:
 
 let
 
@@ -51,6 +51,7 @@ in {
     # strace
 
     ## desktop applications
+    river
     keepassxc
     calibre
     firefox
@@ -68,7 +69,7 @@ in {
     # wireshark
     milkytracker
     furnace
-    openmsx
+    pkgs-stable.openmsx
 
     ## desktop programs
     alacritty
