@@ -139,5 +139,4 @@
     profile = "/etc/firejail/osu-lazer.profile";
   };
 
-
 }

@@ -24,4 +24,8 @@ in
       auth include login
     '';
   };
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+  };
 }

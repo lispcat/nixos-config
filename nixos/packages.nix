@@ -73,6 +73,7 @@ in {
 
     ## desktop programs
     alacritty
+    kitty
     mpv
     feh
     pavucontrol
@@ -96,6 +97,7 @@ in {
     xwayland
     waylock
     fuzzel
+    waybar
 
     ## cli applications
     tmux

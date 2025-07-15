@@ -24,21 +24,22 @@
       EDITOR = "emacsclient";
       VISUAL = "emacsclient";
 
-      XDG_CURRENT_DESKTOP = "river";
+      # XDG_CURRENT_DESKTOP = "river";
+      XDG_CURRENT_DESKTOP = "Hyprland";
       XDG_SESSION_TYPE = "wayland";
 
       ANKI_WAYLAND = "1";
       # CLUTTER_BACKEND = "wayland";
       # ECORE_EVAS_ENGINE = "wayland";
       # ELM_ENGINE = "wayland";
-      # GDK_BACKEND = "wayland";
+      GDK_BACKEND = "wayland";
       MOZ_ENABLE_WAYLAND = "1";
       NIXOS_OZONE_WL = "1";  # enable native wayland on chromium/electron
-      # QT_QPA_PLATFORM = "wayland";
-      # SDL_VIDEODRIVER = "wayland";
+      QT_QPA_PLATFORM = "wayland";
+      SDL_VIDEODRIVER = "wayland";
 
-      # WLR_BACKEND = "vulkan";
-      # WLR_RENDERER = "vulkan";
+      WLR_BACKEND = "vulkan";
+      WLR_RENDERER = "vulkan";
 
       QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
 
@@ -49,11 +50,11 @@
 
       # WAYLAND_DEBUG = "1";
 
-      XMODIFIERS = "@im=fcitx";
+      # XMODIFIERS = "@im=fcitx";
       # GTK_IM_MODULE = "wayland";
       # GTK_IM_MODULE = "fcitx";
-      GTK_IM_MODULE = "";
-      QT_IM_MODULE = "fcitx";
+      # GTK_IM_MODULE = "";
+      # QT_IM_MODULE = "fcitx";
 
       LSP_USE_PLISTS = "true"; # emacs lsp-booster
     };

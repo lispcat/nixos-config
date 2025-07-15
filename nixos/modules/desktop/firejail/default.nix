@@ -7,5 +7,6 @@
     ./foss.nix
     ./games.nix
     ./proprietary.nix
+    ./music.nix
   ];
 }
