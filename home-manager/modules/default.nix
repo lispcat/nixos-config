@@ -1,5 +1,6 @@
 {
   imports = [
+    ./cron.nix
     ./git.nix
     ./gpg.nix
     ./hyprland.nix
