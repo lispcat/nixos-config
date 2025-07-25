@@ -77,11 +77,11 @@ in {
     mpv
     feh
     pavucontrol
-    # networkmanagerapplet
+    networkmanagerapplet
 
     ## desktop tools
-    mako
-    wlsunset
+    mako      # notification daemon
+    wlsunset  # color temperature
     sway-contrib.grimshot
     bemenu
     wbg
@@ -90,14 +90,16 @@ in {
     alsa-utils  # provides amixer, aplay
     brightnessctl
     playerctl
-    wlr-which-key
+    wlr-which-key # which-key functionality
     swaylock
     swayidle
     lswt
     xwayland
     waylock
-    fuzzel
-    waybar
+    fuzzel      # app launcher
+    waybar      # taskbar
+    hyprpaper   # wallpapers
+    hyprpicker  # color-picker
 
     ## cli applications
     tmux

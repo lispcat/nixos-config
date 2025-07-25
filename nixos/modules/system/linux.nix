@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 
 {
   # polkit (dont really know what this does)
@@ -6,15 +6,15 @@
 
   # some programs depend on it i think
   services.dbus.enable = true;
-  
+
   services = {
     # mounting disks
     udisks2.enable = true;
   };
-  
+
   boot = {
     tmp.cleanOnBoot = true;
-    kernel.sysctl = { "vm.swappiness" = 1; };
+    kernel.sysctl = { "vm.swappiness" = lib.mkForce 1; };
     blacklistedKernelModules = [ "uvcvideo" ]; # disables webcam
   };
 }

@@ -1,7 +1,7 @@
 {
   imports = [
-    ./env
-    ./keyboard
-    ./user
+    ./env.nix
+    ./keyboard.nix
+    ./user.nix
   ];
 }

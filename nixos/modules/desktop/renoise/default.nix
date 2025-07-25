@@ -1,29 +1,38 @@
-{ pkgs }:
+{ pkgs, renoise-source, ... }:
 
 let
-  renoise-source = /home/sui/opt/rns/rns_344_linux_x86_64.tar.gz;
-
   renoise-nix = ./renoise-344.nix;
 
-  regular-pkgs = with pkgs; [
-    rubberband  # check if the second attr set overwrites rubberband & mpg123
-    mpg123
-  ];
-
-  renoise-pkg =
-    if builtins.pathExists renoise-source
-    then with pkgs;
-      let
-        renoise =
-          ((pkgs.callPackage renoise-nix {})
-            .override( { releasePath = renoise-source; } ));
-        wrapped =
-          pkgs.writeShellScriptBin "renoise" ''
-            exec ${pkgs.util-linux}/bin/unshare -r -n -- ${renoise}/bin/renoise "$@"
-          '';
-      in [ wrapped ]
-    else [];
+  renoise-custom = with pkgs;
+    let
+      rns =
+        ((pkgs.callPackage renoise-nix {})
+          .override( { releasePath = renoise-source; } ));
+      rns-wrapped = pkgs.writeShellScriptBin "renoise" ''
+        exec ${pkgs.util-linux}/bin/unshare -r -n -- ${pkgs.steam-run-free}/bin/steam-run ${rns}/bin/renoise "$@"
+      '';
+    in rns-wrapped;
 in
 {
-  environment.systemPackages = renoise-pkg ++ regular-pkgs;
+  nixpkgs.allowUnfreePackages = [
+    "renoise"
+    "reaper"
+  ];
+
+  environment.systemPackages = with pkgs; [
+    # renoise packages
+    renoise-custom
+    steam-run-free
+
+    rubberband  # check if the second attr set overwrites rubberband & mpg123
+    mpg123
+    
+    reaper
+  ];
+
+  # warnings = [
+  #   "renoise-pkg contains: ${toString (builtins.length renoise-pkg)} packages"
+  #   "regular-pkgs contains: ${toString (builtins.length regular-pkgs)} packages"
+  # ];
+
 }

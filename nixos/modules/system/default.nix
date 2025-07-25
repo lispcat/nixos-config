@@ -2,9 +2,9 @@
 
 {
   imports = [
-    ./linux
-    ./networking
-    ./performance
-    ./store
+    ./linux.nix
+    ./networking.nix
+    ./performance.nix
+    ./store.nix
   ];
 }
