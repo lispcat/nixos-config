@@ -1,1 +1,11 @@
 #+title: A Nix flake for my NixOS and Home-Manager configurations
+
+* Description
+
+Here are my NixOS and Home-Manager configurations, in the form of a Nix Flake.
+
+It uses a literate configuration using org-mode (WIP, migration in progress), for better documentation and easier maintenance. Said literate configuration can be found here [[file:NIXOS.org][NIXOS.org]].
+
+* Todo's
+
+** TODO make this config into a literate org config
