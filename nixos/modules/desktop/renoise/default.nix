@@ -1,7 +1,7 @@
 { pkgs, renoise-source, ... }:
 
 let
-  renoise-nix = ./renoise-344.nix;
+  renoise-nix = ./renoise-352.nix;
 
   renoise-custom = with pkgs;
     let
@@ -26,7 +26,7 @@ in
 
     rubberband  # check if the second attr set overwrites rubberband & mpg123
     mpg123
-    
+
     reaper
   ];
 

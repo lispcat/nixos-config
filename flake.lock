@@ -89,14 +89,14 @@
     "renoise-source": {
       "flake": false,
       "locked": {
-        "lastModified": 1729395317,
-        "narHash": "sha256-PptFacFmkAasVLf5Jl/U3ClksUQZhAaZ7MCGNJjnEZ0=",
+        "lastModified": 1753853774,
+        "narHash": "sha256-56OtuPekUeAqQVAnsdqSxIKsOlmt5ZotXxg/k939lqE=",
         "type": "tarball",
-        "url": "file:/home/sui/opt/rns/rns_344_linux_x86_64.tar.gz"
+        "url": "file:/home/sui/opt/rns/rns_352_linux_x86_64.tar.gz"
       },
       "original": {
         "type": "tarball",
-        "url": "file:/home/sui/opt/rns/rns_344_linux_x86_64.tar.gz"
+        "url": "file:/home/sui/opt/rns/rns_352_linux_x86_64.tar.gz"
       }
     },
     "root": {

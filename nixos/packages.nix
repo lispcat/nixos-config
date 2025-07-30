@@ -14,7 +14,8 @@ let
       dvisvgm dvipng # for preview and export as html
       wrapfig amsmath ulem hyperref capt-of
       preview newunicodechar cm-super fontspec
-      unicode-math lualatex-math xits mathtools enumitem;
+      unicode-math lualatex-math xits mathtools enumitem
+      preprint;
   });
 
 in {
@@ -68,6 +69,7 @@ in {
     # signal-desktop
     # wireshark
     milkytracker
+    goattracker
     furnace
     pkgs-stable.openmsx
 
@@ -78,9 +80,12 @@ in {
     feh
     pavucontrol
     networkmanagerapplet
+    w3m # for emacs-w3m
+    xfce.thunar
 
     ## desktop tools
     mako      # notification daemon
+    libnotify # notify-send
     wlsunset  # color temperature
     sway-contrib.grimshot
     bemenu
@@ -173,7 +178,7 @@ in {
     nerd-fonts.symbols-only
     # nerdfonts
     # (pkgs.nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
-
+    maple-mono.truetype
   ];
 
 

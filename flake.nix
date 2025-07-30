@@ -13,7 +13,7 @@
     };
 
     renoise-source = {
-      url = "file:/home/sui/opt/rns/rns_344_linux_x86_64.tar.gz";
+      url = "file:/home/sui/opt/rns/rns_352_linux_x86_64.tar.gz";
       flake = false;
     };
 
