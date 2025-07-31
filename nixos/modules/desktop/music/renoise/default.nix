@@ -16,7 +16,6 @@ in
 {
   nixpkgs.allowUnfreePackages = [
     "renoise"
-    "reaper"
   ];
 
   environment.systemPackages = with pkgs; [
@@ -24,15 +23,8 @@ in
     renoise-custom
     steam-run-free
 
-    rubberband  # check if the second attr set overwrites rubberband & mpg123
     mpg123
-
-    reaper
+    rubberband  # check if the second attr set overwrites rubberband & mpg123
   ];
-
-  # warnings = [
-  #   "renoise-pkg contains: ${toString (builtins.length renoise-pkg)} packages"
-  #   "regular-pkgs contains: ${toString (builtins.length regular-pkgs)} packages"
-  # ];
-
+  renoise-custom
 }

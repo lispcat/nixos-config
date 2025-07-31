@@ -18,6 +18,15 @@ let
       preprint;
   });
 
+  # custom-lua-language-server = pkgs.lua-language-server.overrideAttrs (oldAttrs: {
+  #   installPhase = oldAttrs.installPhase + ''
+  #   # Create symlink in share directory that gets linked to system
+  #   mkdir -p "$out/share/lua-libs"
+  #   ln -s "$out/share/lua-language-server/main.lua" "$out/share/lua-libs/main.lua"
+  # '';
+  # });
+
+
 in {
 
   environment.systemPackages = with pkgs; [
@@ -147,6 +156,14 @@ in {
     rustfmt
     rustPackages.clippy
     rust-analyzer  # breaks lsp-mode if in devshell?
+    lua-language-server
+    nixd
+
+    bespokesynth
+    surge-XT
+    zynaddsubfx
+    geonkick
+    vcv-rack
 
     # zig
 
@@ -180,6 +197,5 @@ in {
     # (pkgs.nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
     maple-mono.truetype
   ];
-
 
 }

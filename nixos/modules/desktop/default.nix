@@ -6,7 +6,7 @@
     ./firejail
     ./flatpak
     ./portals
-    ./renoise
+    ./music
     ./virtualization
     ./wayland
   ];
