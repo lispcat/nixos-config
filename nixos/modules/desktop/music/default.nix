@@ -1,22 +1,36 @@
-{ pkgs, ... }:
+{ pkgs, renoise-source, ... }:
 
 let
-  din-is-noise = import ./din-is-noise;
+  din-is-noise   = pkgs.callPackage ./din-is-noise { withJack = true; };
+  renoise-custom = pkgs.callPackage ./renoise { inherit renoise-source; };
 in
 {
-  imports = [
-    ./renoise
-    ./din-is-noise
+  environment.systemPackages = with pkgs; [
+    # custom
+    renoise-custom
+    din-is-noise
+
+    # synths
+    bespokesynth
+    surge-XT
+    zynaddsubfx
+    geonkick
+    vcv-rack
+    dexed
+    ams
+    bristol
+
+    # daws
+    reaper
+
+    # tools
+    mpg123
+    rubberband
   ];
 
   nixpkgs.allowUnfreePackages = [
+    "renoise"
     "reaper"
-  ];
-
-  environment.systemPackages = with pkgs; [
-    reaper
-
-    din-is-noise
-
+    "vcv-rack"
   ];
 }

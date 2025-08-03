@@ -1,30 +1,30 @@
-{ pkgs, renoise-source, ... }:
+{ pkgs, lib, renoise-source, ... }:
 
 let
-  renoise-nix = ./renoise-352.nix;
+  rns-pkg = pkgs.callPackage ./renoise-352.nix { };
 
-  renoise-custom = with pkgs;
-    let
-      rns =
-        ((pkgs.callPackage renoise-nix {})
-          .override( { releasePath = renoise-source; } ));
-      rns-wrapped = pkgs.writeShellScriptBin "renoise" ''
-        exec ${pkgs.util-linux}/bin/unshare -r -n -- ${pkgs.steam-run-free}/bin/steam-run ${rns}/bin/renoise "$@"
-      '';
-    in rns-wrapped;
+  renoise-custom = lib.pipe rns-pkg [
+    # custom tar.gz
+    (rns: rns.override { releasePath = renoise-source; })
+    # add steam-run-free to buildInputs
+    (rns: rns.overrideAttrs
+      (oldAttrs: {
+        buildInputs = (oldAttrs.buildInputs or []) ++ [ 
+          pkgs.steam-run-free
+        ];
+      })
+    )
+    # wrap in FHS sandbox with no internet
+    (rns:
+      let
+        unshare = "${pkgs.util-linux}/bin/unshare -r -n";
+        steam-run = "${pkgs.steam-run-free}/bin/steam-run";
+        renoise = "${rns}/bin/renoise";
+      in
+        pkgs.writeShellScriptBin "renoise" ''
+          exec ${unshare} -- ${steam-run} ${renoise} "$@"
+        ''
+    )
+  ];
 in
-{
-  nixpkgs.allowUnfreePackages = [
-    "renoise"
-  ];
-
-  environment.systemPackages = with pkgs; [
-    # renoise packages
-    renoise-custom
-    steam-run-free
-
-    mpg123
-    rubberband  # check if the second attr set overwrites rubberband & mpg123
-  ];
-  renoise-custom
-}
+renoise-custom

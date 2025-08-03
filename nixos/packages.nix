@@ -159,12 +159,6 @@ in {
     lua-language-server
     nixd
 
-    bespokesynth
-    surge-XT
-    zynaddsubfx
-    geonkick
-    vcv-rack
-
     # zig
 
     ## nixos tools

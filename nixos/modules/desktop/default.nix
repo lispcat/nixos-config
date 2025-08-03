@@ -2,10 +2,11 @@
 
 {
   imports = [
-    ./dev
+    ./dev.nix
+    ./flatpak.nix
+    ./portals.nix
+
     ./firejail
-    ./flatpak
-    ./portals
     ./music
     ./virtualization
     ./wayland
