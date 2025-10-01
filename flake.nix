@@ -20,12 +20,16 @@
     musnix = {
       url = "github:musnix/musnix";
     };
+
+    rustowl-flake = {
+      url = "github:nix-community/rustowl-flake";
+    };
   };
 
   ## Outputs:
 
   outputs = inputs@{
-    self, nixpkgs, nixpkgs-stable, home-manager, renoise-source, ...
+    self, nixpkgs, nixpkgs-stable, home-manager, renoise-source, rustowl-flake, ...
   }:
     let
       user   = "sui";
@@ -35,7 +39,7 @@
     in {
       nixosConfigurations.NixOwOs = nixpkgs.lib.nixosSystem {
         specialArgs = {
-          inherit system inputs user pkgs-stable renoise-source;
+          inherit system inputs user pkgs-stable renoise-source rustowl-flake;
         };
         modules = [
           inputs.musnix.nixosModules.musnix

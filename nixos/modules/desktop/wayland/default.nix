@@ -2,8 +2,8 @@
 
 let
   runcmd =
-    "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd " +
-    "zsh -l -c 'Hyprland'";
+    "${pkgs.tuigreet}/bin/tuigreet --cmd " +
+    "'zsh -l -c Hyprland'";
     # "'zsh -l -c \"river > /tmp/river.log 2>&1\"'";
 in
 {

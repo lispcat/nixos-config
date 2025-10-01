@@ -6,8 +6,9 @@
     acpi
     emacs-lsp-booster
 
-    # temp
+    # dev
 
+    # temp
     fortune
 
   ];

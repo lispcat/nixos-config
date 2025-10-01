@@ -1,4 +1,4 @@
-{ pkgs, pkgs-stable, lib, ... }:
+{ pkgs, pkgs-stable, rustowl-flake, ... }:
 
 let
 
@@ -15,7 +15,7 @@ let
       wrapfig amsmath ulem hyperref capt-of
       preview newunicodechar cm-super fontspec
       unicode-math lualatex-math xits mathtools enumitem
-      preprint;
+      preprint minted upquote lineno underscore;
   });
 
   # custom-lua-language-server = pkgs.lua-language-server.overrideAttrs (oldAttrs: {
@@ -61,7 +61,7 @@ in {
     # strace
 
     ## desktop applications
-    river
+    river-classic
     keepassxc
     calibre
     firefox
@@ -75,12 +75,14 @@ in {
     vesktop
     # mtpaint # also look into other minimal paint apps
     anki
-    # signal-desktop
+    signal-desktop
     # wireshark
     milkytracker
     goattracker
     furnace
     pkgs-stable.openmsx
+    boops
+    mixxx
 
     ## desktop programs
     alacritty
@@ -112,8 +114,10 @@ in {
     waylock
     fuzzel      # app launcher
     waybar      # taskbar
-    hyprpaper   # wallpapers
-    hyprpicker  # color-picker
+    hyprpaper    # wallpapers
+    hyprpicker   # color-picker
+    kooha
+    hyprland-per-window-layout
 
     ## cli applications
     tmux
@@ -127,6 +131,7 @@ in {
     ffmpeg
     yt-dlp
     croc
+    latexminted # for org export code coloring
 
     ## cli tools
     gnumake
@@ -134,9 +139,12 @@ in {
     unzip
     exiftool
     ripgrep
+    fd
+    findutils
     vorbis-tools  # for vorbiscomment
     poppler_utils  # for pdftotext
     colordiff
+    tldr
 
     # script tools
     # espeak
@@ -149,15 +157,24 @@ in {
     pkg-config
     libxkbcommon
     clang-tools
+    devenv
+    ghc
 
     cargo  # for rustic commands
     cargo-modules
+    cargo-binstall
     rustc
     rustfmt
     rustPackages.clippy
     rust-analyzer  # breaks lsp-mode if in devshell?
     lua-language-server
+    jdt-language-server
+    haskell-language-server
+    jdk
     nixd
+    typst
+    python3Full
+    rustowl-flake.packages.${system}.rustowl
 
     # zig
 
@@ -174,22 +191,71 @@ in {
     # mono
     fira-code
     hack-font
-    liberation_ttf
     uw-ttyp0
-    # var
+    jetbrains-mono
+    maple-mono.truetype
+    iosevka
+    (iosevka.override {
+      set = "Custom";
+      privateBuildPlan = ''
+        [buildPlans.IosevkaCustom]
+        family = "Iosevka Custom"
+        spacing = "normal"
+        serifs = "sans"
+        noCvSs = true
+        exportGlyphNames = false
+
+          [buildPlans.IosevkaCustom.ligations]
+          inherits = "dlig"
+
+        [buildPlans.IosevkaCustom.weights.Regular]
+        shape = 400
+        menu = 400
+        css = 400
+
+        [buildPlans.IosevkaCustom.weights.Bold]
+        shape = 700
+        menu = 700
+        css = 700
+
+        [buildPlans.IosevkaCustom.slopes.Upright]
+        angle = 0
+        shape = "upright"
+        menu = "upright"
+        css = "normal"
+
+        [buildPlans.IosevkaCustom.slopes.Italic]
+        angle = 9.4
+        shape = "italic"
+        menu = "italic"
+        css = "italic"
+      '';
+    })
+
+    aporetic
+    nerd-fonts.iosevka
+
+    # variable
+    vollkorn
+    recursive
+    xits-math
+    liberation_ttf
 
     # bitmap
     tamzen
+
     # latex
     libertinus
+
     # japanese
     ipaexfont
+
     # symbols
     font-awesome
     nerd-fonts.symbols-only
+
     # nerdfonts
     # (pkgs.nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
-    maple-mono.truetype
   ];
 
 }

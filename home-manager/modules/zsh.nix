@@ -50,11 +50,15 @@
 
       # WAYLAND_DEBUG = "1";
 
-      # XMODIFIERS = "@im=fcitx";
-      # GTK_IM_MODULE = "wayland";
+      ## Fcitx input related
+      GLFW_IM_MODULE = "fcitx";
+      XMODIFIERS = "@im=fcitx";
+      GTK_IM_MODULE = "";
       # GTK_IM_MODULE = "fcitx";
-      # GTK_IM_MODULE = "";
-      # QT_IM_MODULE = "fcitx";
+      # GTK_IM_MODULE = "wayland";
+
+      QT_IM_MODULE = "fcitx";
+      QT_IM_MODULES = "fcitx;wayland;ibus";
 
       LSP_USE_PLISTS = "true"; # emacs lsp-booster
     };

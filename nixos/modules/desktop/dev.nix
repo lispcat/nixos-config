@@ -3,4 +3,8 @@
     enable = true;
     # nixOptions = ["keep-outputs" "keep-derivations"];  # Optional but recommended
   };
+
+  services = {
+    lorri.enable = true;
+  };
 }

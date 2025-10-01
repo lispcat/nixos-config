@@ -17,12 +17,15 @@ let
     # wrap in FHS sandbox with no internet
     (rns:
       let
-        unshare = "${pkgs.util-linux}/bin/unshare -r -n";
+        # unshare = "${pkgs.util-linux}/bin/unshare -r -n";
         steam-run = "${pkgs.steam-run-free}/bin/steam-run";
         renoise = "${rns}/bin/renoise";
       in
+        # pkgs.writeShellScriptBin "renoise" ''
+        #   exec ${unshare} -- ${steam-run} ${renoise} "$@"
+        # ''
         pkgs.writeShellScriptBin "renoise" ''
-          exec ${unshare} -- ${steam-run} ${renoise} "$@"
+          exec ${steam-run} ${renoise} "$@"
         ''
     )
   ];

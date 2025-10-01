@@ -66,9 +66,9 @@
     }
   '';
   
-  # gtk.gtk2.extraConfig = ''
-  #   gtk-im-module="fcitx"
-  # '';
+  gtk.gtk2.extraConfig = ''
+    gtk-im-module=\"fcitx\"
+  '';
   gtk.gtk3.extraConfig = {
     gtk-dialogs-use-header = false;
     gtk-im-module = "fcitx";    # fcitx
