@@ -1,15 +1,16 @@
-{ pkgs, lib, renoise-source, ... }:
+{ pkgs, lib, inputs, ... }:
 
 let
-  rns-pkg = pkgs.callPackage ./renoise-352.nix { };
+  rns-pkg = pkgs.callPackage ./renoise-352.nix {
+    # custom tarball installer
+    releasePath = inputs.renoise-source;
+  };
 
   renoise-custom = lib.pipe rns-pkg [
-    # custom tar.gz
-    (rns: rns.override { releasePath = renoise-source; })
-    # add steam-run-free to buildInputs
+    # runtime dependencies
     (rns: rns.overrideAttrs
       (oldAttrs: {
-        buildInputs = (oldAttrs.buildInputs or []) ++ [ 
+        buildInputs = (oldAttrs.buildInputs or []) ++ [
           pkgs.steam-run-free
         ];
       })

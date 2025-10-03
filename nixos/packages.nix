@@ -1,4 +1,4 @@
-{ pkgs, pkgs-stable, rustowl-flake, ... }:
+{ pkgs, pkgs-stable, inputs, ... }:
 
 let
 
@@ -174,7 +174,7 @@ in {
     nixd
     typst
     python3Full
-    rustowl-flake.packages.${system}.rustowl
+    inputs.rustowl-flake.packages.${system}.rustowl
 
     # zig
 
