@@ -1,12 +1,14 @@
+{ inputs, ... }:
+
 {
   imports = [
     # ./audioprod
     # ./mpd
     ./pipewire.nix
+    inputs.musnix.nixosModules.musnix
   ];
   disabledModules = [ ];
 
-  ## TODO: MOVE ; audio stuff
   musnix = {
     enable = true;
     rtcqs.enable = true;

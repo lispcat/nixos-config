@@ -24,35 +24,41 @@
 
   ## Outputs:
 
-  outputs =
-    inputs@{ self
-           , nixpkgs
-           , nixpkgs-stable
-           , ...
-           }:
+  outputs = inputs@{ ... }:
     let
-      user   = "sui";
-      system = "x86_64-linux";
+      laptop-system = let
+        user = "sui";
+        system = "x86_64-linux";
+      in inputs.nixpkgs.lib.nixosSystem {
+        inherit system;  # for pkgs
 
-      pkgs        = import nixpkgs { inherit system; };
-      pkgs-stable = import nixpkgs-stable { inherit system; };
+        # provide args for all modules
+        specialArgs = {
+          inherit inputs user;
+          pkgs-stable = import inputs.nixpkgs-stable { system = "x86_64-linux"; };
+        };
 
-      laptop-system = inputs.nixpkgs.lib.nixosSystem {
-        inherit system;
+        # submodules to eval
         modules = [
+          # TODO: move into audio submodule
           inputs.musnix.nixosModules.musnix
-          ./unfree-merger.nix
-          ./nixos/configuration.nix
-        ];
-        specialArgs = { inherit inputs user system pkgs-stable; };
-      };
 
-      laptop-home = inputs.home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        extraSpecialArgs = { inherit user; };
-        modules = [
+          # Home-manager
+          inputs.home-manager.nixosModules.home-manager
+
+          # nixpkgs config
+          {
+            home-manager.useGlobalPkgs = true;  # use system pkgs
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = { inherit inputs user; };
+            home-manager.users.${user} = import ./home-manager/home.nix;
+          }
+
+          # Function to allow unfree packages
           ./unfree-merger.nix
-          ./home-manager/home.nix
+
+          # Rest of nixos config
+          ./nixos/configuration.nix
         ];
       };
 
@@ -61,13 +67,8 @@
       # NixOS
       nixosConfigurations = {
         # laptop
-        laptop-system = laptop-system;
+        inherit laptop-system;
       };
 
-      # Home Manager
-      homeConfigurations = {
-        # laptop
-        laptop-home = laptop-home;
-      };
     };
 }
