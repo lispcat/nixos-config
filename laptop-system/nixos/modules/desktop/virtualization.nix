@@ -1,4 +1,4 @@
-{ pkgs, lib, user, ... }:
+{ pkgs, user, ... }:
 
 {
   # why is it spelled with an s
@@ -10,6 +10,4 @@
   };
 
   users.users.${user}.extraGroups = [ "libvirtd" ];
-  
 }
-  

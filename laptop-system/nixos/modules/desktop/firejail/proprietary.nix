@@ -1,7 +1,6 @@
 { pkgs, lib, ... }:
 
 {
-  
   programs.firejail.wrappedBinaries.spotify = {
     executable = "${pkgs.spotify}/bin/spotify";
     profile = "${pkgs.firejail}/etc/firejail/spotify.profile";
@@ -14,6 +13,4 @@
       whitelist ''${HOME}/.librewolf/profiles.ini
     '';
   };
- 
-
 }

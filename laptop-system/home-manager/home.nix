@@ -10,6 +10,12 @@
     useUserPackages = true;
     extraSpecialArgs = { inherit inputs user; };
     users.${user} = { ... }: {
+      imports = [
+        ./modules/default.nix
+        ./dotfiles
+        ./packages.nix
+      ];
+
       home = {
         username = "sui";
         homeDirectory = "/home/sui";
@@ -24,11 +30,6 @@
         stateVersion = "24.05";
       };
 
-      imports = [
-        ./modules
-        ./dotfiles
-        ./packages.nix
-      ];
     };
   };
 }

@@ -1,19 +1,16 @@
-{ pkgs, user, ... }:
+{ pkgs, ... }:
 
 let
   runcmd =
     "${pkgs.tuigreet}/bin/tuigreet --cmd " +
     "'zsh -l -c Hyprland'";
-    # "'zsh -l -c \"river > /tmp/river.log 2>&1\"'";
 in
 {
-  services = {
-    greetd = {
-      enable = true;
-      settings = {
-        default_session = {
-          command = runcmd;
-        };
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = runcmd;
       };
     };
   };

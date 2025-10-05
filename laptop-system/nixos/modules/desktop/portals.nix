@@ -1,8 +1,8 @@
-{ pkgs, lib, ... }:
+{ ... }:
 
 {
   ## disabled bc now using hyprland portals.
-  
+
   # xdg.portal = {
   #   enable = true;
   #   wlr.enable = true;
@@ -13,5 +13,4 @@
 
   # enable configuring gtk themes in home-manager
   programs.dconf.enable = true;
-
 }

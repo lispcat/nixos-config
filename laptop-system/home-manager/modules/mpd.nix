@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
 
 {
+  home.packages = with pkgs; [ mpc ];
+
   services = {
     # use 'systemctl --user' to interact
     mpd = {
@@ -8,17 +10,16 @@
       # considering changing config.xdg.userDirs.music directly? or maybe not?
       musicDirectory = "${config.home.homeDirectory}/Music/library";
       extraConfig = ''
-      # prevent mpd from suddenly resuming
-      restore_paused    "yes"
+        # prevent mpd from suddenly resuming
+        restore_paused    "yes"
 
-      # pipewire output
-      audio_output {
-        type "pipewire"
-        name "My PipeWire output"
-      }
-    '';
+        # pipewire output
+        audio_output {
+          type "pipewire"
+          name "My PipeWire output"
+        }
+      '';
     };
-    home.packages = with pkgs; [ mpc ];
 
     mpdris2 = {
       enable = true;

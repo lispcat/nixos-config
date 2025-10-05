@@ -2,12 +2,9 @@
 
 {
   imports = [
-    # ./audioprod
-    # ./mpd
     ./pipewire.nix
     inputs.musnix.nixosModules.musnix
   ];
-  disabledModules = [ ];
 
   musnix = {
     enable = true;
