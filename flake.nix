@@ -42,18 +42,8 @@
           # NixOS
           ./laptop-system/nixos/configuration.nix
 
-          # Home-manager setup
-          inputs.home-manager.nixosModules.home-manager
-
           # Home-manager config
-          {
-            home-manager = {
-              useGlobalPkgs = true;  # use system pkgs
-              useUserPackages = true;
-              extraSpecialArgs = { inherit inputs user; };
-              users.${user} = import ./laptop-system/home-manager/home.nix;
-            };
-          }
+          ./laptop-system/home-manager/home.nix
 
           # Function to allow unfree packages
           ./unfree-merger.nix

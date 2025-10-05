@@ -1,16 +1,7 @@
-{ pkgs, config, ... }:
+{ pkgs, ... }:
 
-let
-  gpgPkg = config.programs.gpg.package;
-  setupScript = ''
-    GPG_TTY="$(tty)"
-    export GPG_TTY
-    ${gpgPkg}/bin/gpg-connect-agent updatestartuptty /bye > /dev/null
-  '';
-in {
-  programs.gpg = {
-    enable = true;
-  };
+{
+  programs.gpg.enable = true;
   home.packages = with pkgs; [
     pinentry
   ];

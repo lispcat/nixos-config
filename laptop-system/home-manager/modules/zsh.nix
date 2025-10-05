@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ lib, ... }:
 
 {
   programs.zsh = {
@@ -7,14 +7,11 @@
     autosuggestion = {
       enable = true;
     };
+
     history = {
       save = 10000;
       size = 10000;
     };
-    # profileExtra = ''
-    #   export GPG_TTY=$TTY
-    #   ${config.programs.gpg.package}/bin/gpg-connect-agent updatestartuptty /bye > /dev/null
-    # '';
 
     sessionVariables = {
       PATH = "$PATH:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/Scripts";

@@ -1,12 +1,13 @@
-{ config, user, pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
-  # use 'systemctl --user' to interact
-  services.mpd = {
-    enable = true;
-    # considering changing config.xdg.userDirs.music directly? or maybe not?
-    musicDirectory = "${config.home.homeDirectory}/Music/library";
-    extraConfig = ''
+  services = {
+    # use 'systemctl --user' to interact
+    mpd = {
+      enable = true;
+      # considering changing config.xdg.userDirs.music directly? or maybe not?
+      musicDirectory = "${config.home.homeDirectory}/Music/library";
+      extraConfig = ''
       # prevent mpd from suddenly resuming
       restore_paused    "yes"
 
@@ -16,10 +17,9 @@
         name "My PipeWire output"
       }
     '';
-  };
-  home.packages = with pkgs; [ mpc ];
+    };
+    home.packages = with pkgs; [ mpc ];
 
-  services = {
     mpdris2 = {
       enable = true;
       multimediaKeys = true;

@@ -1,12 +1,10 @@
 { pkgs, ... }:
 
 {
+  ## QT
 
-  ## qt
-
-  qt.enable = true;
-  
   qt = {
+    enable = true;
     platformTheme.name = "Adwaita-dark";
     style = {
       name = "Adwaita-dark";
@@ -14,15 +12,16 @@
     };
   };
 
-  ## gtk
+  ## GTK
 
   gtk.enable = true;
 
+  # Icons
   gtk.iconTheme = {
     name = "Kanagawa";
     package = pkgs.kanagawa-icon-theme;
   };
-  
+
   # simple, easy to read, niiice separation of categories
   gtk.theme = {
     name = "vimix-dark-compact-amethyst";
@@ -58,14 +57,14 @@
       margin-bottom: 50px;
       margin-top: -100px;
     }
-    
+
     /* rm -rf window shadows */
     window.csd,             /* gtk4? */
     window.csd decoration { /* gtk3 */
       box-shadow: none;
     }
   '';
-  
+
   gtk.gtk2.extraConfig = ''
     gtk-im-module=\"fcitx\"
   '';
