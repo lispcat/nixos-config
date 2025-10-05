@@ -26,37 +26,52 @@
 
   outputs = inputs@{ ... }:
     let
-      laptop-system = let
-        user = "sui";
-        system = "x86_64-linux";
-      in inputs.nixpkgs.lib.nixosSystem {
-        inherit system;  # for pkgs
-        # provide args for all modules
-        specialArgs = {
-          inherit inputs user;
-          pkgs-stable = import inputs.nixpkgs-stable { system = "x86_64-linux"; };
+      laptop-system =
+        let
+          user = "sui";
+          system = "x86_64-linux";
+        in inputs.nixpkgs.lib.nixosSystem {
+          inherit system;  # for pkgs
+
+          # provide args for all modules
+          specialArgs = {
+            inherit inputs user;
+            pkgs-stable = import inputs.nixpkgs-stable { system = "x86_64-linux"; };
+          };
+
+          # submodules
+          modules = [
+            ./laptop-system/nixos/configuration.nix # NixOS
+            ./laptop-system/home-manager/home.nix # Home-manager
+            ./unfree-merger.nix # Function to allow unfree packages
+          ];
         };
 
-        # submodules to eval
-        modules = [
-          # NixOS
-          ./laptop-system/nixos/configuration.nix
+      homelab-system =
+        let
+          user = "rin";
+          system = "x86_64-linux";
+        in inputs.nixpkgs.lib.nixosSystem {
+          inherit system;
 
-          # Home-manager config
-          ./laptop-system/home-manager/home.nix
+          # provide args for all modules
+          specialArgs = {
+            inherit inputs user;
+            pkgs-stable = import inputs.nixpkgs-stable { system = "x86_64-linux"; };
+          };
 
-          # Function to allow unfree packages
-          ./unfree-merger.nix
-        ];
-      };
-
+          # submodules
+          modules = [
+            ./homelab-system/nixos/configuration.nix # NixOS
+            ./homelab-system/home-manager/home.nix # Home-manager
+            ./unfree-merger.nix # Function to allow unfree packages
+          ];
+        };
     in {
-
-      # NixOS
+      # nixos config
       nixosConfigurations = {
-        # laptop
-        inherit laptop-system;
+        laptop = laptop-system;
+        homelab = homelab-system;
       };
-
     };
 }

@@ -4,10 +4,10 @@ update:
 	nix flake update
 
 sys:
-	sudo nixos-rebuild switch --flake .#laptop-system
+	sudo nixos-rebuild switch --flake .#laptop
 
-# home:
-# 	home-manager switch --flake .#laptop-home
+lab:
+	home-manager switch --flake .#homelab
 
 env:
 	sudo nix-channel --update
