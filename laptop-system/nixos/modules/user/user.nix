@@ -1,0 +1,18 @@
+{ pkgs, lib, user, ... }:
+
+{
+  programs.zsh.enable = true;
+  # Don't forget to set a password with ‘passwd’.
+  users = {
+    defaultUserShell = pkgs.zsh;
+
+    users.${user} = {
+      isNormalUser = true;
+      description = "${user}";
+      extraGroups = [ "wheel" "wireshark" ];
+      packages = with pkgs; [];
+    };
+  };
+
+  nix.settings.trusted-users = [ "root" "${user}" ];
+}

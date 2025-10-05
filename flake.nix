@@ -39,25 +39,24 @@
 
         # submodules to eval
         modules = [
-          # TODO: move into audio submodule
-          inputs.musnix.nixosModules.musnix
+          # NixOS
+          ./laptop-system/nixos/configuration.nix
 
-          # Home-manager
+          # Home-manager setup
           inputs.home-manager.nixosModules.home-manager
 
-          # nixpkgs config
+          # Home-manager config
           {
-            home-manager.useGlobalPkgs = true;  # use system pkgs
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit inputs user; };
-            home-manager.users.${user} = import ./laptop-setup/home-manager/home.nix;
+            home-manager = {
+              useGlobalPkgs = true;  # use system pkgs
+              useUserPackages = true;
+              extraSpecialArgs = { inherit inputs user; };
+              users.${user} = import ./laptop-system/home-manager/home.nix;
+            };
           }
 
           # Function to allow unfree packages
-          ./laptop-setup/unfree-merger.nix
-
-          # Rest of nixos config
-          ./laptop-setup/nixos/configuration.nix
+          ./unfree-merger.nix
         ];
       };
 
