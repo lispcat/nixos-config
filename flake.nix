@@ -31,7 +31,6 @@
         system = "x86_64-linux";
       in inputs.nixpkgs.lib.nixosSystem {
         inherit system;  # for pkgs
-
         # provide args for all modules
         specialArgs = {
           inherit inputs user;
@@ -51,14 +50,14 @@
             home-manager.useGlobalPkgs = true;  # use system pkgs
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = { inherit inputs user; };
-            home-manager.users.${user} = import ./home-manager/home.nix;
+            home-manager.users.${user} = import ./laptop-setup/home-manager/home.nix;
           }
 
           # Function to allow unfree packages
-          ./unfree-merger.nix
+          ./laptop-setup/unfree-merger.nix
 
           # Rest of nixos config
-          ./nixos/configuration.nix
+          ./laptop-setup/nixos/configuration.nix
         ];
       };
 
