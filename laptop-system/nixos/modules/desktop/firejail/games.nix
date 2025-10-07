@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-stable, ... }:
 
 {
   ### general ###
@@ -15,6 +15,7 @@
 
   programs.steam = {
     enable = true;
+    package = pkgs.steam;
     gamescopeSession.enable = true;
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;

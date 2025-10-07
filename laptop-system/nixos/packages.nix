@@ -80,7 +80,7 @@ in {
     pkgs-stable.milkytracker
     goattracker
     furnace
-    pkgs-stable.openmsx
+    # pkgs-stable.openmsx
     boops
     mixxx
 
@@ -174,7 +174,7 @@ in {
     nixd
     typst
     # python3Full
-    inputs.rustowl-flake.packages.${system}.rustowl
+    # inputs.rustowl-flake.packages.${system}.rustowl
 
     # zig
 
@@ -194,7 +194,7 @@ in {
     uw-ttyp0
     jetbrains-mono
     maple-mono.truetype
-    iosevka
+    pkgs-stable.iosevka
     (iosevka.override {
       set = "Custom";
       privateBuildPlan = ''

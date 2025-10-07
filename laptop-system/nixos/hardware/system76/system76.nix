@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-stable, ... }:
 
 {
   # fix AX200 wifi issue
@@ -12,7 +12,7 @@
     enable = true;
     extraPackages = with pkgs; [
       intel-media-driver # For Broadwell (2014) or newer processors. LIBVA_DRIVER_NAME=iHD
-      intel-compute-runtime # openCL support
+      pkgs-stable.intel-compute-runtime # openCL support
     ];
   };
   environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD"; }; # Optionally, set the environment variable

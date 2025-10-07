@@ -8,14 +8,14 @@ in
   environment.systemPackages = with pkgs; [
     # custom
     renoise-custom
-    din-is-noise
+    # din-is-noise
 
     # synths
     bespokesynth
-    surge-XT
+    pkgs-stable.surge-XT
     pkgs-stable.zynaddsubfx
     geonkick
-    vcv-rack
+    # vcv-rack
     dexed
     ams
     bristol

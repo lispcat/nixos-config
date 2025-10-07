@@ -2,7 +2,7 @@
 
 let
   runcmd =
-    "${pkgs.tuigreet}/bin/tuigreet --cmd " +
+    "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd " +
     "'zsh -l -c Hyprland'";
 in
 {
