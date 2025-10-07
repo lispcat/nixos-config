@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, pkgs-stable, inputs, ... }:
 
 let
   din-is-noise   = pkgs.callPackage ./din-is-noise { withJack = true; };
@@ -13,7 +13,7 @@ in
     # synths
     bespokesynth
     surge-XT
-    zynaddsubfx
+    pkgs-stable.zynaddsubfx
     geonkick
     vcv-rack
     dexed

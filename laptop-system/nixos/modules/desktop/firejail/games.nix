@@ -28,14 +28,14 @@
 
   programs.firejail.wrappedBinaries.steam = {
     executable = "${pkgs.steam}/bin/steam";
-    profile = "/etc/firejail/steam.profile";
-    # profile = "${pkgs.firejail}/etc/firejail/steam.profile";
+    # profile = "/etc/firejail/steam.profile";
+    profile = "${pkgs.firejail}/etc/firejail/steam.profile";
   };
 
   programs.firejail.wrappedBinaries.steam-run = {
     executable = "${pkgs.steam}/bin/steam-run";
-    profile = "/etc/firejail/steam.profile";
-    # profile = "${pkgs.firejail}/etc/firejail/steam.profile";
+    # profile = "/etc/firejail/steam.profile";
+    profile = "${pkgs.firejail}/etc/firejail/steam.profile";
   };
 
   # environment.etc = {

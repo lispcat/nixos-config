@@ -63,7 +63,7 @@ in {
     ## desktop applications
     river-classic
     keepassxc
-    calibre
+    # pkgs-stable.calibre
     firefox
     librewolf
     ungoogled-chromium
@@ -77,7 +77,7 @@ in {
     anki
     signal-desktop
     # wireshark
-    milkytracker
+    pkgs-stable.milkytracker
     goattracker
     furnace
     pkgs-stable.openmsx
@@ -173,7 +173,7 @@ in {
     jdk
     nixd
     typst
-    python3Full
+    # python3Full
     inputs.rustowl-flake.packages.${system}.rustowl
 
     # zig

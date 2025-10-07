@@ -35,20 +35,20 @@ include globals.local
 #### noblacklist ${HOME}/.local/share/PillarsOfEternity
 #### noblacklist ${HOME}/.local/share/RogueLegacy
 #### noblacklist ${HOME}/.local/share/RogueLegacyStorageContainer
-#### noblacklist ${HOME}/.local/share/Steam
+noblacklist ${HOME}/.local/share/Steam
 #### noblacklist ${HOME}/.local/share/SteamWorldDig
 #### noblacklist ${HOME}/.local/share/SteamWorld Dig 2
 #### noblacklist ${HOME}/.local/share/SuperHexagon
-#### noblacklist ${HOME}/.local/share/Terraria
+noblacklist ${HOME}/.local/share/Terraria
 #### noblacklist ${HOME}/.local/share/vpltd
-#### noblacklist ${HOME}/.local/share/vulkan
+noblacklist ${HOME}/.local/share/vulkan
 #### noblacklist ${HOME}/.mbwarband
 #### noblacklist ${HOME}/.paradoxinteractive
 #### noblacklist ${HOME}/.paradoxlauncher
 #### noblacklist ${HOME}/.prey
-#### noblacklist ${HOME}/.steam
-#### noblacklist ${HOME}/.steampath
-#### noblacklist ${HOME}/.steampid
+noblacklist ${HOME}/.steam
+noblacklist ${HOME}/.steampath
+noblacklist ${HOME}/.steampid
 #### noblacklist ${HOME}/Zomboid
 
 ### CUSTOM ####################################################################
@@ -111,10 +111,10 @@ include disable-programs.inc
 #### mkdir ${HOME}/.paradoxinteractive
 #### mkdir ${HOME}/.paradoxlauncher
 #### mkdir ${HOME}/.prey
-#### mkdir ${HOME}/.steam
+mkdir ${HOME}/.steam
 #### mkdir ${HOME}/Zomboid
-#### mkfile ${HOME}/.steampath
-#### mkfile ${HOME}/.steampid
+mkfile ${HOME}/.steampath
+mkfile ${HOME}/.steampid
 #### whitelist ${HOME}/.config/Epic
 #### whitelist ${HOME}/.config/Loop_Hero
 #### whitelist ${HOME}/.config/MangoHud
@@ -147,14 +147,14 @@ include disable-programs.inc
 #### whitelist ${HOME}/.local/share/SuperHexagon
 #### whitelist ${HOME}/.local/share/Terraria
 #### whitelist ${HOME}/.local/share/vpltd
-#### whitelist ${HOME}/.local/share/vulkan
+whitelist ${HOME}/.local/share/vulkan
 #### whitelist ${HOME}/.mbwarband
 #### whitelist ${HOME}/.paradoxinteractive
 #### whitelist ${HOME}/.paradoxlauncher
 #### whitelist ${HOME}/.prey
-#### whitelist ${HOME}/.steam
-#### whitelist ${HOME}/.steampath
-#### whitelist ${HOME}/.steampid
+whitelist ${HOME}/.steam
+whitelist ${HOME}/.steampath
+whitelist ${HOME}/.steampid
 #### whitelist ${HOME}/Zomboid
 
 ### CUSTOM ####################################################################
@@ -237,7 +237,7 @@ ignore seccomp
 ignore private-etc
 
 # whitelist dirs
-whitelist ''${HOME}/Games/
-whitelist ''${HOME}/Desktop/
+noblacklist ${HOME}/Games/
+noblacklist ${HOME}/Desktop/
 
 ### CUSTOM ####################################################################
