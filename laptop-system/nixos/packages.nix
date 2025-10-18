@@ -26,8 +26,77 @@ let
   # '';
   # });
 
+  # customWlroots = pkgs.wlroots.overrideAttrs (oldAttrs: {
+  #   src = pkgs.fetchFromGitLab {
+  #     domain = "gitlab.freedesktop.org";
+  #     owner = "tokyo4j";
+  #     repo = "wlroots";
+  #     rev = "fix-maximized-window-scrollbar";
+  #     hash = "sha256-qo3Shi/M+nJ3wTStkq/vScmIYYCPK3GQtRCYi/E/bmw=";  # Put real hash here
+  #   };
+  # });
+
+  # customSwayUnwrapped = pkgs.sway-unwrapped.overrideAttrs (oldAttrs: {
+  #   buildInputs = builtins.map (pkg:
+  #     if (pkg.pname or null) == "wlroots" then
+  #       customWlroots.override { inherit (oldAttrs) enableXWayland; }
+  #     else pkg
+  #   ) oldAttrs.buildInputs;
+  #   # Also need to update nativeBuildInputs if wlroots is there
+  #   nativeBuildInputs = builtins.map (pkg: 
+  #     if (pkg.pname or null) == "wlroots" then
+  #       customWlroots.override { inherit (oldAttrs) enableXWayland; }
+  #     else pkg
+  #   ) (oldAttrs.nativeBuildInputs or []);
+  # });
+
+
 
 in {
+
+  # test
+  # nixpkgs.overlays = [
+  #   (final: prev: {
+  #     wlroots = prev.wlroots.overrideAttrs (oldAttrs: {
+  #       src = prev.fetchFromGitLab {
+  #         owner = "tokyo4j";
+  #         repo = "wlroots";
+  #         rev = "fix-maximized-window-scrollbar";
+  #         hash = "sha256-qo3Shi/M+nJ3wTStkq/vScmIYYCPK3GQtRCYi/E/bmw";
+  #       };
+  #     });
+  #   })
+  # ];
+
+  # nixpkgs.overlays = [
+  #   (final: prev: {
+  #     wlroots = prev.wlroots.overrideAttrs (oldAttrs: {
+  #       src = prev.fetchFromGitLab {
+  #         domain = "gitlab.freedesktop.org";  # add this if it's on freedesktop
+  #         owner = "tokyo4j";
+  #         repo = "wlroots";
+  #         rev = "fix-maximized-window-scrollbar";
+  #         hash = "";
+  #       };
+
+  #       sway = prev.sway.overrideAttrs (oldAttrs: {
+  #         name = "sway-custom-wlroots";
+  #       });
+
+  #       # # Force sway to rebuild by changing it slightly
+  #       # sway = prev.sway.overrideAttrs (oldAttrs: {
+  #       #   # This forces a rebuild since it changes the derivation
+  #       #   buildInputs = oldAttrs.buildInputs;
+  #       # });
+  #     });
+  #   })
+  # ];
+  # nixpkgs.overlays = [
+  #   (final: prev: {
+  #     wlroots = throw "OVERLAY IS RUNNING!";
+  #   })
+  # ];
+
 
   environment.systemPackages = with pkgs; [
 
@@ -82,7 +151,17 @@ in {
     furnace
     # pkgs-stable.openmsx
     boops
-    mixxx
+    # mixxx
+    # temp fix for mixxx till 2.6
+    (mixxx.overrideAttrs (oldAttrs: {
+      version = "2.5-bleeding";
+      src = fetchFromGitHub {
+        owner = "mixxxdj";
+        repo = "mixxx";
+        rev = "16d57ca6f7496103d2a1376ceafcff823bc31fa0";
+        hash = "sha256-qea93tb1uTXwJeJpPYbXemQpBZBPos1WXR/bKgXNjUc=";
+      };
+    }))
 
     ## desktop programs
     alacritty
@@ -184,6 +263,177 @@ in {
     ## fun
     hyfetch
     uwufetch
+
+    ## temp
+
+    # (sway.overrideAttrs (oldAttrs: {
+    #       buildInputs = map
+    #         (pkgs.wlroots.overrideAttrs (oldAttrs: {
+    #     src = pkgs.fetchFromGitHub {
+    #       owner = "swaywm";
+    #       repo = "wlroots";
+    #       rev = "your-commit-hash-here";
+    #       sha256 = "0000000000000000000000000000000000000000000000000000";
+    #     };
+    #   });
+    # )
+    #         oldAttrs.buildInputs;
+    #     }))
+
+    # (sway.overrideAttrs: {
+    #   wlroots = pkgs.wlroots.overrideAttrs (oldAttrs: {
+    #     src = pkgs.fetchFromGitLab {
+    #       owner = "tokyo4j";
+    #       repo = "wlroots";
+    #       rev = "fix-maximized-window-scrollbar";
+    #       sha256 = lib.fakeSha256; # use lib.fakeSha256 or update after first build
+    #     };
+    #   });
+    # })
+
+    # (sway.overrideAttrs (oldAttrs: rec {
+    #   buildInputs = builtins.map (pkg:
+    #     if (pkg.pname or null) == "wlroots" then
+    #       pkg.overrideAttrs (wlrOld: {
+    #         src = fetchFromGitHub {
+    #           owner = "tokyo4j";
+    #           repo = "wlroots";
+    #           rev = "fix-maximized-window-scrollbar";
+    #           hash = "";
+    #         };
+    #       })
+    #     else pkg
+    #   ) oldAttrs.buildInputs;
+    # }))
+
+    # (sway.override (old: {
+    #   wlroots = wlroots.overrideAttrs (oldAttrs: {
+    #     src = fetchFromGitHub {
+    #       owner = "swaywm";
+    #       repo = "wlroots";
+    #       rev = "your-commit-hash-here";
+    #       hash = "sha256-0000000000000000000000000000000000000000000000000000";
+    #     };
+    #   });
+    # }))
+
+    # (sway.override {
+    #   wlroots = wlroots.overrideAttrs (oldAttrs: {
+    #     src = fetchFromGitHub {
+    #       owner = "swaywm";
+    #       repo = "wlroots";
+    #       rev = "your-commit-hash-here";
+    #       hash = "sha256-0000000000000000000000000000000000000000000000000000";
+    #     };
+    #   });
+    # })
+
+    # sway
+    # pkgs.sway
+    # pkgs.sway
+
+    # (sway.overrideAttrs (oldAttrs: {
+    #   buildInputs = builtins.map (pkg: 
+    #     if (pkg.pname or null) == "wlroots" then
+    #       (wlroots.override { inherit (oldAttrs) enableXWayland; }).overrideAttrs (wlrOld: {
+    #         src = fetchFromGitLab {
+    #           domain = "gitlab.freedesktop.org";
+    #           owner = "tokyo4j";
+    #           repo = "wlroots";
+    #           rev = "fix-maximized-window-scrollbar";
+    #           hash = "";
+    #         };
+    #       })
+    #     else pkg
+    #   ) oldAttrs.buildInputs;
+    # }))
+    # (pkgs.sway.overrideAttrs (oldAttrs: {
+    #   buildInputs = builtins.map (pkg: 
+    #     if (pkg.pname or null) == "wlroots" then
+    #       (pkgs.wlroots.override { 
+    #         enableXWayland = oldAttrs.enableXWayland or true; 
+    #       }).overrideAttrs (wlrOld: {
+    #         src = pkgs.fetchFromGitLab {
+    #           domain = "gitlab.freedesktop.org";
+    #           owner = "tokyo4j";
+    #           repo = "wlroots";
+    #           rev = "fix-maximized-window-scrollbar";
+    #           hash = "";
+    #         };
+    #       })
+    #     else pkg
+    #   ) oldAttrs.buildInputs;
+    # }))
+    # (pkgs.sway.overrideAttrs (oldAttrs: {
+    #   buildInputs = builtins.map (pkg: 
+    #     if (pkg.pname or null) == "wlroots" then
+    #       (pkgs.wlroots.override { 
+    #         enableXWayland = oldAttrs.enableXWayland or true; 
+    #       }).overrideAttrs (wlrOld: {
+    #         src = pkgs.fetchFromGitLab {
+    #           domain = "gitlab.freedesktop.org";
+    #           owner = "tokyo4j";
+    #           repo = "wlroots";
+    #           rev = "fix-maximized-window-scrollbar";
+    #           hash = "";
+    #         };
+    #       })
+    #     else pkg
+    #   ) (oldAttrs.buildInputs or []);
+    
+    #   propagatedBuildInputs = builtins.map (pkg: 
+    #     if (pkg.pname or null) == "wlroots" then
+    #       (pkgs.wlroots.override { 
+    #         enableXWayland = oldAttrs.enableXWayland or true; 
+    #       }).overrideAttrs (wlrOld: {
+    #         src = pkgs.fetchFromGitLab {
+    #           domain = "gitlab.freedesktop.org";
+    #           owner = "tokyo4j";
+    #           repo = "wlroots";
+    #           rev = "fix-maximized-window-scrollbar";
+    #           hash = "";
+    #         };
+    #       })
+    #     else pkg
+    #   ) (oldAttrs.propagatedBuildInputs or []);
+    # }))
+
+    # (pkgs.sway.override {
+    #   sway-unwrapped
+    #   =
+    #     customSwayUnwrapped;
+    # })
+
+
+    # (pkgs.sway.overrideAttrs (oldAttrs: 
+    #   builtins.trace "Available attrs: ${builtins.toString (builtins.attrNames oldAttrs)}" {}
+    # ))
+
+    # (pkgs.sway.overrideAttrs (oldAttrs: 
+    #   builtins.trace "OVERRIDE CALLED, buildInputs length: ${toString (builtins.length oldAttrs.buildInputs)}"
+    #     {
+    #       buildInputs = builtins.map (pkg: 
+    #         builtins.trace "Checking package: ${pkg.pname or "no-pname"}"
+    #           (if (pkg.pname or null) == "wlroots" then
+    #             (builtins.trace "FOUND WLROOTS, OVERRIDING"
+    #               (pkgs.wlroots.override { 
+    #                 enableXWayland = oldAttrs.enableXWayland or true; 
+    #               }).overrideAttrs (wlrOld: {
+    #                 src = pkgs.fetchFromGitLab {
+    #                   domain = "gitlab.freedesktop.org";
+    #                   owner = "tokyo4j";
+    #                   repo = "wlroots";
+    #                   rev = "fix-maximized-window-scrollbar";
+    #                   hash = "";
+    #                 };
+    #               }))
+    #            else pkg)
+    #       ) oldAttrs.buildInputs;
+    #     }
+    # ))
+
+    (pkgs.sway.override { sway-unwrapped = customSwayUnwrapped; })
+
 
   ];
 

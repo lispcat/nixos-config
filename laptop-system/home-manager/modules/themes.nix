@@ -14,56 +14,55 @@
 
   ## GTK
 
-  gtk.enable = true;
-
-  # Icons
-  gtk.iconTheme = {
-    name = "Kanagawa";
-    package = pkgs.kanagawa-icon-theme;
-  };
-
-  # simple, easy to read, niiice separation of categories
-  gtk.theme = {
-    name = "vimix-dark-compact-amethyst";
-    package = pkgs.vimix-gtk-themes.override {
-      colorVariants = [ "dark" ];
-      sizeVariants =  [ "compact" ];
-      themeVariants = [ "amethyst" ];
-      # tweaks = [ "flat" ];
+  gtk = {
+    enable = true;
+    iconTheme = {
+      name = "Kanagawa";
+      package = pkgs.kanagawa-icon-theme;
+    };
+    theme = {
+      name = "vimix-dark-compact-amethyst";
+      package = pkgs.vimix-gtk-themes.override {
+        colorVariants = [ "dark" ];
+        sizeVariants =  [ "compact" ];
+        themeVariants = [ "amethyst" ];
+        # tweaks = [ "flat" ];
+      };
     };
   };
 
 
   # river gtk bar fix
 
-  gtk.gtk3.extraCss = ''
-    /* No (default) title bar on wayland */
-    headerbar.default-decoration {
-      /* You may need to tweak these values depending on your GTK theme */
-      margin-bottom: 50px;
-      margin-top: -100px;
-    }
+  # gtk.gtk3.extraCss = ''
+  #   /* No (default) title bar on wayland */
+  #   headerbar.default-decoration {
+  #     /* You may need to tweak these values depending on your GTK theme */
+  #     margin-bottom: 50px;
+  #     margin-top: -100px;
+  #   }
     
-    /* rm -rf window shadows */
-    window.csd,             /* gtk4? */
-    window.csd decoration { /* gtk3 */
-      box-shadow: none;
-    }
-  '';
-  gtk.gtk4.extraCss = ''
-    /* No (default) title bar on wayland */
-    headerbar.default-decoration {
-      /* You may need to tweak these values depending on your GTK theme */
-      margin-bottom: 50px;
-      margin-top: -100px;
-    }
+  #   /* rm -rf window shadows */
+  #   window.csd,             /* gtk4? */
+  #   window.csd decoration { /* gtk3 */
+  #     box-shadow: none;
+  #   }
+  # '';
+  # gtk.gtk4.extraCss = ''
+  #   /* No (default) title bar on wayland */
+  #   headerbar.default-decoration {
+  #     /* You may need to tweak these values depending on your GTK theme */
+  #     margin-bottom: 50px;
+  #     margin-top: -100px;
+  #   }
 
-    /* rm -rf window shadows */
-    window.csd,             /* gtk4? */
-    window.csd decoration { /* gtk3 */
-      box-shadow: none;
-    }
-  '';
+  #   /* rm -rf window shadows */
+  #   window.csd,             /* gtk4? */
+  #   window.csd decoration { /* gtk3 */
+  #     box-shadow: none;
+  #   }
+  # '';
+
 
   gtk.gtk2.extraConfig = ''
     gtk-im-module=\"fcitx\"
