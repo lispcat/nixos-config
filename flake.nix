@@ -12,7 +12,6 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     # Music DAW with custom tarball.
-    # (Note: ModFXRender doesn't work yet on 3.5)
     renoise-source.url = "file:/home/sui/opt/rns/rns_353_linux_x86_64.tar.gz";
     renoise-source.flake = false;
 
@@ -25,76 +24,14 @@
 
   ## Outputs:
 
-  ## TODO: move entire laptop system into laptop/ subdir
-
   outputs = inputs@{ ... }:
     let
-      new-laptop-system = import ./laptop-system/laptop.nix { };
-      # laptop-system =
-      #   let
-      #     user = "sui";
-      #     system = "x86_64-linux";
-      #     my-pkgs = import inputs.nixpkgs {
-      #       inherit system;
-      #       config.allowUnfreePredicate = pkg: builtins.elem (inputs.nixpkgs.lib.getName pkg) [
-      #         # music
-      #         "vital"
-      #         "spotify"
-      #         "renoise"
-      #         "reaper"
-      #         "vcv-rack"
-      #         # games
-      #         "steam"
-      #         "steam-original"
-      #         "steam-unwrapped"
-      #         "steam-run"
-      #         "osu-lazer-bin"
-      #       ];
-      #     };
-      #   in inputs.nixpkgs.lib.nixosSystem {
-      #     inherit system;  # for pkgs
-      #     pkgs = my-pkgs;
-
-      #     # provide args for all modules
-      #     specialArgs = {
-      #       inherit inputs user;
-      #       pkgs-stable = import inputs.nixpkgs-stable { system = "x86_64-linux"; };
-      #     };
-
-      #     # submodules
-      #     modules = [
-      #       { nix.settings.keep-failed = true; }
-      #       ./laptop-system/nixos/configuration.nix # NixOS
-      #       ./laptop-system/home-manager/home.nix # Home-manager
-      #     ];
-      #   };
-
-      homelab-system =
-        let
-          user = "rin";
-          system = "x86_64-linux";
-        in inputs.nixpkgs.lib.nixosSystem {
-          system = system;
-
-          # provide args for all modules
-          specialArgs = {
-            inputs = inputs;
-            user = user;
-            pkgs-stable = import inputs.nixpkgs-stable { system = "x86_64-linux"; };
-          };
-
-          # submodules
-          modules = [
-            ./homelab-system/nixos/configuration.nix # NixOS
-            ./homelab-system/home-manager/home.nix # Home-manager
-          ];
-        };
+      laptop = import ./laptop-system/laptop.nix { };
+      homelab = import ./homelab-system/homelab.nix { };
     in {
-      # nixos config
       nixosConfigurations = {
-        # laptop = laptop-system;
-        laptop = new-laptop-system.laptop-config-gen { inputs = inputs; };
-        homelab = homelab-system;
+        laptop = laptop.laptop-config-gen { inherit inputs; };
+        homelab = homelab.homelab-config-gen { inherit inputs; };
       };
     };
 }

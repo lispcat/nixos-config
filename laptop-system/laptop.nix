@@ -24,18 +24,16 @@
       };
     in inputs.nixpkgs.lib.nixosSystem {
       inherit system pkgs;
-
       # provide args for all modules
       specialArgs = {
         inherit inputs user;
         pkgs-stable = import inputs.nixpkgs-stable { inherit system; };
       };
-
       # submodules
       modules = [
         { nix.settings.keep-failed = true; }
-        ./nixos/configuration.nix # NixOS
-        ./home-manager/home.nix # Home-manager
+        ./nixos/configuration.nix
+        ./home-manager/home.nix
       ];
     };
 }
