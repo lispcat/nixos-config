@@ -25,6 +25,8 @@
 
   ## Outputs:
 
+  ## TODO: move entire laptop system into laptop/ subdir
+
   outputs = inputs@{ ... }:
     let
       laptop-system =
