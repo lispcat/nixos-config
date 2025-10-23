@@ -29,6 +29,7 @@
 
   outputs = inputs@{ ... }:
     let
+      new-laptop-system = import ./laptop-system/laptop.nix { };
       laptop-system =
         let
           user = "sui";
@@ -73,11 +74,12 @@
           user = "rin";
           system = "x86_64-linux";
         in inputs.nixpkgs.lib.nixosSystem {
-          inherit system;
+          system = system;
 
           # provide args for all modules
           specialArgs = {
-            inherit inputs user;
+            inputs = inputs;
+            user = user;
             pkgs-stable = import inputs.nixpkgs-stable { system = "x86_64-linux"; };
           };
 
@@ -90,7 +92,8 @@
     in {
       # nixos config
       nixosConfigurations = {
-        laptop = laptop-system;
+        # laptop = laptop-system;
+        laptop = new-laptop-system { inputs = inputs; };
         homelab = homelab-system;
       };
     };
