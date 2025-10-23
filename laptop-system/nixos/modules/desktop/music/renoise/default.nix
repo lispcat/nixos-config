@@ -1,7 +1,7 @@
 { pkgs, lib, inputs, ... }:
 
 let
-  rns-pkg = pkgs.callPackage ./renoise-352.nix {
+  rns-pkg = pkgs.callPackage ./renoise-353.nix {
     # custom tarball installer
     releasePath = inputs.renoise-source;
   };

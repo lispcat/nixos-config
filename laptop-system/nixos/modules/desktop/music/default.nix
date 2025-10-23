@@ -28,9 +28,9 @@ in
     rubberband
   ];
 
-  nixpkgs.allowUnfreePackages = [
-    "renoise"
-    "reaper"
-    "vcv-rack"
-  ];
+  # nixpkgs.allowUnfreePackages = [
+  #   "renoise"
+  #   "reaper"
+  #   "vcv-rack"
+  # ];
 }

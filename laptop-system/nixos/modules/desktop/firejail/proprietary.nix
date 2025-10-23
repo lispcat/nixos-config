@@ -5,7 +5,7 @@
     executable = "${pkgs.spotify}/bin/spotify";
     profile = "${pkgs.firejail}/etc/firejail/spotify.profile";
   };
-  nixpkgs.allowUnfreePackages = [ "spotify" ];
+  # nixpkgs.allowUnfreePackages = [ "spotify" ];
   environment.etc = {
     "firejail/spotify.local".text = ''
       # allow links that open in browser to access librewolf profiles

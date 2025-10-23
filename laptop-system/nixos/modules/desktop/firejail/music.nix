@@ -1,9 +1,9 @@
 { pkgs, ... }:
 
 {
-  nixpkgs.allowUnfreePackages = [
-    "vital"
-  ];
+  # nixpkgs.allowUnfreePackages = [
+  #   "vital"
+  # ];
 
   environment.systemPackages = with pkgs; [
     vital

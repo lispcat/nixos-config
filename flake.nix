@@ -13,7 +13,7 @@
 
     # Music DAW with custom tarball.
     # (Note: ModFXRender doesn't work yet on 3.5)
-    renoise-source.url = "file:/home/sui/opt/rns/rns_352_linux_x86_64.tar.gz";
+    renoise-source.url = "file:/home/sui/opt/rns/rns_353_linux_x86_64.tar.gz";
     renoise-source.flake = false;
 
     # Real-time audio in NixOS.
@@ -33,21 +33,24 @@
           system = "x86_64-linux";
           my-pkgs = import inputs.nixpkgs {
             inherit system;
-            overlays = [
-              (final: prev: {
-                wlroots = prev.wlroots.overrideAttrs (oldAttrs: {
-                  src = prev.fetchFromGitLab {
-                    owner = "tokyo4j";
-                    repo = "wlroots";
-                    rev = "fix-maximized-window-scrollbar";
-                    hash = "sha256-qo3Shi/M+nJ3wTStkq/vScmIYYCPK3GQtRCYi/E/bmw";
-                  };
-                });
-              })
+            config.allowUnfreePredicate = pkg: builtins.elem (inputs.nixpkgs.lib.getName pkg) [
+              # music
+              "vital"
+              "spotify"
+              "renoise"
+              "reaper"
+              "vcv-rack"
+              # games
+              "steam"
+              "steam-original"
+              "steam-unwrapped"
+              "steam-run"
+              "osu-lazer-bin"
             ];
           };
         in inputs.nixpkgs.lib.nixosSystem {
           inherit system;  # for pkgs
+          pkgs = my-pkgs;
 
           # provide args for all modules
           specialArgs = {
@@ -57,10 +60,9 @@
 
           # submodules
           modules = [
-            { nixpkgs.pkgs = my-pkgs; }
+            { nix.settings.keep-failed = true; }
             ./laptop-system/nixos/configuration.nix # NixOS
             ./laptop-system/home-manager/home.nix # Home-manager
-            ./unfree-merger.nix # Function to allow unfree packages
           ];
         };
 
@@ -81,7 +83,6 @@
           modules = [
             ./homelab-system/nixos/configuration.nix # NixOS
             ./homelab-system/home-manager/home.nix # Home-manager
-            ./unfree-merger.nix # Function to allow unfree packages
           ];
         };
     in {

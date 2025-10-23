@@ -2,14 +2,14 @@
 
 {
   ### general ###
-  nixpkgs.allowUnfreePackages = [
-    "steam"
-    "steam"
-    "steam-original"
-    "steam-unwrapped"
-    "steam-run"
-    "osu-lazer-bin"
-  ];
+  # nixpkgs.allowUnfreePackages = [
+  #   "steam"
+  #   "steam"
+  #   "steam-original"
+  #   "steam-unwrapped"
+  #   "steam-run"
+  #   "osu-lazer-bin"
+  # ];
 
   ## Steam
 
