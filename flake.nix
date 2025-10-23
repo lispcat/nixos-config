@@ -30,44 +30,44 @@
   outputs = inputs@{ ... }:
     let
       new-laptop-system = import ./laptop-system/laptop.nix { };
-      laptop-system =
-        let
-          user = "sui";
-          system = "x86_64-linux";
-          my-pkgs = import inputs.nixpkgs {
-            inherit system;
-            config.allowUnfreePredicate = pkg: builtins.elem (inputs.nixpkgs.lib.getName pkg) [
-              # music
-              "vital"
-              "spotify"
-              "renoise"
-              "reaper"
-              "vcv-rack"
-              # games
-              "steam"
-              "steam-original"
-              "steam-unwrapped"
-              "steam-run"
-              "osu-lazer-bin"
-            ];
-          };
-        in inputs.nixpkgs.lib.nixosSystem {
-          inherit system;  # for pkgs
-          pkgs = my-pkgs;
+      # laptop-system =
+      #   let
+      #     user = "sui";
+      #     system = "x86_64-linux";
+      #     my-pkgs = import inputs.nixpkgs {
+      #       inherit system;
+      #       config.allowUnfreePredicate = pkg: builtins.elem (inputs.nixpkgs.lib.getName pkg) [
+      #         # music
+      #         "vital"
+      #         "spotify"
+      #         "renoise"
+      #         "reaper"
+      #         "vcv-rack"
+      #         # games
+      #         "steam"
+      #         "steam-original"
+      #         "steam-unwrapped"
+      #         "steam-run"
+      #         "osu-lazer-bin"
+      #       ];
+      #     };
+      #   in inputs.nixpkgs.lib.nixosSystem {
+      #     inherit system;  # for pkgs
+      #     pkgs = my-pkgs;
 
-          # provide args for all modules
-          specialArgs = {
-            inherit inputs user;
-            pkgs-stable = import inputs.nixpkgs-stable { system = "x86_64-linux"; };
-          };
+      #     # provide args for all modules
+      #     specialArgs = {
+      #       inherit inputs user;
+      #       pkgs-stable = import inputs.nixpkgs-stable { system = "x86_64-linux"; };
+      #     };
 
-          # submodules
-          modules = [
-            { nix.settings.keep-failed = true; }
-            ./laptop-system/nixos/configuration.nix # NixOS
-            ./laptop-system/home-manager/home.nix # Home-manager
-          ];
-        };
+      #     # submodules
+      #     modules = [
+      #       { nix.settings.keep-failed = true; }
+      #       ./laptop-system/nixos/configuration.nix # NixOS
+      #       ./laptop-system/home-manager/home.nix # Home-manager
+      #     ];
+      #   };
 
       homelab-system =
         let
@@ -93,7 +93,7 @@
       # nixos config
       nixosConfigurations = {
         # laptop = laptop-system;
-        laptop = new-laptop-system { inputs = inputs; };
+        laptop = new-laptop-system.laptop-config-gen { inputs = inputs; };
         homelab = homelab-system;
       };
     };

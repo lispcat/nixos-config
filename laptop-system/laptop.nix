@@ -5,8 +5,8 @@
     let
       user = "sui";
       system = "x86_64-linux";
-      my-pkgs = import inputs.nixpkgs {
-        system = inputs.system;
+      pkgs = import inputs.nixpkgs {
+        inherit system;
         config.allowUnfreePredicate = pkg: builtins.elem (inputs.nixpkgs.lib.getName pkg) [
           # music
           "vital"
@@ -23,14 +23,12 @@
         ];
       };
     in inputs.nixpkgs.lib.nixosSystem {
-      system = system;  # for pkgs
-      pkgs = my-pkgs;
+      inherit system pkgs;
 
       # provide args for all modules
       specialArgs = {
-        inputs = inputs;
-        user = user;
-        pkgs-stable = import inputs.nixpkgs-stable { system = "x86_64-linux"; };
+        inherit inputs user;
+        pkgs-stable = import inputs.nixpkgs-stable { inherit system; };
       };
 
       # submodules
