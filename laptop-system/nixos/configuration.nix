@@ -3,9 +3,6 @@
 { ... }:
 
 {
-  # flakes
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
   # don't touch
   system.stateVersion = "24.05"; # don't touch
 

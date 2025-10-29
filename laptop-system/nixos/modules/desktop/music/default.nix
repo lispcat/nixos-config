@@ -3,12 +3,14 @@
 let
   din-is-noise   = pkgs.callPackage ./din-is-noise { withJack = true; };
   renoise-custom = pkgs.callPackage ./renoise { inherit inputs; };
+  lsp-plugins = pkgs.callPackage ./lsp-plugins { inherit inputs; };
 in
 {
   environment.systemPackages = with pkgs; [
     # custom
     renoise-custom
     # din-is-noise
+    lsp-plugins
 
     # synths
     bespokesynth

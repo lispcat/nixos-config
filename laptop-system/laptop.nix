@@ -9,29 +9,24 @@
         inherit system;
         config.allowUnfreePredicate = pkg: builtins.elem (inputs.nixpkgs.lib.getName pkg) [
           # music
-          "vital"
-          "spotify"
-          "renoise"
-          "reaper"
-          "vcv-rack"
+          "vital" "spotify" "renoise" "reaper" "vcv-rack"
           # games
-          "steam"
-          "steam-original"
-          "steam-unwrapped"
-          "steam-run"
-          "osu-lazer-bin"
+          "steam" "steam-original" "steam-unwrapped" "steam-run" "osu-lazer-bin"
         ];
       };
     in inputs.nixpkgs.lib.nixosSystem {
       inherit system pkgs;
       # provide args for all modules
       specialArgs = {
-        inherit inputs user;
+        inherit inputs user system;
         pkgs-stable = import inputs.nixpkgs-stable { inherit system; };
       };
       # submodules
       modules = [
-        { nix.settings.keep-failed = true; }
+        {
+          nix.settings.keep-failed = true;
+          nix.settings.experimental-features = [ "nix-command" "flakes" ];
+        }
         ./nixos/configuration.nix
         ./home-manager/home.nix
       ];
