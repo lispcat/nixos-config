@@ -3,7 +3,7 @@
 let
   din-is-noise   = pkgs.callPackage ./din-is-noise { withJack = true; };
   renoise-custom = pkgs.callPackage ./renoise { inherit inputs; };
-  lsp-plugins = pkgs.callPackage ./lsp-plugins { inherit inputs; };
+  lsp-plugins = pkgs.callPackage ./lsp-plugins {};
 in
 {
   environment.systemPackages = with pkgs; [
