@@ -55,6 +55,7 @@ in {
     git
     wget
     curl
+    zip
 
     tree
     fzf
@@ -93,6 +94,8 @@ in {
         hash = "sha256-qea93tb1uTXwJeJpPYbXemQpBZBPos1WXR/bKgXNjUc=";
       };
     }))
+    kdePackages.kdenlive
+    ani-cli
 
     ## desktop programs
     alacritty
@@ -102,7 +105,8 @@ in {
     pavucontrol
     networkmanagerapplet
     w3m # for emacs-w3m
-    xfce.thunar
+    xfce.thunra
+
 
     ## desktop tools
     mako      # notification daemon
@@ -152,13 +156,14 @@ in {
     fd
     findutils
     vorbis-tools  # for vorbiscomment
-    poppler_utils  # for pdftotext
+    poppler-utils  # for pdftotext
     colordiff
     tldr
 
     # script tools
     # espeak
     acpi
+    jmtpfs
 
     ## dev
     gcc  # $CC ?
@@ -190,10 +195,21 @@ in {
 
     ## nixos tools
     # vulnix
+    nix-output-monitor
 
     ## fun
     hyfetch
     uwufetch
+
+    (ly.overrideAttrs (oldAttrs: {
+      version = "1.3.0";
+      src = fetchFromGitHub {
+        owner = "fairyglade";
+        repo = "ly";
+        rev = "4bc405f2397006e643c5be128443518ae3b8e96a";
+        hash = "sha256-xnaiunAt0teNFBJMHppn1etO8pOsgqbxjBkYhvbELP0=";
+      };
+    }))
   ];
 
   fonts.packages = with pkgs; [

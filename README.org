@@ -9,3 +9,7 @@ It uses a literate configuration using org-mode (WIP, migration in progress), fo
 * Todo's
 
 ** TODO make this config into a literate org config
+
+** organize notes on nix-ld
+
+https://github.com/nix-community/nix-ld

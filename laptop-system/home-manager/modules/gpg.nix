@@ -3,7 +3,7 @@
 {
   programs.gpg.enable = true;
   home.packages = with pkgs; [
-    pinentry
+    # pinentry-
   ];
   services.gpg-agent = {
     enable = true;

@@ -26,24 +26,21 @@
       # load modules
       modules = [
         # configure nix
-        {
-          nix.settings = {
-            keep-failed = true;
-            experimental-features = [ "nix-command" "flakes" ];
-            download-buffer-size = 524288000;
-          };
-        }
+        { nix.settings =
+            { keep-failed = true;
+              experimental-features = [ "nix-command" "flakes" ];
+              download-buffer-size = 524288000;
+            }; }
 
         # main nixos config
-        ./nixos/configuration.nix
+        ./nixos.nix
 
         # nix home config
-        ./home-manager/home.nix
+        ./home.nix
 
         # setup nix-ld
         inputs.nix-ld.nixosModules.nix-ld
         { programs.nix-ld.dev.enable = true; }
-
       ];
     };
 }

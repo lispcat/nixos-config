@@ -70,7 +70,7 @@ stdenv.mkDerivation (finalAttrs: {
   configurePhase = ''
     runHook preConfigure
 
-    make $makeFlags config
+    make $makeFlags config FEATURES='doc ui vst3'
 
     runHook postConfigure
   '';

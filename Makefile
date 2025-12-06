@@ -6,6 +6,9 @@ update:
 sys:
 	sudo nixos-rebuild switch --flake .#laptop
 
+sys-fancy:
+	sudo true && sudo nixos-rebuild switch --flake .#laptop |& nom
+
 lab:
 	home-manager switch --flake .#homelab
 
