@@ -4,7 +4,5 @@
     # nixOptions = ["keep-outputs" "keep-derivations"];  # Optional but recommended
   };
 
-  services = {
-    lorri.enable = true;
-  };
+  services.lorri.enable = true;
 }

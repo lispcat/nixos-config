@@ -21,6 +21,7 @@ in
     dexed
     ams
     bristol
+    vital
 
     # daws
     reaper

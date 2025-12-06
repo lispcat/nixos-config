@@ -1,8 +1,8 @@
 {
   imports = [
     ./desktop
-    ./sound
-    ./system
-    ./user
+    ./sound.nix
+    ./system.nix
+    ./user.nix
   ];
 }

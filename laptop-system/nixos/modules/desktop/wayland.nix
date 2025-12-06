@@ -8,11 +8,7 @@ in
 {
   services.greetd = {
     enable = true;
-    settings = {
-      default_session = {
-        command = runcmd;
-      };
-    };
+    settings.default_session.command = runcmd;
   };
   security.pam.services = {
     swaylock.text = ''

@@ -18,14 +18,11 @@
       };
     in inputs.nixpkgs.lib.nixosSystem {
       inherit system pkgs;
-      # provide args for all modules
-      specialArgs = {
+      specialArgs = {  # provide args for all modules
         inherit inputs user system;
         pkgs-stable = import inputs.nixpkgs-stable { inherit system; };
       };
-      # load modules
-      modules = [
-        # configure nix
+      modules = [  # load modules
         {
           nix.settings = {
             keep-failed = true;
@@ -35,15 +32,16 @@
         }
 
         # main nixos config
-        ./nixos/configuration.nix
+        ./nixos/default.nix
 
         # nix home config
-        ./home-manager/home.nix
+        ./home-manager/default.nix
 
         # setup nix-ld
         inputs.nix-ld.nixosModules.nix-ld
-        { programs.nix-ld.dev.enable = true; }
-
+        {
+          programs.nix-ld.dev.enable = true;
+        }
       ];
     };
 }
