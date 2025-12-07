@@ -7,8 +7,8 @@
       system = "x86_64-linux";
       pkgs = import inputs.nixpkgs {
         inherit system;
-        config.allowUnfreePredicate = pkg:
-          builtins.elem (inputs.nixpkgs.lib.getName pkg) [
+        config.allowUnfreePredicate =
+          pkg: builtins.elem (inputs.nixpkgs.lib.getName pkg) [
             # music
             "vital" "spotify" "renoise" "reaper" "vcv-rack"
             # games
@@ -24,24 +24,20 @@
       };
       modules = [  # load modules
         {
-          nix.settings = {
-            keep-failed = true;
-            experimental-features = [ "nix-command" "flakes" ];
-            download-buffer-size = 524288000;
-          };
+          nix.settings.keep-failed = true;
+          nix.settings.experimental-features = [ "nix-command" "flakes" ];
+          nix.settings.download-buffer-size = 524288000;
         }
 
         # main nixos config
-        ./nixos/default.nix
+        ./nixos
 
         # nix home config
-        ./home/default.nix
+        ./home
 
         # setup nix-ld
         inputs.nix-ld.nixosModules.nix-ld
-        {
-          programs.nix-ld.dev.enable = true;
-        }
+        { programs.nix-ld.dev.enable = true; }
       ];
     };
 }
