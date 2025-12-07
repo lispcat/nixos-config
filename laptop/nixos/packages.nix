@@ -1,4 +1,4 @@
-{ pkgs, pkgs-stable, inputs, ... }:
+{ pkgs, pkgs-stable, ... }:
 
 let
   base-emacs = pkgs.emacs30-pgtk;
