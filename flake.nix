@@ -30,12 +30,45 @@
 
   outputs = inputs@{ ... }:
     let
-      laptop = import ./laptop { };
-      homelab = import ./homelab { };
+      laptop = import ./laptop;
+      homelab = import ./homelab;
+
+      system = "x86_64-linux";
+
+      unfree-pkgs = [
+        # music
+        "vital"
+        "spotify"
+        "renoise"
+        "reaper"
+        "vcv-rack"
+        # games
+        "steam"
+        "steam-original"
+        "steam-unwrapped"
+        "steam-run"
+        "osu-lazer-bin"
+      ];
+      unfree-predicate = pkg: builtins.elem
+        (inputs.nixpkgs.lib.getName pkg) unfree-pkgs;
+
+      pkgs = import inputs.nixpkgs {
+        inherit system;
+        config.allowUnfreePredicate = unfree-predicate;
+      };
+      pkgs-stable = import inputs.nixpkgs-stable {
+        inherit system;
+        config.allowUnfreePredicate = unfree-predicate;
+      };
+
     in {
       nixosConfigurations = {
-        laptop = laptop.laptop-config-gen { inherit inputs; };
-        homelab = homelab.homelab-config-gen { inherit inputs; };
+        laptop = laptop.laptop-config-gen {
+          inherit inputs system pkgs pkgs-stable;
+        };
+        homelab = homelab.homelab-config-gen {
+          inherit inputs system pkgs pkgs-stable;
+        };
       };
     };
 }

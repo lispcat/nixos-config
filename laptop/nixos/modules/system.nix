@@ -111,7 +111,12 @@ in {
 
   # auto-gc every week
   nix = {
-    settings.auto-optimise-store = true;
+    settings = {
+      experimental-features = [ "nix-command" "flakes" ];
+      auto-optimise-store = true;
+      keep-failed = true;
+      download-buffer-size = 524288000;
+    };
     gc = {
       automatic = true;
       dates = "weekly";
