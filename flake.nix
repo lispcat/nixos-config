@@ -30,8 +30,8 @@
 
   outputs = inputs@{ ... }:
     let
-      laptop = import ./laptop-system/laptop.nix { };
-      homelab = import ./homelab-system/homelab.nix { };
+      laptop = import ./laptop { };
+      homelab = import ./homelab { };
     in {
       nixosConfigurations = {
         laptop = laptop.laptop-config-gen { inherit inputs; };
