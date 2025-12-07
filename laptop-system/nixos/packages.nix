@@ -105,7 +105,7 @@ in {
     pavucontrol
     networkmanagerapplet
     w3m # for emacs-w3m
-    xfce.thunra
+    xfce.thunar
 
 
     ## desktop tools

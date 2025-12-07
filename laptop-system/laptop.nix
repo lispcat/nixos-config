@@ -35,7 +35,7 @@
         ./nixos/default.nix
 
         # nix home config
-        ./home-manager/default.nix
+        ./home/default.nix
 
         # setup nix-ld
         inputs.nix-ld.nixosModules.nix-ld

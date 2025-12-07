@@ -46,7 +46,7 @@ in {
 
   ### Networking ####################################################
 
-  #### DNS over HTTPS and DNS over TLS
+  ### DNS over HTTPS and DNS over TLS
 
   # networking.networkmanager.dns = "systemd-resolved";
   # networking.nameservers = dns-list;
@@ -60,7 +60,7 @@ in {
   #   fallbackDns = dns-list;
   # };
 
-  #### Connectivity
+  ### Connectivity
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -70,11 +70,22 @@ in {
   # ?
   users.users.${user}.extraGroups = [ "audio" ];
 
-  ### mullvad
+  #### Mullvad
+
   services.mullvad-vpn = {
     enable = true;
     enableExcludeWrapper = true;
     package = pkgs.mullvad-vpn;
+  };
+
+  ### Bluetooth
+
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
+  hardware.bluetooth.settings = {
+    Policy = {
+      AutoEnable = true;
+    };
   };
 
   ### Linux #########################################################
