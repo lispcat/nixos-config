@@ -124,6 +124,7 @@ in {
     # espeak
     nix-output-monitor
     # vulnix
+    nix-diff
 
     ### Applications ################################################
 

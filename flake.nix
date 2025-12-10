@@ -66,7 +66,7 @@
           };
           modules = [
             # hostname
-            { networking.hostName = "NixOwOs"; }
+            { networking.hostName = hostname; }
 
             # system lib
             ./modules/system/default.nix
@@ -80,7 +80,7 @@
         };
     in {
       nixosConfigurations = {
-        laptop = mkSystem "laptop" "sui";
+        laptop = mkSystem "laptop" "NixOwOs" "sui";
       };
     };
 }
