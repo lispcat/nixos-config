@@ -28,6 +28,8 @@
 
   ### MPD ###########################################################
 
+  ## moved to home config
+
   # services.mpd = {
   #   enable = true;
   #   user = "${user}";
