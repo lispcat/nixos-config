@@ -25,17 +25,8 @@
         useXkbConfig = true;
         earlySetup = true;  # for grub?
       };
-      # i18n.inputMethod = {
-      #   type = "fcitx5";
-      #   enable = true;
-      #   fcitx5.addons = with pkgs; [
-      #     fcitx5-mozc
-      #     fcitx5-gtk
-      #     fcitx5-material-color
-      #   ];
-      # };
 
-      ## Locale ################################################
+      ## Locale ############################################
 
       # Set your time zone.
       time.timeZone = "America/New_York";
@@ -57,11 +48,11 @@
         };
       };
 
-      ## Networking ############################################
+      ## Networking ########################################
 
       networking.networkmanager.enable = true;
 
-      ## Audio #################################################
+      ## Audio #############################################
 
       services.pipewire = {
         enable = true;
@@ -74,7 +65,7 @@
 
       security.rtkit.enable = true;
 
-      ## Linux #################################################
+      ## Linux #############################################
 
       # polkit (dont really know what this does)
       security.polkit.enable = true;
@@ -90,7 +81,7 @@
         blacklistedKernelModules = [ "uvcvideo" ]; # disables webcam
       };
 
-      ## NixOS #################################################
+      ## NixOS #############################################
 
       nix = {
         settings = {
