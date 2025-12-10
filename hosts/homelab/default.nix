@@ -4,7 +4,6 @@
   ## Hardware Configuration
   imports = [
     ./hardware-configuration.nix
-    ./hardware-tweaks.nix
     ./packages-temp.nix # TODO: move these
   ];
 
@@ -15,14 +14,14 @@
   ## Home Flags
   home-manager.users.${user}.features = {
     # audio
-    mpd.enable = true;
+    mpd.enable = false;
     # cron
-    cron-hyprpaper.enable = true;
-    cron-low-bat.enable = true;
+    cron-hyprpaper.enable = false;
+    cron-low-bat.enable = false;
     # dev
     git.enable = true;
     dev-env.enable = true;
-    tmux.enable = false;
+    tmux.enable = true;
     gpg.enable = true;
     # dotfiles
     dotfiles.enable = true;
@@ -31,7 +30,7 @@
     # themes
     app-theme-def.enable = true;
     # xkb
-    fcitx.enable = true;
+    fcitx.enable = false;
   };
 
   ## System Flags
@@ -39,7 +38,7 @@
     # global
     global.enable = true;
     # applications
-    virtualization.enable = true;
+    virtualization.enable = false;
     flatpak.enable = false;
     gtk-portal.enable = false;
     wlr-portal.enable = false;
@@ -48,7 +47,7 @@
     # games
     games.enable = true;
     # hardware
-    laptop-power.enable = true;
+    laptop-power.enable = false;
     # misc
     nix-ld.enable = false;
     # networking
@@ -56,16 +55,15 @@
     bluetooth.enable = false;
     dns-over-https.enable = false;
     # renoise
-    renoise.enable = true;
+    renoise.enable = false;
     # wayland
-    hyprland.enable = true;
+    hyprland.enable = false;
     # zsh
     zsh.enable = true;
   };
 
   ## Host-specific configs
   boot = {
-    kernel.sysctl = { "vm.swappiness" = lib.mkForce 1; };
     blacklistedKernelModules = [ "uvcvideo" ]; # disables webcam
   };
 }

@@ -1,10 +1,6 @@
-{ inputs, user, ... }:
+{ inputs, user, mkFeature, ... }:
 
-let
-  imports-deferred = [
-    ./shells.nix
-  ];
-in {
+{
   imports = [
     inputs.home-manager.nixosModules.home-manager
   ];
@@ -12,14 +8,20 @@ in {
   home-manager = {
     useGlobalPkgs = true;  # use system pkgs
     useUserPackages = true;
-    extraSpecialArgs = { inherit inputs user; };
+    extraSpecialArgs = { inherit inputs user mkFeature; };
     users.${user} = { ... }: {
-      imports = imports-deferred;
-
+      imports = [
+        ./audio
+        ./cron
+        ./dev
+        ./dotfiles
+        ./shells
+        ./themes
+        ./xkb
+      ];
       home = {
         username = "${user}";
         homeDirectory = "/home/${user}";
-
         # Don't touch!
         stateVersion = "24.05";
       };

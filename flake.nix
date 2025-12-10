@@ -58,13 +58,16 @@
 
       # Function to create a system config.
       # Based on: https://github.com/sioodmy/dotfiles/blob/main/flake.nix
-      mkSystem = title: user:
+      mkSystem = title: hostname: user:
         nixpkgs.lib.nixosSystem {
           inherit pkgs system;
           specialArgs = {
             inherit inputs user system pkgs-stable mkFeature;
           };
           modules = [
+            # hostname
+            { networking.hostName = "NixOwOs"; }
+
             # system lib
             ./modules/system/default.nix
 

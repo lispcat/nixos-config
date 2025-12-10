@@ -2,13 +2,11 @@
 
 {
   imports = [
-    (mkFeature "zsh" "Enable zsh" {
+    (mkFeature "zsh" "Enable zsh config for user" {
       programs.zsh = {
         enable = true;
 
-        autosuggestion = {
-          enable = true;
-        };
+        autosuggestion.enable = true;
 
         history = {
           save = 10000;
@@ -79,24 +77,14 @@
         };
 
         initContent = lib.mkOrder 550 ''
-      # autosuggestion text color
-      ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#757575'
+          # autosuggestion text color
+          ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#757575'
 
-      # completion
-      autoload -U compinit; compinit
-      zstyle ':completion:*' menu select
-    '';
+          # completion
+          autoload -U compinit; compinit
+          zstyle ':completion:*' menu select
+        '';
       };
-
-
-      #  misc dev
-
-      programs.direnv = {
-        enable = true;
-        # nixOptions = ["keep-outputs" "keep-derivations"];  # Optional but recommended
-      };
-
-      services.lorri.enable = true;
     })
   ];
 }
