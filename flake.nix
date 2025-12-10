@@ -11,10 +11,6 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    # Music DAW with custom tarball.
-    renoise-source.url = ./vendor/rns_353_linux_x86_64.tar.gz;
-    renoise-source.flake = false;
-
     # Real-time audio in NixOS.
     musnix.url = "github:musnix/musnix";
 

@@ -1,4 +1,4 @@
-{ lib, user, pkgs, ... }:
+{ inputs, lib, user, pkgs, ... }:
 
 let
   # DNS nameservers for services.resolved
@@ -13,6 +13,11 @@ let
   ];
 
 in {
+
+  imports = [
+    inputs.nix-ld.nixosModules.nix-ld
+    { programs.nix-ld.dev.enable = true; }
+  ];
 
   ### Performance ###################################################
 
