@@ -2,9 +2,15 @@
 
 {
   imports = [
-    (mkFeature "git" "Why even ask" {
-      programs.git.enable = true;
-      # TODO: maybe set email and name?
+    (mkFeature "git" "Setup git with name and email" {
+      programs.git = {
+        enable = true;
+        userName  = "lispcat";
+        userEmail = "187922791+lispcat@users.noreply.github.com";
+      };
+      extraConfig = {
+        init.defaultBranch = "main";
+      };
     })
     (mkFeature "dev-env" "Enable direnv and lorri for dev envs" {
       programs.direnv.enable = true;
