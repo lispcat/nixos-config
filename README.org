@@ -1,0 +1,20 @@
+* NixOS Configuration
+
+** Description
+
+This Nix Flake houses my NixOS and Home-Manager configurations, for both a laptop and a homelab.
+
+This allows me to have fully declarative and reproducible setups for my systems.
+
+** Architecture
+
+- The [[file:flake.nix][flake.nix]] file is the main entry-point. It specifies a set of inputs and outputs, and behaves like a pure function. The inputs (e.g. remote package repositories) are pulled, then hashed and saved to [[file:flake.lock][flake.lock]], asserting the same set of inputs across all my systems.
+- For the overall architecture of my flake, I separate my concerns into:
+  - Many individual modules providing some added feature or functionality (under [[file:modules/][./modules]]).
+  - A set of Flags that chose to include or exclude each feature, on a per-host basis (in [[file:hosts/][./hosts/*/default.nix]]).
+- This architecture allows for easily and maximally reducing duplicate code across my different systems, such that all host-unique configuration ends up under [[file:hosts/][./hosts]] with mostly only toggles for enabling modules.
+
+** Acknowledgements
+
+- Inspirations:
+  - https://github.com/notusknot/dotfiles-nix
