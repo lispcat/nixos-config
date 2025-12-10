@@ -39,20 +39,37 @@
         config.allowUnfreePredicate = unfree-p;
       };
 
+      # Boilerplate killer (hacky warning...)
+      # Wraps `content` with stuff needed to add it to module system.
+      # Returns an attrset. If other code outside scope of invocation,
+      # may need to splice with inherit or separate then merge attrsets.
+      mkFeature = name: desc: body:
+        { config, lib, ... }: with lib; {
+          options.features.${name}.enable =
+            if desc != null
+            then mkOption {
+              type = types.bool;
+            } else mkOption {
+              type = types.bool;
+              description = desc;
+            };
+          config = mkIf config.features.${name}.enable body;
+        };
+
       # Function to create a system config.
       # Based on: https://github.com/sioodmy/dotfiles/blob/main/flake.nix
-      mkSystem = title:
-        pkgs.lib.nixosSystem {
-          inherit system;
+      mkSystem = title: user:
+        nixpkgs.lib.nixosSystem {
+          inherit pkgs system;
           specialArgs = {
-            inherit inputs pkgs-stable;
+            inherit inputs user system pkgs-stable mkFeature;
           };
           modules = [
             # system lib
             ./modules/system/default.nix
 
             # home-manager lib
-            # ./modules/home/default.nix
+            ./modules/home/default.nix
 
             # host: hardware-config + config flags
             ./hosts/${title}/default.nix
@@ -60,7 +77,7 @@
         };
     in {
       nixosConfigurations = {
-        laptop = mkSystem "laptop";
+        laptop = mkSystem "laptop" "sui";
       };
     };
 }

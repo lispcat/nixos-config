@@ -3,22 +3,22 @@ default: home
 update:
 	nix flake update
 
-main:
-	sudo nixos-rebuild switch --flake .#laptop
+laptop-build:
+	sudo nixos-rebuild build --flake .#laptop
 
-main-fancy:
-	sudo true && sudo nixos-rebuild switch --flake .#laptop |& nom
+laptop-fancy-build:
+	sudo true && sudo nixos-rebuild build --flake .#laptop |& nom
 
-lab:
-	home-manager switch --flake .#homelab
+lab-build:
+	home-manager build --flake .#homelab
 
-lab-fancy:
-	sudo true && sudo nixos-rebuild switch --flake .#homelab |& nom
+lab-fancy-build:
+	sudo true && sudo nixos-rebuild build --flake .#homelab |& nom
 
-env:
-	sudo nix-channel --update
-	nix-env -u '*'
+# env:
+# 	sudo nix-channel --update
+# 	nix-env -u '*'
 
-all: update main main-fancy lab lab-fancy env
+all: update laptop-build laptop-fancy-build lab-build lab-fancy-build # env
 
 .PHONY: default update sys home env
