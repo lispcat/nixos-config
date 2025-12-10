@@ -81,6 +81,7 @@
     in {
       nixosConfigurations = {
         laptop = mkSystem "laptop" "NixOwOs" "sui";
+        homelab = mkSystem "homelab" "nixos" "rin";
       };
     };
 }
