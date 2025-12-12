@@ -91,6 +91,7 @@ in {
     networkmanagerapplet
     pavucontrol
     xfce.thunar
+    nicotine-plus
 
     ### Dev/Scripts #################################################
 
