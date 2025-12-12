@@ -4,7 +4,7 @@
   ## Hardware Configuration
   imports = [
     ./hardware-configuration.nix
-    # ./packages-temp.nix # TODO: move these
+    ./packages-temp.nix
   ];
 
   ## Flags
@@ -13,101 +13,65 @@
 
   ## Home Flags
   home-manager.users.${user}.features = {
-    # audio
+    ## Audio
     mpd.enable = false;
-    # cron
+    ## Cron
     cron-hyprpaper.enable = false;
     cron-low-bat.enable = false;
-    # dev
+    ## Dev
     git.enable = true;
     dev-env.enable = true;
     tmux.enable = true;
     gpg.enable = true;
-    # dotfiles
+    ## Dotfiles
     dotfiles.enable = true;
-    # shells
+    ## Shells
     zsh.enable = true;
-    # themes
+    ## Themes
     app-theme-def.enable = true;
-    # xkb
+    ## Xkb
     fcitx.enable = false;
   };
 
   ## System Flags
   features = {
-    # global
+    ## Global
     global.enable = true;
-    # applications
+    ## Applications
     virtualization.enable = false;
     flatpak.enable = false;
     gtk-portal.enable = false;
     wlr-portal.enable = false;
-    # firejail
+    ## Firejail
     firejail.enable = true;
-    # games
+    ## Games
     games.enable = true;
-    # hardware
+    ## Hardware
     laptop-power.enable = false;
-    # misc
+    ## Misc
     nix-ld.enable = false;
-    # networking
+    ## Networking
     mullvad.enable = false;
     bluetooth.enable = false;
     dns-over-https.enable = false;
-    # renoise
+    ## Renoise
     renoise.enable = false;
-    # wayland
+    ## Wayland
     hyprland.enable = true;
-    # zsh
+    ## Zsh
     zsh.enable = true;
   };
 
   ## Host-specific configs
+
+  # Bootloader
   boot = {
+    loader.systemd-boot.enable = true;
+    loader.efi.canTouchEfiVariables = true;
     blacklistedKernelModules = [ "uvcvideo" ]; # disables webcam
   };
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-
-    ### Basic ###
-
-    home-manager
-    vim
-    git
-    tree
-    emacs
-    fzf
-    fd
-    trash-cli
-    neovim
-    alacritty
-    mpv
-    btop
-    htop
-    glances
-    nethogs
-    ffmpeg
-    yt-dlp
-    croc
-    exiftool
-    ripgrep
-    tldr
-    cmake
-    # findutils
-
-    ### Applications ###
-
-    librewolf
-
-  ];
-
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  # Enable automatic login for the user.
+  # Auto-login
   services.getty.autologinUser = "rin";
 
   # Some programs need SUID wrappers, can be configured further or are
