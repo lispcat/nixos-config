@@ -1,8 +1,4 @@
-<<<<<<< Updated upstream
 { pkgs, user, config, lib, inputs, ... }:
-=======
-{ user, ... }:
->>>>>>> Stashed changes
 
 {
   ## Hardware Configuration
