@@ -78,7 +78,6 @@
 
       boot = {
         tmp.cleanOnBoot = true;
-        blacklistedKernelModules = [ "uvcvideo" ]; # disables webcam
       };
 
       ## NixOS #############################################

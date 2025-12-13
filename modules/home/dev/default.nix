@@ -5,11 +5,11 @@
     (mkFeature "git" "Setup git with name and email" {
       programs.git = {
         enable = true;
-        userName  = "lispcat";
-        userEmail = "187922791+lispcat@users.noreply.github.com";
-      };
-      extraConfig = {
-        init.defaultBranch = "main";
+        settings = {
+          user.name  = "lispcat";
+          user.email = "187922791+lispcat@users.noreply.github.com";
+          init.defaultBranch = "main";
+        };
       };
     })
     (mkFeature "dev-env" "Enable direnv and lorri for dev envs" {

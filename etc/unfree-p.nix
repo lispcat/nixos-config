@@ -6,6 +6,8 @@ let
     "renoise"
     "reaper"
     "vcv-rack"
+    "rave-generator-2"
+
     # games
     "steam"
     "steam-original"
