@@ -5,6 +5,7 @@ let
   renoise-custom = pkgs.callPackage ./renoise { inherit inputs; };
   lsp-plugins    = pkgs.callPackage ./lsp-plugins {};
   rave-gen-2     = pkgs.callPackage ./rave-generator-2 {};
+  ildaeil        = pkgs.callPackage ./ildaeil {};
 in {
   imports = [
     inputs.musnix.nixosModules.musnix # bring into scope
@@ -23,6 +24,7 @@ in {
         # din-is-noise
         lsp-plugins
         # rave-gen-2 # gave up, just use yabridge, plsssssssssssssss
+        ildaeil
 
         ## Synths
         bespokesynth
@@ -39,16 +41,18 @@ in {
         reaper
 
         ## Tools
-        mpg123
-        rubberband
+        mpg123 # mp3 playing support
+        rubberband # timestretching
+        qpwgraph # Jack connections interface
+        carla # audio plugin host (maybe run Lv2 inside?!?!)
 
         ## VSTs
-        metersLv2    # volume analyzer
-        guitarix     # distortion pedals
-        chow-kick     # classic drum machine
+        calf         # set of plugins (no vst)
+        metersLv2    # volume analyzer (Lv2 format...)
+        guitarix     # distortion pedals (jack only?)
+        chow-kick     # classic drum generator
         chow-phaser   # phaser
         stone-phaser  # better phaser
-        calf         # set of vst's
         dragonfly-reverb # reverbs
         delayarchitect # nice delay
       ];
