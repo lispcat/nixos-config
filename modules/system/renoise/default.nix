@@ -22,9 +22,9 @@ in {
         ## Custom
         renoise-custom
         # din-is-noise
-        lsp-plugins
+        # lsp-plugins
         # rave-gen-2 # gave up, just use yabridge, plsssssssssssssss
-        ildaeil
+        # ildaeil # gave up, cant get working
 
         ## Synths
         bespokesynth
@@ -32,13 +32,22 @@ in {
         pkgs-stable.zynaddsubfx
         geonkick
         # pkgs-stable.vcv-rack
+        cardinal # A BETTER VCV-RACK
         dexed
         ams
         bristol
         vital
 
+        ## yabridge setup
+        yabridge
+        yabridgectl
+        wineWowPackages.stable
+        winetricks
+
         ## Daws
         reaper
+        audacity
+        # bitwig-studio # proprietary!!!
 
         ## Tools
         mpg123 # mp3 playing support
@@ -47,14 +56,16 @@ in {
         carla # audio plugin host (maybe run Lv2 inside?!?!)
 
         ## VSTs
-        calf         # set of plugins (no vst)
+        fire               # multi-band distortion
         metersLv2    # volume analyzer (Lv2 format...)
         guitarix     # distortion pedals (jack only?)
         chow-kick     # classic drum generator
-        chow-phaser   # phaser
+        # chow-phaser   # phaser
         stone-phaser  # better phaser
         dragonfly-reverb # reverbs
         delayarchitect # nice delay
+
+        # calf         # set of plugins (no gui, broken, nah)
       ];
     })
   ];

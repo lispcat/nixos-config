@@ -1,4 +1,4 @@
-{ pkgs, config, mkFeature, ... }:
+{ user, pkgs, config, mkFeature, ... }:
 
 {
   imports = [
@@ -29,6 +29,20 @@
           multimediaKeys = true;
           notifications = true;
         };
+      };
+    })
+    (mkFeature "pro-audio" "Setup for music production" {
+      home.file = {
+        ".config/yabridgectl/config.toml".text = ''
+          plugin_dirs = [
+            '/home/${user}/.win-vst',
+            '/home/${user}/.wine/drive_c/Program Files/Common Files/VST3',
+            '/home/${user}/.wine/drive_c/Program Files/Steinberg/VstPlugins'
+          ]
+          vst2_location = 'centralized'
+          no_verify = false
+          blacklist = []
+        '';
       };
     })
   ];

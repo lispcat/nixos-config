@@ -15,6 +15,7 @@
   home-manager.users.${user}.features = {
     ## Audio
     mpd.enable = false;
+    pro-audio.enable = false;
     ## Cron
     cron-hyprpaper.enable = false;
     cron-low-bat.enable = false;
