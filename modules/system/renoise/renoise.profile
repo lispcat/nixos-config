@@ -1,13 +1,33 @@
-# Firejail profile for Renoise using Yabridge
-#
-# Start by including the official wine profile as a base.
-# This gives us all the standard security and compatibility
-# settings for Wine automatically.
-include ${pkgs.firejail}/etc/firejail/wine.profile
+# Firejail profile for Renoise (NixOS / Whitelist Mode)
 
-# Now, simply add the extra directories needed for our DAW workflow.
-whitelist ${HOME}/.local/share/Renoise
-whitelist ${HOME}/Music
-whitelist ${HOME}/.vst
-whitelist ${HOME}/.vst3
-whitelist ${HOME}/.clap
+blacklist ${HOME}/.aws
+blacklist ${HOME}/.azure
+blacklist ${HOME}/.bash_history
+blacklist ${HOME}/.config/Signal
+blacklist ${HOME}/.config/chromium
+blacklist ${HOME}/.config/kdeconnect
+blacklist ${HOME}/.config/keepassxc
+blacklist ${HOME}/.config/librewolf
+blacklist ${HOME}/.config/mozilla
+blacklist ${HOME}/.config/vesktop
+blacklist ${HOME}/.docker
+blacklist ${HOME}/.gnupg
+blacklist ${HOME}/.kube
+blacklist ${HOME}/.librewolf
+blacklist ${HOME}/.mozilla
+blacklist ${HOME}/.npmrc
+blacklist ${HOME}/.password-store
+blacklist ${HOME}/.ssh
+blacklist ${HOME}/.steampath
+blacklist ${HOME}/.zsh_history
+blacklist ${HOME}/Code
+blacklist ${HOME}/Documents
+blacklist ${HOME}/Downloads
+blacklist ${HOME}/Dropbox
+blacklist ${HOME}/Nextcloud
+blacklist ${HOME}/Notes
+blacklist ${HOME}/Pictures
+blacklist ${HOME}/Private
+blacklist ${HOME}/School
+blacklist ${HOME}/Src
+blacklist ${HOME}/wireguard

@@ -12,14 +12,18 @@ in {
 
     (mkFeature "renoise" "Enable Renoise DAW and VSTs" {
 
-      # renoise firejail wrapper
-      programs.firejail.wrappedBinaries.renoise = {
-        executable = "${pkgs.renoise}/bin/renoise";
-        profile = "/etc/firejail/renoise.profile";
-      };
-      environment.etc = {
-        "firejail/renoise.profile".source = ./renoise.profile;
-      };
+      # # temp: firejail fix: allow unprivileged user to create namespaces
+      # boot.kernel.sysctl."kernel.unprivileged_userns_clone" = "1";
+
+      # # renoise firejail wrapper
+      # programs.firejail.enable = true;
+      # programs.firejail.wrappedBinaries.renoise = {
+      #   executable = "${renoise-custom}/bin/renoise";
+      #   profile = "/etc/firejail/renoise.profile";
+      # };
+      # environment.etc = {
+      #   "firejail/renoise.profile".source = ./renoise.profile;
+      # };
 
       # setup realtime realtime
       musnix = {
