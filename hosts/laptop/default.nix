@@ -69,4 +69,5 @@
     kernel.sysctl = { "vm.swappiness" = lib.mkForce 1; };
     blacklistedKernelModules = [ "uvcvideo" ]; # disables webcam
   };
+
 }

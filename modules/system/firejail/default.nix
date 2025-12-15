@@ -13,10 +13,10 @@
       };
       environment.etc = {
         "firejail/spotify.local".text = ''
-      # allow links that open in browser to access librewolf profiles
-      noblacklist ''${HOME}/.librewolf
-      whitelist ''${HOME}/.librewolf/profiles.ini
-    '';
+          # allow links that open in browser to access librewolf profiles
+          noblacklist ''${HOME}/.librewolf
+          whitelist ''${HOME}/.librewolf/profiles.ini
+        '';
       };
 
       ### Prismlauncher #################################################

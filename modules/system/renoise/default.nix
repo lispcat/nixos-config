@@ -11,7 +11,17 @@ in {
     inputs.musnix.nixosModules.musnix # bring into scope
 
     (mkFeature "renoise" "Enable Renoise DAW and VSTs" {
-      # set up for realtime
+
+      # renoise firejail wrapper
+      programs.firejail.wrappedBinaries.renoise = {
+        executable = "${pkgs.renoise}/bin/renoise";
+        profile = "/etc/firejail/renoise.profile";
+      };
+      environment.etc = {
+        "firejail/renoise.profile".source = ./renoise.profile;
+      };
+
+      # setup realtime realtime
       musnix = {
         enable = true;
         rtcqs.enable = true;
