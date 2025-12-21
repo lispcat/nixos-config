@@ -7,6 +7,7 @@ let
     "reaper"
     "vcv-rack"
     "rave-generator-2"
+    "sunvox"
 
     # games
     "steam"

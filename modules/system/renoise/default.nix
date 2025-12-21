@@ -6,6 +6,7 @@ let
   lsp-plugins    = pkgs.callPackage ./lsp-plugins {};
   rave-gen-2     = pkgs.callPackage ./rave-generator-2 {};
   ildaeil        = pkgs.callPackage ./ildaeil {};
+  vcv-working    = pkgs.callPackage ./vcv-rack {};
 in {
   imports = [
     inputs.musnix.nixosModules.musnix # bring into scope
@@ -39,6 +40,19 @@ in {
         # lsp-plugins
         # rave-gen-2 # gave up, just use yabridge, plsssssssssssssss
         # ildaeil # gave up, cant get working
+        (let # wrapper includes package
+          vcv-rack-wrapper = writeShellScriptBin "Rack" ''
+            #!${runtimeShell}
+            # This script does one thing: it unsets WAYLAND_DISPLAY
+            # and then executes the *real* Rack binary, passing along all
+            # command-line arguments ("$@").
+            # Using 'exec' is a good practice as it replaces the wrapper
+            # process with the actual application process.
+            exec env -u WAYLAND_DISPLAY ${vcv-working}/bin/Rack "$@"
+          '';
+        in
+          vcv-rack-wrapper
+        )
 
         ## Synths
         bespokesynth
@@ -46,7 +60,10 @@ in {
         pkgs-stable.zynaddsubfx
         geonkick
         # pkgs-stable.vcv-rack
-        cardinal # A BETTER VCV-RACK
+        # vcv-rack
+        # pkgs-stable.glfw # vcv depend?
+        glfw # vcv depend?
+        cardinal # foss VCV-rack (only self-contained modules)
         dexed
         ams
         bristol
@@ -62,6 +79,7 @@ in {
         reaper
         audacity
         # bitwig-studio # proprietary!!!
+        sunvox
 
         ## Tools
         mpg123 # mp3 playing support

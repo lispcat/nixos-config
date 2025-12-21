@@ -2,19 +2,23 @@
 
 let
   renoise-src = pkgs.requireFile {
-    name = "rns_353_linux_x86_64.tar.gz";
+    name = "rns_344_linux_x86_64.tar.gz";
+    # name = "rns_353_linux_x86_64.tar.gz";
     # Paste hash from `nix hash file <tarball>`.
-    sha256 = "sha256-Sr9UffECVm/E1F5kP4kog0swB22qYedqXNSQFclZiBI=";
+    sha256 = "sha256-Kl7iLMDZdpxaodIfW+JdOjgdN7/vUKx4uhWr2bEsECo=";
+    # sha256 = "sha256-Sr9UffECVm/E1F5kP4kog0swB22qYedqXNSQFclZiBI=";
     message = ''
       Renoise tarball not found in Nix Store.
 
-      1. Locate rns_353_linux_x86_64.tar.gz
+      1. Locate rns_XXX_linux_x86_64.tar.gz
       2. Add to the store:
-         nix-store --add-fixed sha256 /path/to/your/rns_353_linux_x86_64.tar.gz
+         nix-store --add-fixed sha256 /path/to/your/rns_XXX_linux_x86_64.tar.gz
     '';
   };
+  renoise-pkg-path = ./renoise-344.nix;
+  # renoise-pkg-path = ./renoise-353.nix;
 
-  renoise-pkg = pkgs.callPackage ./renoise-353.nix {
+  renoise-pkg = pkgs.callPackage renoise-pkg-path {
     # custom tarball installer
     releasePath = renoise-src;
   };

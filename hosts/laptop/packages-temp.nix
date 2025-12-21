@@ -161,6 +161,7 @@ in {
         hash = "sha256-qea93tb1uTXwJeJpPYbXemQpBZBPos1WXR/bKgXNjUc=";
       };
     }))
+    wireshark
 
   ];
 

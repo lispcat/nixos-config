@@ -5,6 +5,12 @@
   imports = [
     (mkFeature "firejail" "Creates some firejail wrappers" {
 
+      ##
+
+      environment.systemPackages = with pkgs; [
+        spotify
+      ];
+
       ### Spotify #######################################################
 
       programs.firejail.wrappedBinaries.spotify = {

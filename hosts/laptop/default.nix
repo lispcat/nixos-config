@@ -70,4 +70,7 @@
     blacklistedKernelModules = [ "uvcvideo" ]; # disables webcam
   };
 
+  ## Temp
+  programs.wireshark.enable = true;
+
 }

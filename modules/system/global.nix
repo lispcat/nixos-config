@@ -10,7 +10,7 @@
         users.${user} = {
           isNormalUser = true;
           description = "${user}";
-          extraGroups = [ "wheel" "networkmanager" "audio" ];
+          extraGroups = [ "wheel" "networkmanager" "audio" "wireshark" ];
         };
       };
 
@@ -98,5 +98,4 @@
         };
       };
     })
-  ];
-}
+  ]; }
