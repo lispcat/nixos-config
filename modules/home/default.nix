@@ -1,30 +1,26 @@
-{ inputs, user, mkFeature, ... }:
+{ pkgs, inputs, user, mkFeature, ... }:
 
 {
+ # imports = [
+  #   inputs.home-manager.nixosModules.home-manager
+  # ];
   imports = [
-    inputs.home-manager.nixosModules.home-manager
+    ./audio
+    ./cron
+    ./dev
+    ./dotfiles
+    ./shells
+    ./themes
+    ./xkb
   ];
 
-  home-manager = {
-    useGlobalPkgs = true;  # use system pkgs
-    useUserPackages = true;
-    extraSpecialArgs = { inherit inputs user mkFeature; };
-    users.${user} = { ... }: {
-      imports = [
-        ./audio
-        ./cron
-        ./dev
-        ./dotfiles
-        ./shells
-        ./themes
-        ./xkb
-      ];
-      home = {
-        username = "${user}";
-        homeDirectory = "/home/${user}";
-        # Don't touch!
-        stateVersion = "24.05";
-      };
-    };
+  home = {
+    username = "${user}";
+    homeDirectory = "/home/${user}";
+    # Don't touch!
+    stateVersion = "24.05";
   };
+
+  useGlobalPkgs = true;  # use system pkgs
+  useUserPackages = true;
 }

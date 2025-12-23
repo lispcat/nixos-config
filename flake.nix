@@ -71,17 +71,38 @@
             # system lib
             ./modules/system/default.nix
 
-            # home-manager lib
-            ./modules/home/default.nix
-
             # host: hardware-config + config flags
-            ./hosts/${title}/default.nix
+            ./hosts/${title}/system/default.nix
           ];
         };
+
+      # Function to create a home manager config.
+      mkHome = { name, user }:
+        inputs.home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          extraSpecialArgs = {
+            inherit inputs user system pkgs-stable mkFeature;
+          };
+          modules = [
+            ./modules/home/default.nix
+            ./hosts/${name}/home/default.nix # config flags
+          ];
+        };
+
     in {
       nixosConfigurations = {
-        laptop = mkSystem "laptop" "NixOwOs" "sui";
-        homelab = mkSystem "homelab" "nixos" "rin";
+        "laptop-sys" = mkSystem "laptop" "NixOwOs" "sui";
+        "homelab-sys" = mkSystem "homelab" "nixos" "rin";
+      };
+      homeConfigurations = {
+        "laptop-home" = mkHome {
+          name = "laptop";
+          user = "sui";
+        };
+        "homelab-home" = mkHome {
+          name = "laptop";
+          user = "rin";
+        };
       };
     };
 }
