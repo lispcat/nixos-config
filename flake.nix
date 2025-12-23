@@ -58,7 +58,7 @@
 
       # Function to create a system config.
       # Based on: https://github.com/sioodmy/dotfiles/blob/main/flake.nix
-      mkSystem = title: hostname: user:
+      mkSystem = { name, host, user, }:
         nixpkgs.lib.nixosSystem {
           inherit pkgs system;
           specialArgs = {
@@ -66,13 +66,13 @@
           };
           modules = [
             # hostname
-            { networking.hostName = hostname; }
+            { networking.hostName = host; }
 
             # system lib
             ./modules/system/default.nix
 
-            # host: hardware-config + config flags
-            ./hosts/${title}/system/default.nix
+            # host settings (flags, hardware, pkgs)
+            ./hosts/${name}/system/default.nix
           ];
         };
 
@@ -84,16 +84,28 @@
             inherit inputs user system pkgs-stable mkFeature;
           };
           modules = [
+            # home lib
             ./modules/home/default.nix
-            ./hosts/${name}/home/default.nix # config flags
+
+            # host settings (flags, hardware, pkgs)
+            ./hosts/${name}/home/default.nix
           ];
         };
-
     in {
+      # nixos outputs
       nixosConfigurations = {
-        "laptop-sys" = mkSystem "laptop" "NixOwOs" "sui";
-        "homelab-sys" = mkSystem "homelab" "nixos" "rin";
+        "laptop-sys" = mkSystem {
+          name = "laptop";
+          host = "NixOwOs";
+          user = "sui";
+        };
+        "homelab-sys" = mkSystem {
+          name = "homelab";
+          host = "nixos";
+          user = "rin";
+        };
       };
+      # home manager outputs
       homeConfigurations = {
         "laptop-home" = mkHome {
           name = "laptop";

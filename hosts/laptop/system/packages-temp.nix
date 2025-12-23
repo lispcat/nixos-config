@@ -134,7 +134,8 @@ in {
     gimp
     keepassxc
     krita
-    river-classic
+    # river-classic
+    river
     calibre
     ungoogled-chromium
     kdePackages.kdeconnect-kde

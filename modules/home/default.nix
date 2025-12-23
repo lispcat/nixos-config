@@ -20,7 +20,4 @@
     # Don't touch!
     stateVersion = "24.05";
   };
-
-  useGlobalPkgs = true;  # use system pkgs
-  useUserPackages = true;
 }

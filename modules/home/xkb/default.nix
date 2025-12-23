@@ -19,8 +19,8 @@
 
       home.file.".config/fcitx5/conf/classicui.conf".source =
         pkgs.writeText "classicui.conf" ''
-      Theme=FluentDark-solid
-    '';
+          Theme=FluentDark-solid
+        '';
     })
   ];
 }
